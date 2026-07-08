@@ -82,7 +82,7 @@ graph TD
 ## 📁 Project Structure
 
 ```
-CodeLearn/
+CodeExplain/
 ├── backend/
 │   ├── app/
 │   │   ├── api/routes/         # Endpoint routing (explain, chat, quiz, health, models)
@@ -127,8 +127,8 @@ CodeLearn/
 ### 1. Clone the repo
 
 ```bash
-git clone https://github.com/MohammadFayasKhan/CodeLearn.git
-cd CodeLearn
+git clone https://github.com/MohammadFayasKhan/CodeExplain.git
+cd CodeExplain
 ```
 
 ### 2. Configure Local Settings

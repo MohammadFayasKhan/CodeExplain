@@ -1,12 +1,12 @@
 # ==============================================================================
-# CodeLearn - Summer Training Internship Project (LPU submission candidate)
+# CodeExplain - Summer Training Internship Project (LPU submission candidate)
 # Developed by: Mohammad Fayas Khan (BTech CSE 3rd Year student)
 # File: backend/app/config/settings.py
 # Purpose: Environment-driven application configurations management.
 # ==============================================================================
 
 """
-Environment-Driven Settings for CodeLearn Backend.
+Environment-Driven Settings for CodeExplain Backend.
 
 In modern web development, we follow the "Twelve-Factor App" methodology.
 A key rule is to store config/credentials in the environment, NOT hardcoded in code.

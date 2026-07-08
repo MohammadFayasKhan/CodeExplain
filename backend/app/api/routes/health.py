@@ -1,5 +1,5 @@
 # ==============================================================================
-# CodeLearn - Summer Training Internship Project (LPU submission candidate)
+# CodeExplain - Summer Training Internship Project (LPU submission candidate)
 # Developed by: Mohammad Fayas Khan (BTech CSE 3rd Year student)
 # File: backend/app/api/routes/health.py
 # Purpose: Liveness and health check api endpoint.

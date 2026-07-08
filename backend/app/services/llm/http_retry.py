@@ -1,5 +1,5 @@
 # ==============================================================================
-# CodeLearn - Summer Training Internship Project (LPU submission candidate)
+# CodeExplain - Summer Training Internship Project (LPU submission candidate)
 # Developed by: Mohammad Fayas Khan (BTech CSE 3rd Year student)
 # File: backend/app/services/llm/http_retry.py
 # Purpose: Reusable async HTTP request poster implementing exponential backoff.

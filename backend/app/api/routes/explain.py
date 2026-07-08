@@ -1,5 +1,5 @@
 # ==============================================================================
-# CodeLearn - Summer Training Internship Project (LPU submission candidate)
+# CodeExplain - Summer Training Internship Project (LPU submission candidate)
 # Developed by: Mohammad Fayas Khan (BTech CSE 3rd Year student)
 # File: backend/app/api/routes/explain.py
 # Purpose: POST API router handling code explanation generations.

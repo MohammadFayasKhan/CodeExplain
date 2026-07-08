@@ -13,11 +13,11 @@ import React from 'react';
 export const Hero: React.FC = () => {
   return (
     <section
-      className="relative pt-2xl pb-xl md:pt-3xl md:pb-2xl px-md md:px-lg"
+      className="relative pt-2xl pb-xl md:pt-3xl md:pb-2xl px-md md:px-lg overflow-hidden"
       data-testid="hero-section"
     >
       {/* Atmospheric background layers */}
-      <div className="pointer-events-none absolute inset-0">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute inset-0 dot-grid" />
         <div
           className="blob animate-blob-float"
@@ -63,7 +63,7 @@ export const Hero: React.FC = () => {
         </div>
 
         <h1
-          className="font-display font-medium text-ink-primary leading-[1.05] tracking-[-0.03em] text-[clamp(38px,7.4vw,80px)]"
+          className="font-display font-medium text-ink-primary leading-[1.05] tracking-[-0.03em] text-[clamp(30px,7.2vw,72px)] md:text-[clamp(38px,7.4vw,80px)]"
           data-testid="hero-headline"
         >
           Understand code{' '}

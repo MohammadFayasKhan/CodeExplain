@@ -61,7 +61,7 @@ export const Footer: React.FC = () => (
 
       <div className="mt-md border-t border-border-subtle/50 pt-md flex flex-col gap-sm md:flex-row md:items-center md:justify-between text-[11px] text-ink-muted">
         <div>© 2026 CodeExplain · Crafted by Mohammad Fayas Khan</div>
-        <div className="flex items-center gap-md">
+        <div className="flex flex-wrap items-center gap-x-md gap-y-1">
           <span className="inline-flex items-center gap-1"><Shield size={11} /> Privacy-first, local history</span>
           <span>v1.0.0</span>
           <span>MIT License</span>

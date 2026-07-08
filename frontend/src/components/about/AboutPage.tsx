@@ -56,7 +56,7 @@ export const AboutPage: React.FC = () => {
   return (
     <div className="relative overflow-hidden" data-testid="about-page">
       {/* Atmospheric background layers spanning to the top of the viewport */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-[550px]">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-[550px] overflow-hidden">
         <div className="absolute inset-0 dot-grid" />
         <div className="blob animate-blob-float"
           style={{

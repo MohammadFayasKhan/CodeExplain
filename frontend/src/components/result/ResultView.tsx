@@ -148,16 +148,15 @@ export const ResultView: React.FC<Props> = ({ explanation, language, code, onCop
                 className="group rounded-2xl border border-border-subtle bg-white/[0.02] p-md open:bg-white/[0.04] transition-colors"
                 data-testid={`line-item-${i}`}
               >
-                <summary className="flex cursor-pointer items-center justify-between gap-md list-none">
-                  <div className="flex items-center gap-sm">
-                    <Badge tone="category">Line {line.line_range}</Badge>
-                    <span className="text-ink-secondary text-sm truncate max-w-[420px]">
-                      {line.explanation.slice(0, 90)}
-                      {line.explanation.length > 90 ? '…' : ''}
+                <summary className="flex cursor-pointer items-center justify-between gap-md list-none select-none">
+                  <div className="flex items-center gap-sm min-w-0 flex-1">
+                    <Badge tone="category" className="shrink-0">Line {line.line_range}</Badge>
+                    <span className="text-ink-secondary text-sm truncate min-w-0">
+                      {line.explanation}
                     </span>
                   </div>
-                  <span className="text-ink-muted text-xs group-open:hidden">Expand</span>
-                  <span className="text-ink-muted text-xs hidden group-open:inline">Collapse</span>
+                  <span className="text-ink-muted text-xs group-open:hidden shrink-0 ml-2">Expand</span>
+                  <span className="text-ink-muted text-xs hidden group-open:inline shrink-0 ml-2">Collapse</span>
                 </summary>
                 <div className="mt-md space-y-md">
                   <CodeBlock code={line.code_snippet} language={explanation.detected_language || language} />

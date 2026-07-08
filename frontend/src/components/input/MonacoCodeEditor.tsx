@@ -143,49 +143,53 @@ export const MonacoCodeEditor: React.FC<Props> = ({
   return (
     <div className="relative rounded-2xl border border-border-subtle bg-[#111218] overflow-hidden">
       {/* Editor toolbar */}
-      <div className="flex items-center justify-between border-b border-border-subtle px-3 py-1.5">
-        <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.12em] text-ink-muted">
-          <span className="inline-block h-2 w-2 rounded-full bg-red-400/70" />
-          <span className="inline-block h-2 w-2 rounded-full bg-amber-400/70" />
-          <span className="inline-block h-2 w-2 rounded-full bg-emerald-400/70" />
-          <span className="ml-2">Editor · {language}</span>
+      <div className="flex items-center justify-between border-b border-border-subtle px-3 py-1.5 select-none">
+        <div className="flex items-center gap-1 text-[11px] uppercase tracking-[0.12em] text-ink-muted min-w-0">
+          <span className="hidden xs:inline-flex items-center gap-1.5 mr-1">
+            <span className="inline-block h-2 w-2 rounded-full bg-red-400/70" />
+            <span className="inline-block h-2 w-2 rounded-full bg-amber-400/70" />
+            <span className="inline-block h-2 w-2 rounded-full bg-emerald-400/70" />
+          </span>
+          <span className="truncate">
+            <span className="hidden xs:inline">Editor · </span>{language}
+          </span>
         </div>
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-0.5 sm:gap-1 shrink-0">
           <button
             onClick={openFind}
             title="Find (Ctrl+F)"
-            className="inline-flex items-center gap-1 rounded-md px-2 py-1 text-[11px] text-ink-muted hover:text-ink-primary hover:bg-white/[0.06] transition"
+            className="inline-flex items-center gap-1 rounded-md px-1.5 py-1 sm:px-2 text-[11px] text-ink-muted hover:text-ink-primary hover:bg-white/[0.06] transition"
             data-testid="editor-find-btn"
           >
-            <Search size={12} /> Find
+            <Search size={12} /> <span className="hidden sm:inline">Find</span>
           </button>
           <button
             onClick={toggleWrap}
             title="Toggle word wrap"
-            className={`inline-flex items-center gap-1 rounded-md px-2 py-1 text-[11px] transition ${
+            className={`inline-flex items-center gap-1 rounded-md px-1.5 py-1 sm:px-2 text-[11px] transition ${
               wordWrap === 'on'
                 ? 'text-accent-soft bg-accent/10'
                 : 'text-ink-muted hover:text-ink-primary hover:bg-white/[0.06]'
             }`}
             data-testid="editor-wrap-btn"
           >
-            <WrapText size={12} /> Wrap
+            <WrapText size={12} /> <span className="hidden sm:inline">Wrap</span>
           </button>
           <button
             onClick={pasteFromClipboard}
             title="Paste from clipboard"
-            className="inline-flex items-center gap-1 rounded-md px-2 py-1 text-[11px] text-ink-muted hover:text-ink-primary hover:bg-white/[0.06] transition"
+            className="inline-flex items-center gap-1 rounded-md px-1.5 py-1 sm:px-2 text-[11px] text-ink-muted hover:text-ink-primary hover:bg-white/[0.06] transition"
             data-testid="editor-paste-btn"
           >
-            <ClipboardPaste size={12} /> Paste
+            <ClipboardPaste size={12} /> <span className="hidden sm:inline">Paste</span>
           </button>
           <button
             onClick={clearAll}
             title="Clear"
-            className="inline-flex items-center gap-1 rounded-md px-2 py-1 text-[11px] text-ink-muted hover:text-red-300 hover:bg-white/[0.06] transition"
+            className="inline-flex items-center gap-1 rounded-md px-1.5 py-1 sm:px-2 text-[11px] text-ink-muted hover:text-red-300 hover:bg-white/[0.06] transition"
             data-testid="editor-clear-btn"
           >
-            <Trash2 size={12} /> Clear
+            <Trash2 size={12} /> <span className="hidden sm:inline">Clear</span>
           </button>
         </div>
       </div>

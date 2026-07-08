@@ -108,20 +108,20 @@ export const SectionHeader: React.FC<{
   eyebrow?: string;
   right?: React.ReactNode;
 }> = ({ icon, title, eyebrow, right }) => (
-  <div className="flex items-center justify-between gap-md">
-    <div className="flex items-center gap-sm">
-      {icon && <span className="text-accent-soft">{icon}</span>}
-      <div>
+  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-md">
+    <div className="flex items-start gap-sm min-w-0">
+      {icon && <span className="text-accent-soft mt-1 sm:mt-0.5 shrink-0">{icon}</span>}
+      <div className="min-w-0">
         {eyebrow && (
-          <div className="text-label uppercase text-ink-muted tracking-[0.12em]">
+          <div className="text-label uppercase text-ink-muted tracking-[0.12em] truncate">
             {eyebrow}
           </div>
         )}
-        <h3 className="font-display text-xl font-semibold text-ink-primary">
+        <h3 className="font-display text-lg sm:text-xl font-semibold text-ink-primary break-words">
           {title}
         </h3>
       </div>
     </div>
-    {right}
+    {right && <div className="self-start sm:self-auto shrink-0">{right}</div>}
   </div>
 );

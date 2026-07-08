@@ -1,24 +1,26 @@
 <div align="center">
+  <img src="https://cdn-icons-png.flaticon.com/512/2920/2920277.png" alt="CodeExplain Logo" width="120" />
+  <h1>💡 CODEEXPLAIN</h1>
+  <p><strong>AI-Powered Code Explanation & Interactive Learning Suite</strong></p>
+  <p>A sleek, dark-themed code tutor powered by Groq's high-speed Llama 3/Qwen models and Google's Gemini APIs, with a FastAPI backend and React/TypeScript frontend.</p>
 
-# CodeExplain 💡
+  <p>
+    <a href="https://codeexplain-lsrb.onrender.com/" target="_blank">
+      <img src="https://img.shields.io/badge/Render-Live_Demo-brightgreen?style=for-the-badge&logo=render&logoColor=white&color=05C292" alt="Live Demo" />
+    </a>
+    <img src="https://img.shields.io/badge/Python_3.11+-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python" />
+    <img src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI" />
+    <img src="https://img.shields.io/badge/React_18-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
+    <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
+    <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind" />
+    <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker" />
+  </p>
 
-**A sleek, dark-themed code tutor powered by Groq's high-speed Llama 3/Qwen models and Google's Gemini APIs, with a FastAPI backend and React/TypeScript frontend.**
+  <br/>
 
-[![React](https://img.shields.io/badge/Frontend-React_18-20232A?style=flat-square&logo=react&logoColor=61DAFB)](https://react.dev)
-[![FastAPI](https://img.shields.io/badge/Backend-FastAPI-005571?style=flat-square&logo=fastapi)](https://fastapi.tiangolo.com)
-[![TypeScript](https://img.shields.io/badge/Language-TypeScript-007ACC?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
-[![Tailwind CSS](https://img.shields.io/badge/Styling-Tailwind_CSS-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white)](https://tailwindcss.com)
-[![Render Live](https://img.shields.io/badge/Render-Live_Demo-brightgreen?style=flat-square&logo=render&logoColor=white&color=05C292)](https://codeexplain-lsrb.onrender.com/)
-[![License](https://img.shields.io/badge/License-MIT-22c55e?style=flat-square)](LICENSE)
-
-<br/>
-
-<p align="center">
-  <img src="static/preview.png" alt="CodeExplain Preview" width="600" />
-</p>
-
-> 🚀 **Live Demo:** [https://codeexplain-lsrb.onrender.com/](https://codeexplain-lsrb.onrender.com/)
-
+  <p align="center">
+    <img src="static/preview.png" alt="CodeExplain Preview" width="600" />
+  </p>
 </div>
 
 ---
@@ -263,23 +265,29 @@ CoT is essential for math, logic reasoning, and multi-file debugging. However, g
 
 ## 🤝 Contributing
 
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/your-feature`
-3. Commit your changes: `git commit -m 'feat: description'`
-4. Push and open a Pull Request
+Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/MohammadFayasKhan/CodeExplain/issues).
+
+## 📝 License
+
+This project is open-source and available under the [MIT License](LICENSE).
 
 ---
 
-## 📄 License
+## 👨‍💻 Developed By
 
-MIT License. See [LICENSE](LICENSE) for details.
+<div align="center">
+  <h3><strong>Mohammad Fayas Khan</strong></h3>
+  <p><em>Computer Science Engineering student focused on AI, ML, and full-stack development. Passionate about building scalable, real-world solutions with strong engineering fundamentals.</em></p>
 
----
-
-## 👤 Author
-
-**Mohammad Fayas Khan**
-
-- 🖥️ [GitHub](https://github.com/MohammadFayasKhan)
-- 💼 [LinkedIn](https://www.linkedin.com/in/mohammadfayaskhan)
-- 📸 [Instagram](https://www.instagram.com/fayaskhanx)
+  <p>
+    <a href="https://www.linkedin.com/in/mohammadfayaskhan" target="_blank">
+      <img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" />
+    </a>&nbsp;
+    <a href="https://github.com/MohammadFayasKhan" target="_blank">
+      <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" />
+    </a>&nbsp;
+    <a href="https://www.instagram.com/fayaskhanx" target="_blank">
+      <img src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white" alt="Instagram" />
+    </a>
+  </p>
+</div>

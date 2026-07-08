@@ -1,0 +1,233 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ------------------------------------------------------------------
+   CodeExplain global styles.
+   Dark-mode only per the Stitch-derived design system.
+   ------------------------------------------------------------------ */
+
+:root {
+  --color-background-base: #191a1f;
+  --color-text-primary: #ffffff;
+  --color-surface-card: #2a2b35;
+  --color-pill-button-surface: #3a3b47;
+  --color-cta-button: #ffffff;
+  --color-iridescent-accent: #7c6af7;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-background-base);
+  color: var(--color-text-primary);
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Subtle dot grid overlay used in the landing hero. Absolute-positioned by
+   a wrapper component; the pattern itself is done in pure CSS so it costs
+   nothing to render. */
+.dot-grid {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px);
+  background-size: 24px 24px;
+  background-position: 0 0;
+  mask-image: radial-gradient(ellipse at center, black 55%, transparent 85%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 55%, transparent 85%);
+}
+
+/* Iridescent accent blobs positioned behind the hero headline. */
+.blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(120px);
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+/* Selection colour uses the iridescent accent — small polish detail. */
+::selection {
+  background: rgba(124, 106, 247, 0.35);
+  color: #fff;
+}
+
+/* Custom scrollbars keep the dark aesthetic. */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #3a3b47;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #4a4b5a;
+}
+
+/* Prism-like syntax highlighting rules, tuned for the dark surface. */
+.hl-token-keyword { color: #c084fc; }
+.hl-token-string  { color: #a5f3b6; }
+.hl-token-number  { color: #ffd580; }
+.hl-token-comment { color: #6b6c78; font-style: italic; }
+.hl-token-func    { color: #7dd3fc; }
+.hl-token-op      { color: #f0abfc; }
+.hl-token-punc    { color: #b7b8c3; }
+
+/* Reusable "glass" card look. */
+.glass {
+  background: rgba(42, 43, 53, 0.86);
+  backdrop-filter: blur(20px) saturate(120%);
+  -webkit-backdrop-filter: blur(20px) saturate(120%);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Monaco Find widget styling: match the app's design system so it doesn't
+   look like a foreign macOS-era panel dropped into the editor. */
+.monaco-editor .find-widget {
+  background: rgba(26, 27, 35, 0.88) !important;
+  backdrop-filter: blur(16px) saturate(120%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(120%) !important;
+  border: 1px solid rgba(124, 106, 247, 0.25) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6), 0 4px 12px rgba(124, 106, 247, 0.08) !important;
+  padding: 6px 8px !important;
+  top: 10px !important;
+  right: 18px !important;
+  transition: all 0.2s ease-in-out !important;
+  height: auto !important;
+  box-sizing: border-box !important;
+}
+.monaco-editor .find-widget:focus-within {
+  border-color: rgba(124, 106, 247, 0.5) !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.65), 0 0 0 2px rgba(124, 106, 247, 0.2) !important;
+}
+.monaco-editor .find-widget .monaco-inputbox {
+  background: rgba(0, 0, 0, 0.24) !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  border-radius: 8px !important;
+  padding: 2px 6px !important;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
+}
+.monaco-editor .find-widget .monaco-inputbox.synthetic-focus,
+.monaco-editor .find-widget .monaco-inputbox:focus-within {
+  border-color: rgba(124, 106, 247, 0.5) !important;
+  background: rgba(0, 0, 0, 0.35) !important;
+  box-shadow: 0 0 0 1px rgba(124, 106, 247, 0.4) !important;
+}
+.monaco-editor .find-widget.replaceToggled .monaco-inputbox {
+  border-radius: 8px !important;
+}
+.monaco-editor .find-widget .button {
+  border-radius: 6px !important;
+  color: #a3a4b2 !important;
+  transition: all 0.15s ease !important;
+}
+.monaco-editor .find-widget .button:hover {
+  background: rgba(124, 106, 247, 0.12) !important;
+  color: #ffffff !important;
+}
+.monaco-editor .find-widget .button.checked {
+  background: rgba(124, 106, 247, 0.25) !important;
+  border: 1px solid rgba(124, 106, 247, 0.5) !important;
+  color: #93c5fd !important;
+}
+.monaco-editor .find-widget .matchesCount {
+  color: #a3a4b2 !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  padding: 0 8px !important;
+}
+:where(button, a, input, textarea, select):focus-visible {
+  outline: 2px solid rgba(124, 106, 247, 0.7);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Premium LLM-style loading state animations */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.02) 25%,
+    rgba(124, 106, 247, 0.09) 50%,
+    rgba(255, 255, 255, 0.02) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.6s infinite linear;
+}
+
+@keyframes glow-slide {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+.glow-text-loading {
+  background: linear-gradient(
+    90deg,
+    #ffffff 0%,
+    #a89cff 25%,
+    #7c6af7 50%,
+    #a89cff 75%,
+    #ffffff 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+  animation: glow-slide 2.5s linear infinite;
+}
+
+/* Google Stitch-style blended blur navbar background */
+.nav-blur-bg {
+  position: absolute;
+  inset: 0;
+  bottom: -40px;
+  background: linear-gradient(
+    to bottom,
+    rgba(25, 26, 31, 0.98) 0%,
+    rgba(25, 26, 31, 0.9) 40%,
+    rgba(25, 26, 31, 0.6) 70%,
+    transparent 100%
+  );
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  mask-image: linear-gradient(
+    to bottom,
+    black 0%,
+    black 30%,
+    rgba(0, 0, 0, 0.7) 60%,
+    rgba(0, 0, 0, 0.25) 85%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    black 0%,
+    black 30%,
+    rgba(0, 0, 0, 0.7) 60%,
+    rgba(0, 0, 0, 0.25) 85%,
+    transparent 100%
+  );
+}

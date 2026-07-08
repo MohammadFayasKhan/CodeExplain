@@ -57,7 +57,7 @@ def mount_frontend(app: FastAPI) -> None:
     # Check if the static files folder exists. If it doesn't, it means we are running
     # in local development mode or we forgot to build the frontend. We skip mounting safely.
     if not STATIC_DIR.exists():
-        logger.info("Static frontend directory %s not present — skipping mount.", STATIC_DIR)
+        logger.info("Static frontend directory %s not present: skipping mount.", STATIC_DIR)
         return
 
     # '/static/...' assets represent JavaScript bundles, CSS stylesheets, icons, and logo images.

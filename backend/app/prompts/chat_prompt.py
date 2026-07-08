@@ -16,8 +16,8 @@ names, function names, and line numbers when relevant.
 3. If the user asks something completely unrelated to the code, gently \
 redirect them back to the code they submitted.
 4. Do NOT respond in JSON. Respond in natural English (Markdown allowed for \
-short code snippets — wrap them in triple backticks).
-5. Never claim you cannot see the code — it is included below.
+short code snippets (wrap them in triple backticks)).
+5. Never claim you cannot see the code: it is included below.
 """
 
 
@@ -43,8 +43,8 @@ def build_user_prompt(
         f"Language: {language}\n\n"
         f"Code the user is asking about:\n```\n{code}\n```\n\n"
         f"Original explanation overview: {explanation.overview}\n"
-        f"Time complexity: {explanation.time_complexity.big_o} — {explanation.time_complexity.reasoning}\n"
-        f"Space complexity: {explanation.space_complexity.big_o} — {explanation.space_complexity.reasoning}"
+        f"Time complexity: {explanation.time_complexity.big_o}: {explanation.time_complexity.reasoning}\n"
+        f"Space complexity: {explanation.space_complexity.big_o}: {explanation.space_complexity.reasoning}"
         f"{history_block}\n\n"
         f"New user question: {question}\n\n"
         "Answer the user's question now."

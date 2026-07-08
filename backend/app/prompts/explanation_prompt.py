@@ -48,7 +48,7 @@ SCHEMA:
 
 RULES:
 1. Analyse the ACTUAL submitted code. Do not pattern-match to a similar \
-well-known algorithm — reason from the code in front of you.
+well-known algorithm, reason from the code in front of you.
 2. Time and space complexity MUST be language-appropriate and code-specific. \
 Justify by pointing at concrete loops, recursion depth, or data structure \
 allocations in the snippet.

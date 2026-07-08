@@ -1,6 +1,6 @@
 """Pydantic models for the /api/explain structured contract.
 
-The single most important schema in the entire application — every LLM
+The single most important schema in the entire application: every LLM
 response MUST validate against ``ExplanationResponse`` before it can leave
 the backend. Any drift here is user-visible, so treat this file as sacred.
 """

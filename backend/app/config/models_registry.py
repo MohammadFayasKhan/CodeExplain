@@ -1,7 +1,7 @@
 """Central registry of every provider/model pair CodeExplain will call.
 
 Keeping this in a single file means adding, tweaking, or deprecating a model
-never requires touching provider client code or route handlers — just this
+never requires touching provider client code or route handlers: just this
 dictionary.
 """
 
@@ -83,7 +83,7 @@ def resolve_model(provider: str | None, model_id: str | None) -> ModelConfig:
     We look up by composite key so ``meta-llama/llama-4-scout-17b-16e-instruct``
     on Groq and a hypothetical same-name model elsewhere would still be
     distinguishable. Missing/None inputs resolve to the default model rather
-    than raising — the caller is trusted UI, not user input.
+    than raising: the caller is trusted UI, not user input.
     """
 
     if provider and model_id:

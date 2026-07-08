@@ -19,7 +19,7 @@
   <br/>
 
   <p align="center">
-    <img src="frontend/public/preview.png" alt="CodeExplain Preview" width="600" />
+    <img src="frontend/public/preview.png" alt="CodeExplain Preview" width="700" />
   </p>
 </div>
 
@@ -36,7 +36,7 @@ Every single visual transition (boot, home, loading, results, chat, quiz, error,
 ## 🔄 System Flow
 
 <p align="center">
-  <img src="/frontend/public/preview.png" alt="CodeExplain System Flow" width="700" />
+  <img src="/frontend/public/flow.png" alt="CodeExplain System Flow" width="700" />
 </p>
 
 ---

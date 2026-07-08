@@ -1,4 +1,10 @@
-"""Prompt template for the /api/quiz call."""
+"""
+CodeExplain ➜ Plain-English Code Tutor
+Author ➜ Mohammad Fayas Khan
+Purpose ➜ System instructions for generating comprehension quizzes.
+
+Prompt template for the /api/quiz call.
+"""
 
 from __future__ import annotations
 

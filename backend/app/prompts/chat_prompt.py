@@ -1,4 +1,10 @@
-"""Prompt template for the /api/chat follow-up feature."""
+"""
+CodeExplain ➜ Plain-English Code Tutor
+Author ➜ Mohammad Fayas Khan
+Purpose ➜ System instructions for follow-up conversational tutor questions.
+
+Prompt template for the /api/chat follow-up feature.
+"""
 
 from __future__ import annotations
 

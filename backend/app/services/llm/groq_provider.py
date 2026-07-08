@@ -1,11 +1,8 @@
-# ==============================================================================
-# CodeExplain - Summer Training Internship Project (LPU submission candidate)
-# Developed by: Mohammad Fayas Khan (BTech CSE 3rd Year student)
-# File: backend/app/services/llm/groq_provider.py
-# Purpose: Concrete provider implementing Groq's OpenAI-compatible completions endpoint.
-# ==============================================================================
-
 """
+CodeExplain ➜ Plain-English Code Tutor
+Author ➜ Mohammad Fayas Khan
+Purpose ➜ Concrete provider implementing the Groq Cloud REST API.
+
 Groq LLM REST API Provider.
 
 This class inherits from `BaseLLMProvider`. It implements the concrete completion logic

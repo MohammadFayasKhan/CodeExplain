@@ -1,11 +1,8 @@
-# ==============================================================================
-# CodeExplain - Summer Training Internship Project (LPU submission candidate)
-# Developed by: Mohammad Fayas Khan (BTech CSE 3rd Year student)
-# File: backend/app/services/llm/http_retry.py
-# Purpose: Reusable async HTTP request poster implementing exponential backoff.
-# ==============================================================================
-
 """
+CodeExplain ➜ Plain-English Code Tutor
+Author ➜ Mohammad Fayas Khan
+Purpose ➜ HTTP REST post utility with automatic exponential backoff retries.
+
 Asynchronous HTTP request poster with Exponential Backoff retry logic.
 
 When writing high-availability cloud applications that communicate with third-party

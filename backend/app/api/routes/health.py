@@ -1,11 +1,8 @@
-# ==============================================================================
-# CodeExplain - Summer Training Internship Project (LPU submission candidate)
-# Developed by: Mohammad Fayas Khan (BTech CSE 3rd Year student)
-# File: backend/app/api/routes/health.py
-# Purpose: Liveness and health check api endpoint.
-# ==============================================================================
-
 """
+CodeExplain ➜ Plain-English Code Tutor
+Author ➜ Mohammad Fayas Khan
+Purpose ➜ API endpoint route for health diagnostic checks.
+
 FastAPI Health Check Route.
 
 In production deployments (like Kubernetes, AWS, or Hugging Face Spaces), the hosting

@@ -1,11 +1,8 @@
-# ==============================================================================
-# CodeExplain - Summer Training Internship Project (LPU submission candidate)
-# Developed by: Mohammad Fayas Khan (BTech CSE 3rd Year student)
-# File: backend/app/services/llm/__init__.py
-# Purpose: Package initializer exposing LLM providers and the provider Factory.
-# ==============================================================================
-
 """
+CodeExplain ➜ Plain-English Code Tutor
+Author ➜ Mohammad Fayas Khan
+Purpose ➜ LLM providers package initializer and factory method.
+
 LLM Provider Package Initializer.
 
 In Python, folders containing an `__init__.py` file are treated as modules/packages.

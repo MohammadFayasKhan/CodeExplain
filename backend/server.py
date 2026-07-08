@@ -1,11 +1,8 @@
-# ==============================================================================
-# CodeExplain - Summer Training Internship Project (LPU submission candidate)
-# Developed by: Mohammad Fayas Khan (BTech CSE 3rd Year student)
-# File: backend/server.py
-# Purpose: Entry point for starting the FastAPI application server.
-# ==============================================================================
-
 """
+CodeExplain ➜ Plain-English Code Tutor
+Author ➜ Mohammad Fayas Khan
+Purpose ➜ Entry point for starting the FastAPI application server.
+
 Supervisor / Uvicorn Server Entrypoint.
 
 This python script acts as the main gateway (entry point) for running our backend API.

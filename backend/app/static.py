@@ -1,11 +1,8 @@
-# ==============================================================================
-# CodeExplain - Summer Training Internship Project (LPU submission candidate)
-# Developed by: Mohammad Fayas Khan (BTech CSE 3rd Year student)
-# File: backend/app/static.py
-# Purpose: Serves frontend static files and handles Single Page App (SPA) routing fallbacks.
-# ==============================================================================
-
 """
+CodeExplain ➜ Plain-English Code Tutor
+Author ➜ Mohammad Fayas Khan
+Purpose ➜ Serves frontend static files and handles Single Page App (SPA) routing fallbacks.
+
 Static Asset Mount and Single Page Application (SPA) Router Fallback.
 
 When we deploy this project to production (using Docker or Hugging Face Spaces),

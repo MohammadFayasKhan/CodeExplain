@@ -1,4 +1,10 @@
-"""Request and shared response envelope models."""
+"""
+CodeExplain ➜ Plain-English Code Tutor
+Author ➜ Mohammad Fayas Khan
+Purpose ➜ Pydantic schemas for chat requests, user inputs, and responses.
+
+Request and shared response envelope models.
+"""
 
 from __future__ import annotations
 

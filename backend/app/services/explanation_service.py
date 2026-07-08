@@ -1,11 +1,8 @@
-# ==============================================================================
-# CodeExplain - Summer Training Internship Project (LPU submission candidate)
-# Developed by: Mohammad Fayas Khan (BTech CSE 3rd Year student)
-# File: backend/app/services/explanation_service.py
-# Purpose: Core service orchestrating code explanation generation and self-healing.
-# ==============================================================================
-
 """
+CodeExplain ➜ Plain-English Code Tutor
+Author ➜ Mohammad Fayas Khan
+Purpose ➜ Business logic for orchestrating structural code explanations.
+
 Code Explanation Generation and AI Self-Healing Orchestration.
 
 This module acts as the core controller for our explanation pipeline.

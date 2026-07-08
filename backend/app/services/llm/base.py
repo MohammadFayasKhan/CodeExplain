@@ -1,11 +1,8 @@
-# ==============================================================================
-# CodeExplain - Summer Training Internship Project (LPU submission candidate)
-# Developed by: Mohammad Fayas Khan (BTech CSE 3rd Year student)
-# File: backend/app/services/llm/base.py
-# Purpose: Abstract base class interface contract for LLM text generation providers.
-# ==============================================================================
-
 """
+CodeExplain ➜ Plain-English Code Tutor
+Author ➜ Mohammad Fayas Khan
+Purpose ➜ Abstract base class outlining the LLM provider contract.
+
 Abstract Base Provider Contract for Large Language Models (LLMs).
 
 In Object-Oriented Software Engineering, the Dependency Inversion Principle states

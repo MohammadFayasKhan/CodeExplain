@@ -1,4 +1,9 @@
-"""FastAPI application factory and global error handling.
+"""
+CodeExplain ➜ Plain-English Code Tutor
+Author ➜ Mohammad Fayas Khan
+Purpose ➜ FastAPI application factory and configuration.
+
+FastAPI application factory and global error handling.
 
 The Emergent supervisor imports ``server:app`` at the /app/backend root; that
 file re-exports the FastAPI instance defined here.

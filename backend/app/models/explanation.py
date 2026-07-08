@@ -1,4 +1,9 @@
-"""Pydantic models for the /api/explain structured contract.
+"""
+CodeExplain ➜ Plain-English Code Tutor
+Author ➜ Mohammad Fayas Khan
+Purpose ➜ Pydantic models for the /api/explain structured contract.
+
+Pydantic models for the /api/explain structured contract.
 
 The single most important schema in the entire application: every LLM
 response MUST validate against ``ExplanationResponse`` before it can leave

@@ -1,11 +1,8 @@
-# ==============================================================================
-# CodeExplain - Summer Training Internship Project (LPU submission candidate)
-# Developed by: Mohammad Fayas Khan (BTech CSE 3rd Year student)
-# File: backend/app/core/exceptions.py
-# Purpose: Shared exception hierarchy mapping application errors to HTTP status codes.
-# ==============================================================================
-
 """
+CodeExplain ➜ Plain-English Code Tutor
+Author ➜ Mohammad Fayas Khan
+Purpose ➜ Defines application-specific exceptions and error types.
+
 Custom Application Exception Hierarchy.
 
 In professional software development, we do not throw raw Python exceptions (like KeyError

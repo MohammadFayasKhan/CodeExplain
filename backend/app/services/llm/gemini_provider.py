@@ -1,11 +1,8 @@
-# ==============================================================================
-# CodeExplain - Summer Training Internship Project (LPU submission candidate)
-# Developed by: Mohammad Fayas Khan (BTech CSE 3rd Year student)
-# File: backend/app/services/llm/gemini_provider.py
-# Purpose: Concrete provider implementing the Google Generative Language REST API.
-# ==============================================================================
-
 """
+CodeExplain ➜ Plain-English Code Tutor
+Author ➜ Mohammad Fayas Khan
+Purpose ➜ Concrete provider implementing the Google Generative Language REST API.
+
 Google Gemini LLM REST API Provider.
 
 This class inherits from `BaseLLMProvider`. It implements the concrete details

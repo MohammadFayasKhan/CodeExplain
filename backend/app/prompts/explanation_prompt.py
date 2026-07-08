@@ -1,4 +1,9 @@
-"""Prompt template for the /api/explain call.
+"""
+CodeExplain ➜ Plain-English Code Tutor
+Author ➜ Mohammad Fayas Khan
+Purpose ➜ System instructions for generating code explanations.
+
+Prompt template for the /api/explain call.
 
 This is the meat of the product's value. The system prompt tells the model
 EXACTLY what schema to emit and forbids markdown fences or prose. We give the

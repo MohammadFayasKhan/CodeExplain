@@ -1,11 +1,8 @@
-# ==============================================================================
-# CodeExplain - Summer Training Internship Project (LPU submission candidate)
-# Developed by: Mohammad Fayas Khan (BTech CSE 3rd Year student)
-# File: backend/app/api/routes/quiz.py
-# Purpose: POST API router handling code-comprehension quiz generation.
-# ==============================================================================
-
 """
+CodeExplain ➜ Plain-English Code Tutor
+Author ➜ Mohammad Fayas Khan
+Purpose ➜ API endpoint route for requesting interactive quizzes.
+
 FastAPI Quiz Router.
 
 This route handles `POST /api/quiz`:

@@ -1,11 +1,8 @@
-# ==============================================================================
-# CodeExplain - Summer Training Internship Project (LPU submission candidate)
-# Developed by: Mohammad Fayas Khan (BTech CSE 3rd Year student)
-# File: backend/app/api/routes/chat.py
-# Purpose: POST API router handling follow-up chat conversations.
-# ==============================================================================
-
 """
+CodeExplain ➜ Plain-English Code Tutor
+Author ➜ Mohammad Fayas Khan
+Purpose ➜ API endpoint route for follow-up conversational questions.
+
 FastAPI Chat Follow-Up Router.
 
 This route handles `POST /api/chat`:

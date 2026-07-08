@@ -1,4 +1,9 @@
-"""Central registry of every provider/model pair CodeExplain will call.
+"""
+CodeExplain ➜ Plain-English Code Tutor
+Author ➜ Mohammad Fayas Khan
+Purpose ➜ Central registry of every provider and model pair.
+
+Central registry of every provider/model pair CodeExplain will call.
 
 Keeping this in a single file means adding, tweaking, or deprecating a model
 never requires touching provider client code or route handlers: just this

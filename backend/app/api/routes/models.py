@@ -1,11 +1,8 @@
-# ==============================================================================
-# CodeExplain - Summer Training Internship Project (LPU submission candidate)
-# Developed by: Mohammad Fayas Khan (BTech CSE 3rd Year student)
-# File: backend/app/api/routes/models.py
-# Purpose: API route serving available LLM models for frontend selector menus.
-# ==============================================================================
-
 """
+CodeExplain ➜ Plain-English Code Tutor
+Author ➜ Mohammad Fayas Khan
+Purpose ➜ API endpoint route for listing registered LLM models.
+
 FastAPI Models Registry Router.
 
 This route handles `GET /api/models`:

@@ -1,4 +1,10 @@
-"""Pydantic models for the /api/quiz endpoint."""
+"""
+CodeExplain ➜ Plain-English Code Tutor
+Author ➜ Mohammad Fayas Khan
+Purpose ➜ Pydantic schemas representing quiz structures and results.
+
+Pydantic models for the /api/quiz endpoint.
+"""
 
 from __future__ import annotations
 

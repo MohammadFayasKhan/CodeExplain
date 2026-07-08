@@ -1,11 +1,8 @@
-# ==============================================================================
-# CodeExplain - Summer Training Internship Project (LPU submission candidate)
-# Developed by: Mohammad Fayas Khan (BTech CSE 3rd Year student)
-# File: backend/app/services/chat_service.py
-# Purpose: Orchestrates follow-up chat completions with model fallback routing.
-# ==============================================================================
-
 """
+CodeExplain ➜ Plain-English Code Tutor
+Author ➜ Mohammad Fayas Khan
+Purpose ➜ Business logic for orchestrating follow-up chat conversations.
+
 Follow-Up Chat completions Orchestration Service.
 
 When users interact with the chat panel to ask questions about their code snippet,

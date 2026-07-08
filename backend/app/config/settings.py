@@ -1,11 +1,8 @@
-# ==============================================================================
-# CodeExplain - Summer Training Internship Project (LPU submission candidate)
-# Developed by: Mohammad Fayas Khan (BTech CSE 3rd Year student)
-# File: backend/app/config/settings.py
-# Purpose: Environment-driven application configurations management.
-# ==============================================================================
-
 """
+CodeExplain ➜ Plain-English Code Tutor
+Author ➜ Mohammad Fayas Khan
+Purpose ➜ Environment-driven application settings and validation.
+
 Environment-Driven Settings for CodeExplain Backend.
 
 In modern web development, we follow the "Twelve-Factor App" methodology.

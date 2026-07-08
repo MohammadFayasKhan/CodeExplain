@@ -1,11 +1,8 @@
-# ==============================================================================
-# CodeExplain - Summer Training Internship Project (LPU submission candidate)
-# Developed by: Mohammad Fayas Khan (BTech CSE 3rd Year student)
-# File: backend/app/services/quiz_service.py
-# Purpose: Orchestrates quiz question generation, validation, and JSON cleaning.
-# ==============================================================================
-
 """
+CodeExplain ➜ Plain-English Code Tutor
+Author ➜ Mohammad Fayas Khan
+Purpose ➜ Business logic for orchestrating dynamic quiz questions.
+
 Quiz Generation Orchestrator Service.
 
 This service is responsible for generating multiple-choice comprehension questions

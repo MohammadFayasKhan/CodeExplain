@@ -19,9 +19,11 @@
   <br/>
 
   <p align="center">
-    <img src="frontend/public/preview.png" alt="CodeExplain Preview" width="700" />
+    <img src="frontend/public/preview.png" alt="CodeExplain Preview" width="600" />
   </p>
 </div>
+
+> 🚀 **Live Demo:** [https://codeexplain-lsrb.onrender.com/](https://codeexplain-lsrb.onrender.com/)
 
 ---
 

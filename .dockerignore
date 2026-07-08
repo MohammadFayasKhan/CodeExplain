@@ -1,3 +1,7 @@
+# CodeExplain ➜ Plain-English Code Tutor
+# Author ➜ Mohammad Fayas Khan
+# Purpose ➜ Exclude build caches, local environments, and libraries from the Docker image context.
+
 node_modules
 frontend/node_modules
 frontend/build

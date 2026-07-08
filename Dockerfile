@@ -1,8 +1,6 @@
-# ---------------------------------------------------------------------------
-# CodeExplain — single-container image for Hugging Face Docker Spaces.
-# Stage 1 builds the React frontend; Stage 2 copies the built assets into
-# a slim Python image that runs FastAPI and serves both /api and the SPA.
-# ---------------------------------------------------------------------------
+# CodeExplain ➜ Plain-English Code Tutor
+# Author ➜ Mohammad Fayas Khan
+# Purpose ➜ Multi-stage production Docker container configuration.
 
 # ---- Stage 1: build the frontend ---------------------------------------------
 FROM node:20-alpine AS frontend-build

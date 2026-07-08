@@ -1,7 +1,6 @@
-# =============================================================================
-# CodeExplain - Plain-English Code Tutor
-# Ignore generated, temporary, and environment-specific files.
-# =============================================================================
+# CodeExplain ➜ Plain-English Code Tutor
+# Author ➜ Mohammad Fayas Khan
+# Purpose ➜ Ignore generated, temporary, and environment-specific files.
 
 # -----------------------------------------------------------------------------
 # Node.js Dependencies

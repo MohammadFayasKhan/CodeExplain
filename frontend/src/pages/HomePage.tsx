@@ -1,4 +1,8 @@
 /**
+ * CodeExplain ➜ Plain-English Code Tutor
+ * Author ➜ Mohammad Fayas Khan
+ * Purpose ➜ Main layout orchestrator binding input, loading, and result panels.
+ *
  * HomePage — landing hero + code input + result view stack.
  * Owns the current-session state (code, language, model, result).
  * Local storage side-effects for history/prefs live here too.

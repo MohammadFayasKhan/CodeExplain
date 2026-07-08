@@ -1,7 +1,10 @@
 /**
+ * CodeExplain ➜ Plain-English Code Tutor
+ * Author ➜ Mohammad Fayas Khan
+ * Purpose ➜ Selectable chips to pre-fill the input editor with example code snippets.
+ *
  * Row of clickable example snippets shown above the code input card.
  * Clicking a chip pre-fills both the textarea and the language pill.
- *
  * Chips share equal padding, height, and radius, wrap responsively, and
  * animate on hover for a polished SaaS feel.
  */

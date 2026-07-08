@@ -1,4 +1,8 @@
 /**
+ * CodeExplain ➜ Plain-English Code Tutor
+ * Author ➜ Mohammad Fayas Khan
+ * Purpose ➜ Collection of pre-loaded mock code snippets across multiple languages.
+ *
  * Example snippets shown as chips above the empty input card so the landing
  * demo works without the user needing their own code ready.
  */

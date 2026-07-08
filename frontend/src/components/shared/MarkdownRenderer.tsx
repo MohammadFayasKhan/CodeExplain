@@ -1,8 +1,11 @@
 /**
+ * CodeExplain ➜ Plain-English Code Tutor
+ * Author ➜ Mohammad Fayas Khan
+ * Purpose ➜ Safe markdown renderer compiling LLM explanations to HTML tags.
+ *
  * MarkdownRenderer — renders assistant chat responses with full markdown
  * support: fenced code blocks (syntax-highlighted, dark, copy button),
  * inline code, headings, bold, italic, tables, blockquotes, lists, links.
- *
  * We use react-markdown + remark-gfm for GitHub-flavoured markdown, and
  * highlight.js via our own code-block wrapper for syntax highlighting (this
  * keeps bundle size predictable versus pulling every Prism language).

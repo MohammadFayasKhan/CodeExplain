@@ -1,3 +1,9 @@
+/**
+ * CodeExplain ➜ Plain-English Code Tutor
+ * Author ➜ Mohammad Fayas Khan
+ * Purpose ➜ Interactive canvas plotting algorithmic time and space complexity growth.
+ */
+
 import React, { useState } from 'react';
 import { LineChart, Activity, Info } from 'lucide-react';
 import { Card, SectionHeader } from '../shared/ui';

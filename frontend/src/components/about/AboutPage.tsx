@@ -1,4 +1,8 @@
 /**
+ * CodeExplain ➜ Plain-English Code Tutor
+ * Author ➜ Mohammad Fayas Khan
+ * Purpose ➜ SaaS-style About page displaying benefits, key values, and creator bio.
+ *
  * About / Creator page. Polished SaaS-style story page with clear navigation
  * (breadcrumb, Home button, Back button, Escape shortcut) so users are never
  * stranded.

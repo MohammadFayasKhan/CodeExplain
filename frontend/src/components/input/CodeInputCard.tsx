@@ -1,6 +1,9 @@
 /**
- * The main Code Input Card — headline component of the landing view.
+ * CodeExplain ➜ Plain-English Code Tutor
+ * Author ➜ Mohammad Fayas Khan
+ * Purpose ➜ Code input panel with language dropdowns, model pills, and submit action.
  *
+ * The main Code Input Card — headline component of the landing view.
  * Uses Monaco (lazy-loaded) for a VS Code-like editing experience.
  * Runs a lightweight rule-based language detector on every change and,
  * when it's confident the user's declared language is wrong, surfaces a

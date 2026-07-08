@@ -1,4 +1,8 @@
 /**
+ * CodeExplain ➜ Plain-English Code Tutor
+ * Author ➜ Mohammad Fayas Khan
+ * Purpose ➜ Results dashboard containing structural code analysis cards.
+ *
  * The result view — all six required sections stacked as separated cards.
  * Renders exactly what the backend returned; never invents anything.
  */

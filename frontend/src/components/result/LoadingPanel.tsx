@@ -1,3 +1,9 @@
+/**
+ * CodeExplain ➜ Plain-English Code Tutor
+ * Author ➜ Mohammad Fayas Khan
+ * Purpose ➜ Educational loading screen with progress ticks and model status indicators.
+ */
+
 import React, { useState, useEffect } from 'react';
 import { Brain } from 'lucide-react';
 import { Card } from '../shared/ui';

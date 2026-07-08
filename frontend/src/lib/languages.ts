@@ -1,5 +1,8 @@
 /**
- * Ordered list of the languages CodeExplain claims to support, plus a
+ * CodeExplain ➜ Plain-English Code Tutor
+ * Author ➜ Mohammad Fayas Khan
+ * Purpose ➜ Language registers defining supported extensions and Monaco highlights.
+ *
  * heuristic language detector used by the input card.
  */
 

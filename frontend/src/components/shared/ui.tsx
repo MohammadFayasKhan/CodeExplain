@@ -1,4 +1,8 @@
 /**
+ * CodeExplain ➜ Plain-English Code Tutor
+ * Author ➜ Mohammad Fayas Khan
+ * Purpose ➜ Core reusable atomic UI primitives (Buttons, Cards, Badges, Pills).
+ *
  * Minimal shared UI primitives styled directly from the Stitch tokens.
  * We keep these tiny on purpose — a full component library would be
  * over-engineering for the seven-or-so component patterns we actually use.

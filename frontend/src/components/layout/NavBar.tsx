@@ -1,4 +1,8 @@
 /**
+ * CodeExplain ➜ Plain-English Code Tutor
+ * Author ➜ Mohammad Fayas Khan
+ * Purpose ➜ Header navigation bar containing branding, routes, and layout selectors.
+ *
  * Top navigation bar. Contains the wordmark, a Home affordance (only shown
  * off-home), the History button (only shown on home), and the About link.
  * All routes are keyboard reachable and use React Router; deep-linking works.

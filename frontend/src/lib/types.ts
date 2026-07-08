@@ -1,6 +1,9 @@
 /**
- * Frontend TypeScript mirror of the backend Pydantic schemas.
+ * CodeExplain ➜ Plain-English Code Tutor
+ * Author ➜ Mohammad Fayas Khan
+ * Purpose ➜ Unified TypeScript types mirroring backend response envelopes.
  *
+ * Frontend TypeScript mirror of the backend Pydantic schemas.
  * These types intentionally match `backend/app/models/*.py` field-for-field.
  * If the backend schema changes, this file must be updated in the same
  * commit — the frontend renders against these types directly.

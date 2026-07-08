@@ -1,4 +1,8 @@
 /**
+ * CodeExplain ➜ Plain-English Code Tutor
+ * Author ➜ Mohammad Fayas Khan
+ * Purpose ➜ React single-page application entrypoint mounting the App node to the DOM.
+ *
  * React root — mounts the App into #root and imports global styles.
  */
 

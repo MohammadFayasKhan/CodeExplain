@@ -1,4 +1,8 @@
 /**
+ * CodeExplain ➜ Plain-English Code Tutor
+ * Author ➜ Mohammad Fayas Khan
+ * Purpose ➜ Root application coordinator managing routing, global components, and views.
+ *
  * App shell. Sets up routing, the top navigation bar, and page-level layout.
  */
 

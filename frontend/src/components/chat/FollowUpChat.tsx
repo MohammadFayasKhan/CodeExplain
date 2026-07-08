@@ -1,8 +1,11 @@
 /**
+ * CodeExplain ➜ Plain-English Code Tutor
+ * Author ➜ Mohammad Fayas Khan
+ * Purpose ➜ Interactive chat terminal for conversing with the AI coding tutor.
+ *
  * FollowUpChat — scoped, session-only chat about the currently explained code.
  * History is kept in local component state only (per the spec's session note),
  * so refreshing the page or explaining new code clears the conversation.
- *
  * Assistant replies render as full markdown (code fences with syntax
  * highlighting + copy buttons, tables, lists, links, blockquotes, etc.).
  * Smart follow-up suggestion chips appear above the input, are context-aware,

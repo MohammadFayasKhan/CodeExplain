@@ -1,17 +1,19 @@
 /**
- * MonacoCodeEditor — VS Code-like editor built on @monaco-editor/react.
+ * CodeExplain ➜ Plain-English Code Tutor
+ * Author ➜ Mohammad Fayas Khan
+ * Purpose ➜ Embedded Monaco editor providing syntax highlighting and formatting.
  *
+ * MonacoCodeEditor — VS Code-like editor built on @monaco-editor/react.
  * Wraps Monaco with our dark theme, sane defaults (line numbers, bracket
  * pair colorisation, auto-close, minimap off by default, word wrap toggle),
  * and a small toolbar. Lazy-loaded from App to keep the initial bundle small.
- *
  * Key UX behaviours:
  * - Placeholder is shown ONLY when the doc is empty AND the editor is
- *   unfocused. Focus hides it immediately so the caret is never rendered
- *   on top of placeholder glyphs.
+ * unfocused. Focus hides it immediately so the caret is never rendered
+ * on top of placeholder glyphs.
  * - `alwaysConsumeMouseWheel: false` on the scrollbar so scrolling the page
- *   while the cursor is inside the editor still scrolls the whole page
- *   (once the editor itself has no more room to scroll).
+ * while the cursor is inside the editor still scrolls the whole page
+ * (once the editor itself has no more room to scroll).
  */
 
 import React, { useCallback, useMemo, useRef, useState } from 'react';

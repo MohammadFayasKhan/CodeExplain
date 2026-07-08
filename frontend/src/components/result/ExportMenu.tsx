@@ -1,4 +1,8 @@
 /**
+ * CodeExplain ➜ Plain-English Code Tutor
+ * Author ➜ Mohammad Fayas Khan
+ * Purpose ➜ Interactive menu triggering Markdown or PDF formatting exports.
+ *
  * Export dropdown offering Markdown copy, Markdown download, and PDF download.
  */
 

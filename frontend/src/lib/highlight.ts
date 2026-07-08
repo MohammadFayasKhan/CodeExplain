@@ -1,7 +1,10 @@
 /**
+ * CodeExplain ➜ Plain-English Code Tutor
+ * Author ➜ Mohammad Fayas Khan
+ * Purpose ➜ Initializer library configuring highlight.js syntax rules.
+ *
  * Lightweight, dependency-free syntax highlighter for the token sets we
  * care about (Python, JS/TS, Java/C/C++/Go, Rust, PHP, Ruby, SQL, etc.).
- *
  * We use a placeholder-swap pattern so the keyword pass can never
  * accidentally re-highlight the `class="..."` attributes we've already
  * inserted. Every wrap step stashes its span into a placeholder table and

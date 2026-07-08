@@ -1,4 +1,8 @@
 /**
+ * CodeExplain ➜ Plain-English Code Tutor
+ * Author ➜ Mohammad Fayas Khan
+ * Purpose ➜ Custom React hook wrapper managing loading, error, and resolved states.
+ *
  * useAsync — one shared hook for the loading/error/success pattern used by
  * useExplain, useQuiz, and useChat. Keeps request state consistent across
  * the app so every button gets the same feel.

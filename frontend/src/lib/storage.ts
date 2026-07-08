@@ -1,6 +1,9 @@
 /**
- * Local-only history + preferences persistence via Local Storage.
+ * CodeExplain ➜ Plain-English Code Tutor
+ * Author ➜ Mohammad Fayas Khan
+ * Purpose ➜ Typed localStorage utility storing history entries and user preferences.
  *
+ * Local-only history + preferences persistence via Local Storage.
  * Per the product spec, ALL user analysis history stays in the browser.
  * We never POST it to the server. This module encapsulates the storage
  * shape so components don't sprinkle JSON.parse everywhere.

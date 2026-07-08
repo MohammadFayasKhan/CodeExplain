@@ -1,6 +1,9 @@
 /**
- * Typed fetch wrappers around the FastAPI backend.
+ * CodeExplain ➜ Plain-English Code Tutor
+ * Author ➜ Mohammad Fayas Khan
+ * Purpose ➜ Native typed fetch routing endpoints to FastAPI backend APIs.
  *
+ * Typed fetch wrappers around the FastAPI backend.
  * Every endpoint returns either the successful response body OR throws an
  * ``ApiError`` — the hooks use that contract to derive their loading/error
  * state. We deliberately do not use axios; native fetch is sufficient here.

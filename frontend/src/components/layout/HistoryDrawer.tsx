@@ -1,4 +1,8 @@
 /**
+ * CodeExplain ➜ Plain-English Code Tutor
+ * Author ➜ Mohammad Fayas Khan
+ * Purpose ➜ Sidebar panel containing persistent local session analysis history.
+ *
  * Slide-in history drawer showing locally persisted explanations.
  * Includes a "Clear history" flow with an inline confirmation so the button
  * cannot be triggered accidentally.

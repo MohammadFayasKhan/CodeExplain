@@ -1,3 +1,7 @@
+// CodeExplain ➜ Plain-English Code Tutor
+// Author ➜ Mohammad Fayas Khan
+// Purpose ➜ TypeScript compiler configuration dictating React and DOM typings.
+
 {
   "compilerOptions": {
     "target": "es2019",

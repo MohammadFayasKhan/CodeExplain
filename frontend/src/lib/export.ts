@@ -1,4 +1,8 @@
 /**
+ * CodeExplain ➜ Plain-English Code Tutor
+ * Author ➜ Mohammad Fayas Khan
+ * Purpose ➜ Compiler logic formatting reports into Markdown and PDF streams.
+ *
  * Utilities for exporting an explanation.
  * Markdown is generated inline (no deps). PDF uses jsPDF on the client side.
  */

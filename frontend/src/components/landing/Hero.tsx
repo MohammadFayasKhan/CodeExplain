@@ -1,4 +1,8 @@
 /**
+ * CodeExplain ➜ Plain-English Code Tutor
+ * Author ➜ Mohammad Fayas Khan
+ * Purpose ➜ Hero landing section explaining the application value proposition and CTAs.
+ *
  * Landing hero — the top-of-page marketing / entry surface.
  * Contains the display headline, subtitle, and the atmospheric blob +
  * dot-grid background layer described in Part 5 of the spec.

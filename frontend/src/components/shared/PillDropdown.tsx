@@ -1,4 +1,8 @@
 /**
+ * CodeExplain ➜ Plain-English Code Tutor
+ * Author ➜ Mohammad Fayas Khan
+ * Purpose ➜ Popover selection dropdowns styled directly from Stitch tokens.
+ *
  * Reusable dropdown menu attached to a Pill trigger, used by both the
  * language selector and model selector. Handles outside-click and Escape.
  */

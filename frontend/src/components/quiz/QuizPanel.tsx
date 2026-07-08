@@ -1,7 +1,10 @@
 /**
+ * CodeExplain ➜ Plain-English Code Tutor
+ * Author ➜ Mohammad Fayas Khan
+ * Purpose ➜ Active quiz layout managing multiple-choice questions and scores.
+ *
  * QuizPanel — generates 3-5 questions from the current explanation and lets
  * the user answer them offline, revealing the score only after full submit.
- *
  * Regenerate button sends the list of previously-generated question prompts
  * back to the server so the model can produce entirely different questions,
  * covering different concepts. If the model returns an empty questions array

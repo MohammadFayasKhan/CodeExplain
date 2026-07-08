@@ -1,4 +1,8 @@
 /**
+ * CodeExplain ➜ Plain-English Code Tutor
+ * Author ➜ Mohammad Fayas Khan
+ * Purpose ➜ Site-wide footer with copyrights, social buttons, and legal placeholders.
+ *
  * Site-wide footer used on both the landing/home page and the About page.
  */
 

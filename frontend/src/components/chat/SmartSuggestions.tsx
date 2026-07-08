@@ -1,8 +1,11 @@
 /**
+ * CodeExplain ➜ Plain-English Code Tutor
+ * Author ➜ Mohammad Fayas Khan
+ * Purpose ➜ Renders suggestions for follow-up code analysis questions.
+ *
  * SmartSuggestions — horizontally-scrolling row of context-aware follow-up
  * question chips shown above the chat input. Clicking a chip sends the
  * prompt immediately.
- *
  * We derive the suggestion set from the current explanation so the chips
  * change with each new snippet, and we hide chips whose prompt has already
  * been asked in this session so the user never sees pure duplicates.

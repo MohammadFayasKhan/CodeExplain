@@ -1,4 +1,8 @@
 /**
+ * CodeExplain ➜ Plain-English Code Tutor
+ * Author ➜ Mohammad Fayas Khan
+ * Purpose ➜ Action alerts and error messages rendered dynamically.
+ *
  * Toast — dead-simple ephemeral notification used for chat/quiz failures
  * and the "Copied to clipboard" confirmation.
  */

@@ -1,264 +1,190 @@
-# CodeLearn: Plain-English AI Code Explanation Tutor
+# 🌟 CodeExplain — Plain-English Code Tutor
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE.md)
-[![FastAPI](https://img.shields.io/badge/FastAPI-v0.109+-emerald?style=flat&logo=fastapi)](https://fastapi.tiangolo.com)
-[![React](https://img.shields.io/badge/React-v18.2+-blue?style=flat&logo=react)](https://react.dev)
-[![TypeScript](https://img.shields.io/badge/TypeScript-v5.0+-blue?style=flat&logo=typescript)](https://www.typescriptlang.org)
+<div align="center">
 
-CodeLearn is an educational web application designed to translate complex source code snippets into structured, beginner-friendly, plain-English explanations. The application provides line-by-line code walkthroughs, algorithmic complexity evaluations (with interactive SVG Big-O curves), interactive quizzes, and follow-up Q&A chat panels.
+[![Render Deployed](https://img.shields.io/badge/Render-Live_Demo-brightgreen?style=for-the-badge&logo=render&logoColor=white&color=05C292)](https://codeexplain-lsrb.onrender.com/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)](https://fastapi.tiangolo.com)
+[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://react.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com)
 
-This project is submitted as the final **BTech CSE 3rd Year Summer Training Internship Project** at Lovely Professional University (LPU) for the **AI Engineering Launchpad**.
-
----
-
-## Project Screenshots & Demos
-
-### Product Interface Mockup
-![Product UI Interface](/docs/assets/homepage_screenshot.png)
-
-### Big-O Complexity Graph Mockup
-![Complexity Curves UI](/docs/assets/graph_screenshot.png)
+**A premium, production-quality, AI-powered code explanation and interactive learning application.**  
+*Paste any complex code snippet, select the programming language, and receive a structured, educational breakdown.*
 
 ---
 
-## Table of Contents
-1. [Project Overview](#project-overview)
-2. [Motivation & Objectives](#motivation--objectives)
-3. [Key Features](#key-features)
-4. [Technology Stack](#technology-stack)
-5. [System Architecture](#system-architecture)
-6. [Folder Structure](#folder-structure)
-7. [Installation & Setup](#installation--setup)
-8. [Configuration & Environment Variables](#configuration--environment-variables)
-9. [Detailed Workflow](#detailed-workflow)
-10. [Academic Evaluation (Viva & Interview Qs)](#academic-evaluation-viva--interview-qs)
-11. [License & Contact](#license--contact)
+[Key Features](#-key-features) • [Design System](#-design-system-notes) • [Master Build Prompt (`PROMPT.md`)](#-master-build-prompt-promptmd) • [Architecture](#-architecture) • [Getting Started](#-getting-started) • [Creator](#-created-by)
+
+</div>
 
 ---
 
-## Project Overview
+## ⚡ Key Features
 
-### Problem Statement
-Beginner programmers and computer science students often struggle to understand existing codebases. Traditional AI assistants explain *what* a code block does in a single text paragraph but fail to break down *why* statements execute, how variables change, or how the space and time complexities scale. This results in passive copying rather than learning.
+CodeExplain is built around two primary feature tiers ensuring deep comprehension and educational rigor:
 
-### Solution
-CodeLearn bridges this gap by outputting structured, multi-section explanations. Each code submission is parsed into six distinct pedagogical cards:
-1. **Overview Statement**: A concise summary of the program's intent.
-2. **Plain-English Description**: A plain explanation of the logical workflow.
-3. **Time Complexity Analysis**: Big-O growth rate with mathematical reasoning.
-4. **Space Complexity Analysis**: Memory consumption metrics with reasoning.
-5. **Interactive Complexity Chart**: Real-time rendering of mathematical Big-O curves highlighting active bounds.
-6. **Line-by-line Walkthrough**: Deep-dive collapsible accordion rows containing isolated code segments and annotations.
-7. **Suggested Improvements**: Actionable refactoring cards covering readability, performance, and bug risks.
+### Tier 1 — Core Analysis (Required)
+- 📝 **Plain-English Explanation**: Detailed, beginner-friendly walkthroughs of code purpose, mechanics, and design patterns.
+- ⏱️ **Complexity Analysis**: Concrete, code-specific evaluation of time and space complexity ($O(n)$, $O(\log n)$, etc.).
+- 🔍 **Line-by-Line Commentary**: Interactive line numbers mapped directly to plain-English breakdowns of operational logic.
+- 💡 **Actionable Improvements**: Real suggestions targeting code legibility, performance, security, and idiomatic correctness.
+- 📋 **Structural Consistency**: Outputs are strictly formatted under a standardized JSON schema across all supported languages and models.
 
----
-
-## Motivation & Objectives
-
-### Project Motivation
-As a Computer Science student, I found that reading existing code is often harder than writing new code. Our objective was to create a tool that acts as a 24/7 personal coding tutor, helping peers build programming intuition and prepare for technical viva evaluations.
-
-### Objectives
-* Develop a lightweight, fully-typed React single-page application using TypeScript and TailwindCSS.
-* Build a high-performance ASGI backend using FastAPI to route requests asynchronously.
-* Implement structured JSON response extraction from Large Language Models (Groq Llama / Google Gemini) using Pydantic schemas.
-* Design a self-healing "repair-retry" loop pattern on the backend to automatically correct invalid LLM outputs.
-* Build a custom interactive vector SVG graph charting algorithmic scales from constant to exponential.
+### Tier 2 — High-Priority Additions
+- 🎓 **Interactive Quiz Mode**: Generates a custom 3-5 question comprehension quiz dynamically from *your* code snippet.
+- 💬 **AI Follow-Up Chat**: Lightweight chat session to ask questions about the analyzed code.
+- 📥 **Markdown & PDF Export**: One-click download of the complete code breakdown as formatted Markdown or a clean PDF document.
+- 💾 **Persistent Local Session**: Automatically saves history and user preferences using `localStorage`. Complete privacy—no user history is ever uploaded to a database.
+- 📂 **Example Snippets**: Ready-to-go snippets (Python, JS, C++, C) to test the app instantly.
+- 🎨 **About/Creator Page**: A polished page explaining the motivation behind CodeExplain.
 
 ---
 
-## Key Features
+## 📐 Design System Notes
 
-* **Interactive Monaco Editor**: Integrates Microsoft's code editor with custom themes, font controls, find/replace overlays, and error boundaries.
-* **Premium Thinking Loader**: Shows shimmering skeleton UI components and cycles through analytical operations, reducing bounce rates.
-* **Self-Healing LLM Pipelines**: Backend detects structural errors in JSON strings, queries the model with diagnostic reports, and repairs output.
-* **Side-by-Side Complexity Analysis**: Compares space and run-time parameters with animated indicator dots plotting coordinates on an SVG grid.
-* **Interactive Comprehension Quizzes**: Dynamically generates multiple-choice questions matching code logics to test active learning.
-* **Context-Aware Follow-Up Chat**: Supports direct conversational Q&A relative to the submitted snippet and conversation history.
-* **Export Menus**: Allows printing or copying explanations as markdown files or PDF documents.
-* **Local Caching History**: Saves past scans in the browser's localStorage for offline reviews.
+CodeExplain implements the **Stitch Design System** focusing on rich aesthetics, premium dark-mode panels, and smooth micro-animations.
 
----
-
-## Technology Stack
-
-### Frontend
-* **Core**: React (v18.2), TypeScript (v5.0)
-* **Styling**: TailwindCSS, Lucide React (icons), Framer Motion (stagger animations)
-* **Editor**: `@monaco-editor/react` (Microsoft Monaco Editor integration)
-* **Parsers**: `react-markdown` (safe inline rendering)
-
-### Backend
-* **Core**: Python (v3.10), FastAPI (ASGI web framework), Uvicorn (ASGI server)
-* **LLM Engine**: Groq Cloud REST client, Google Generative Language REST API (`v1beta`)
-* **Validation**: Pydantic v2 (schema constraints validation)
-* **Networking**: HTTPX (asynchronous HTTP calls)
+*   **Typography**: Google Sans/Google Sans Text are not freely licensed. CodeExplain deliberately substitutes:
+    *   **Display/Headings**: [Manrope](https://fonts.google.com/specimen/Manrope) (geometric, modern, and confident display scale).
+    *   **Body/UI Text**: [Inter](https://fonts.google.com/specimen/Inter) (highly readable, accessible, and clean at smaller font sizes).
+*   **Colors**: A curated dark-mode palette consisting of sleek surface cards (`--color-surface-card`), accent borders, and glowing CTA buttons.
+*   **Visual Language**: Responsive layout, glassmorphic card patterns, and focus-ring states that are fully compliant with WCAG AA accessibility standards.
 
 ---
 
-## System Architecture
+## 📄 Master Build Prompt (`PROMPT.md`)
 
-The following block diagram outlines the flow of data from the frontend interface to the AI inference engines:
+This codebase was generated using a high-fidelity system prompt located at [PROMPT.md](file:///Users/fayaskhan/Downloads/CodeLearn-main/PROMPT.md). 
+
+### What Type of Prompt is This?
+`PROMPT.md` is a **Master Build Prompt / System Specification Prompt**. Unlike simple chat instructions, this prompt is an exhaustive, deterministic technical blueprint that dictates:
+1. **Operating Principles**: Zero code branching, strict dependency control, and fail-fast validation.
+2. **Visual Standards**: Full CSS variables, typography mappings, border radii, and layout constraints.
+3. **API Contracts**: JSON schemas, route endpoints, error handling shapes, and failover/retry strategies.
+4. **Environment Controls**: Port configuration, Docker multi-stage layouts, and production vs. preview conditions.
+
+### Why Was This Used?
+*   **Architectural Consistency**: It ensures that both the React frontend and FastAPI backend follow identical specifications, matching types and REST payloads with zero configuration mismatch.
+*   **Autonomous Engineering**: It serves as a comprehensive frame of reference for AI coding agents to write, debug, and optimize code without architectural drift or feature creep.
+*   **Deployability**: By defining the Hugging Face Docker Space single-container model at the prompt level, the project builds into a single process serving the React SPA and API seamlessly.
+
+---
+
+## 🏗️ Architecture
 
 ```mermaid
 graph TD
-    User([User Browser UI]) -->|1. Paste Code & Submit| ReactApp[React Single Page App]
-    ReactApp -->|2. POST /api/explain| FastAPI[FastAPI Backend Engine]
-    FastAPI -->|3. Resolve Provider| FallbackChain{Fallback Chain Router}
-    FallbackChain -->|Primary API Call| Groq[Groq Llama API]
-    FallbackChain -->|Secondary API Call| Gemini[Google Gemini API]
-    Groq -->|4. Raw Text JSON| Validator{Pydantic Validator}
-    Gemini -->|4. Raw Text JSON| Validator
-    Validator -->|Success| ReactApp
-    Validator -->|Schema Error| RepairLoop[Self-Healing Repair Request]
-    RepairLoop -->|5. Fix Request temp=0.0| FallbackChain
-    ReactApp -->|Render results| Visualizer[SVG Big-O Graph]
+    User([User Browser]) -->|Loads SPA / Requests API| Ingress[FastAPI Server : Port 7860/8000]
+    subgraph FastAPI Backend
+        Ingress -->|Serves Static Files| StaticApp[mount_frontend /app/static]
+        Ingress -->|Routes API /api/*| Router[FastAPI Router]
+        Router -->|Explain API| ExplainServ[Explanation Service]
+        Router -->|Quiz API| QuizServ[Quiz Service]
+        Router -->|Chat API| ChatServ[Chat Service]
+        ExplainServ & QuizServ & ChatServ -->|stateless call| LLMFactory[LLM Provider Factory]
+    end
+    subgraph LLM Providers
+        LLMFactory -->|HTTP REST| Groq[Groq API: Llama 3.3 / Llama 4]
+        LLMFactory -->|HTTP REST| Gemini[Google Gemini API: 2.5 Flash]
+    end
+    StaticApp -->|Reads Build Assets| ReactSPA[React SPA: Manrope/Inter]
 ```
+
+CodeExplain uses a **stateless, single-container architecture**:
+- **Frontend**: A React single-page application communicating with the backend via native typed fetch endpoints.
+- **Backend**: A FastAPI server that handles LLM orchestration and serves static React assets in production.
+- **Stateless Integration**: No user data or chat logs are preserved on the server. Request isolation is strictly maintained.
 
 ---
 
-## Folder Structure
+## 🚀 Getting Started
 
-```
-├── backend/
-│   ├── app/
-│   │   ├── api/
-│   │   │   └── routes/         # Endpoint route handlers (explain, quiz, chat)
-│   │   ├── config/             # Environment settings and model registries
-│   │   ├── core/               # Shared custom exceptions
-│   │   ├── models/             # Pydantic schemas (requests, explanations, quizzes)
-│   │   ├── prompts/            # System directives and system instructions
-│   │   ├── services/           # Business logics (chat, explanations, quizzes)
-│   │   │   └── llm/            # Abstract and concrete LLM providers
-│   │   ├── main.py             # FastAPI App factory and error handlers
-│   │   └── static.py           # Serving built React app inside backend
-│   ├── requirements.txt        # Python package dependencies list
-│   └── server.py               # Supervisor / Uvicorn entrypoint script
-├── frontend/
-│   ├── public/                 # HTML templates
-│   ├── src/
-│   │   ├── components/         # Sub-components grouped by features
-│   │   ├── examples/           # Mock code templates for example pickers
-│   │   ├── hooks/              # Custom reusable hooks (localStorage, theme)
-│   │   ├── lib/                # API clients, syntax highlighter parser, types
-│   │   ├── pages/              # Primary route pages (HomePage, AboutPage)
-│   │   ├── App.tsx             # Root page layout router
-│   │   ├── index.css           # Custom CSS styling tokens and keyframes
-│   │   └── index.tsx           # React entry point
-│   ├── tailwind.config.js      # Layout style tokens
-│   └── tsconfig.json           # TypeScript compilation configurations
-├── docs/                       # Comprehensive academic project files
-└── README.md                   # This document
-```
+### Prerequisites
+- Python 3.11 or higher
+- Node.js 18+ and npm
 
----
+### Local Development
 
-## Installation & Setup
-
-### Backend Installation
-1. Navigate into the backend directory:
+#### 1. Backend Setup
+1. Navigate to the backend directory:
    ```bash
    cd backend
    ```
-2. Create a Python virtual environment:
+2. Create and activate a virtual environment:
    ```bash
    python3 -m venv .venv
-   source .venv/bin/activate
+   source .venv/bin/activate  # On Windows: .venv\Scripts\activate
    ```
-3. Install dependencies:
+3. Install Python dependencies:
    ```bash
    pip install -r requirements.txt
    ```
-4. Create and configure your environment files:
+4. Copy the environment template and fill in your API keys (Groq/Gemini):
    ```bash
    cp .env.example .env
    ```
-5. Run the FastAPI development server:
+5. Launch the FastAPI server:
    ```bash
-   uvicorn server:app --host 127.0.0.1 --port 8001 --reload
+   python server.py
    ```
+   *The backend will boot on [http://localhost:8000](http://localhost:8000).*
 
-### Frontend Installation
-1. Open a new terminal and navigate to the frontend directory:
+#### 2. Frontend Setup
+1. Navigate to the frontend directory:
    ```bash
-   cd frontend
+   cd ../frontend
    ```
-2. Install npm node modules:
+2. Install Node packages:
    ```bash
    npm install
    ```
-3. Start the Vite/React development server:
+3. Set the backend endpoint in your local configuration:
+   ```bash
+   cp .env.example .env
+   # Ensure REACT_APP_BACKEND_URL is set to http://localhost:8000
+   ```
+4. Start the React development server:
    ```bash
    npm start
    ```
-4. Open your browser and navigate to `http://localhost:3000`.
+   *The client will start on [http://localhost:3000](http://localhost:3000).*
 
 ---
 
-## Configuration & Environment Variables
+## 🐳 Production Build (Docker)
 
-Create a `.env` file under the `/backend/` folder and configure the following parameters:
+To run the unified, single-container build locally or prepare for production hosting:
 
-```env
-# Secret credentials (Required)
-GROQ_API_KEY=gsk_your_groq_api_key_goes_here
-GEMINI_API_KEY=AIzaSy_your_gemini_api_key_goes_here
-
-# Provider Configuration
-ACTIVE_PROVIDER=groq
-ACTIVE_MODEL=llama-3.3-70b-versatile
-REQUEST_TIMEOUT_SECONDS=45
-
-# Allowed Origins for CORS policy
-ALLOWED_ORIGIN=http://localhost:3000
-
-# Logging parameters
-LOG_LEVEL=INFO
-```
+1. Build the Docker image from the root directory:
+   ```bash
+   docker build -t codeexplain:latest .
+   ```
+2. Run the container:
+   ```bash
+   docker run -p 7860:7860 \
+     -e GROQ_API_KEY="your_groq_api_key_here" \
+     -e GEMINI_API_KEY="your_gemini_api_key_here" \
+     -e ACTIVE_PROVIDER="groq" \
+     -e ACTIVE_MODEL="llama-3.3-70b-versatile" \
+     codeexplain:latest
+   ```
+3. Open [http://localhost:7860](http://localhost:7860) to view your running application.
 
 ---
 
-## Detailed Workflow
+## 👨‍💻 Created By
 
-1. **User pastes a snippet** inside the Monaco Editor, selects an active model (e.g. Gemini 1.5 Flash), and clicks **Explain**.
-2. **Frontend UI** triggers a transition loading state, showing a bouncing brain vector, pulsing rings, and shimmering card skeletons. The browser scrolls smoothly down to the results container anchor.
-3. **Frontend POST request** is sent asynchronously to `/api/explain`.
-4. **Backend FastAPI Router** validates the request payload and hands it to `generate_explanation`.
-5. **Orchestrator resolves the model configurations**, loads the prompt templates, and executes the primary LLM call via the selected provider API wrapper.
-6. **Self-Healing Loop**:
-   * If parsing the raw text JSON fails validation due to LLM errors, the backend executes an automatic repair attempt.
-   * It sends a follow-up completion request to the provider containing the previous raw output alongside Pydantic's exact validator report.
-   * The repaired content is parsed and returned. If it still fails, the orchestrator steps into the next fallback provider (switching from Groq to Gemini).
-7. **The verified JSON explanation payload** is received by the frontend and mapped into the responsive results cards.
-8. **User takes quizzes**, prints outputs, or chats with the assistant.
+**Mohammad Fayas Khan**  
+*Computer Science Engineering Student & Full-Stack AI Developer*
+
+- 🌐 [Portfolio / Live Demo](https://codeexplain-lsrb.onrender.com/)
+- 🖥️ [GitHub](https://github.com/MohammadFayasKhan)
+- 💼 [LinkedIn](https://www.linkedin.com/in/mohammadfayaskhan)
+- 📸 [Instagram](https://www.instagram.com/fayaskhanx)
 
 ---
 
-## Academic Evaluation (Viva & Interview Qs)
-
-### Common Technical Viva Questions
-
-#### 1. Why did you use FastAPI instead of Flask or Django?
-*FastAPI is an ASGI (Asynchronous Server Gateway Interface) web framework, whereas Flask is WSGI-based. FastAPI supports Python's `async/await` syntax natively, which allows it to handle thousands of concurrent network connections (like waiting for LLM APIs) without blocking the thread pool. Additionally, it compiles automatic OpenAPI schemas using Pydantic validation models.*
-
-#### 2. What is Pydantic and how is it used in your project?
-*Pydantic is a data validation library in Python. We use it to define strict structures (schemas) for requests and responses. By declaring models like `ExplanationResponse` inheriting from `BaseModel`, FastAPI validates that incoming payloads or LLM string outputs match our types exactly, converting unstructured texts into structured dictionaries.*
-
-#### 3. How does the Self-Healing "repair loop" work in your LLM pipeline?
-*When LLM providers return outputs, they can violate JSON schemas by omitting fields or appending plain conversations. If our Pydantic validator throws a `ValidationError`, we trigger a repair loop. We make a secondary call to the provider with temperature set to 0.0 (maximum determinism), feeding it the invalid output and Pydantic's error messages, directing it to fix the schema. This self-healing architecture reduces 502/500 errors.*
-
-#### 4. How did you implement the Google Stitch-style navbar blur?
-*We separated the navbar content from its background container. We applied an absolute background div styled with `backdrop-filter: blur(16px)` and a linear gradient `mask-image` (`linear-gradient(to bottom, black 35%, rgba(0,0,0,0.5) 70%, transparent 100%)`). This blends the background blur seamlessly into the page contents below without sharp rectangular borders.*
-
-#### 5. Why does the O(1) complexity line sit exactly on top of the x-axis?
-*In SVG charting, coordinate (0,0) is top-left. Our X-axis baseline is drawn at `y = 170`. Constant complexity $O(1)$ means operations are independent of input size ($y = c$). We mapped the O(1) line to run from `y1 = 170` to `y2 = 170` to lay it directly on top of the baseline. We used `filterUnits="userSpaceOnUse"` on the SVG glow filter to prevent SVG from collapsing lines with zero bounding height.*
-
----
-
-## License & Contact
-
-Distributed under the MIT License. See [LICENSE.md](LICENSE.md) for details.
-
-* **Author**: Mohammad Fayas Khan
-* **GitHub**: [github.com/MohammadFayasKhan](https://github.com/MohammadFayasKhan)
-* **LinkedIn**: [linkedin.com/in/mohammadfayaskhan](https://www.linkedin.com/in/mohammadfayaskhan)
+<div align="center">
+© 2026 CodeExplain • Crafted by Mohammad Fayas Khan  
+<small>This project was created to make programming concepts easier to understand through AI-powered explanations and an exceptional user experience.</small>
+</div>

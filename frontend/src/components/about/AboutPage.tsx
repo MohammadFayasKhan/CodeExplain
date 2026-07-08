@@ -1,24 +1,7 @@
-// ==============================================================================
-// CodeLearn - Summer Training Internship Project (LPU submission candidate)
-// Developed by: Mohammad Fayas Khan (BTech CSE 3rd Year student)
-// File: frontend/src/components/about/AboutPage.tsx
-// Purpose: Story/Creator page with details on application design and features.
-// ==============================================================================
-
 /**
- * About and Creator Profile Page.
- * 
- * In standard modern web applications, the About page serves to explain the project
- * context, feature offerings, and user benefits, as well as details about the creator.
- * 
- * React Concepts Taught:
- * 1. Functional Components (FC): Declared using arrow syntax and typed with `React.FC`.
- * 2. Navigation Hooks: We import `useNavigate` from `react-router-dom` to trigger route redirection.
- * 3. Key Listeners: We mount a keyboard event listener to listen for the 'Escape' key,
- *    providing an intuitive accessibility flow to return home.
- * 4. Micro-Animations: We configure Framer Motion animation objects to slide and fade components.
- * 5. Memory Cleanup: When mounting listeners inside `useEffect`, we return a cleanup callback
- *    function to remove the listener on unmount, preventing memory leaks.
+ * About / Creator page. Polished SaaS-style story page with clear navigation
+ * (breadcrumb, Home button, Back button, Escape shortcut) so users are never
+ * stranded.
  */
 
 import React, { useEffect } from 'react';
@@ -31,76 +14,68 @@ import {
 } from 'lucide-react';
 import { Card } from '../shared/ui';
 
-// Array mapping out key benefits. We store these as data structures to loop over
-// and render dynamically, reducing duplicate HTML code (DRY - Don't Repeat Yourself principle).
 const benefits = [
   { icon: <Sparkles size={18} />, title: 'Plain-English explanations', text: 'Beginner-friendly walkthroughs of any snippet.' },
-  { icon: <Code2 size={18} />,    title: 'Line-by-line walkthroughs', text: 'Every meaningful statement gets its own comment.' },
-  { icon: <Clock size={18} />,    title: 'Time and space complexity', text: 'Correct, code-specific Big-O with reasoning.' },
-  { icon: <Bug size={18} />,      title: 'Bug and code-smell detection', text: 'Flagged as part of Suggested Improvements.' },
-  { icon: <Wand2 size={18} />,    title: 'Best-practice suggestions', text: 'Actionable, grounded in your identifiers.' },
+  { icon: <Code2 size={18} />, title: 'Line-by-line walkthroughs', text: 'Every meaningful statement gets its own comment.' },
+  { icon: <Clock size={18} />, title: 'Time and space complexity', text: 'Correct, code-specific Big-O with reasoning.' },
+  { icon: <Bug size={18} />, title: 'Bug and code-smell detection', text: 'Flagged as part of Suggested Improvements.' },
+  { icon: <Wand2 size={18} />, title: 'Best-practice suggestions', text: 'Actionable, grounded in your identifiers.' },
   { icon: <MessageCircle size={18} />, title: 'AI follow-up Q and A', text: 'Ask more, in context, about the same code.' },
   { icon: <Download size={18} />, title: 'Markdown and PDF export', text: 'Save any analysis for later or share it.' },
-  { icon: <Globe2 size={18} />,   title: 'Multi-language support', text: 'Python and JavaScript first-class; more supported.' },
-  { icon: <Palette size={18} />,  title: 'Modern responsive UI',  text: 'Design-system-accurate on every screen size.' },
+  { icon: <Globe2 size={18} />, title: 'Multi-language support', text: 'Python and JavaScript first-class; more supported.' },
+  { icon: <Palette size={18} />, title: 'Modern responsive UI', text: 'Design-system-accurate on every screen size.' },
   { icon: <Database size={18} />, title: 'Persistent local history', text: 'Your past analyses, saved on your device.' },
-  { icon: <Shield size={18} />,   title: 'Privacy-first design',   text: 'History never leaves your browser.' },
+  { icon: <Shield size={18} />, title: 'Privacy-first design', text: 'History never leaves your browser.' },
   { icon: <HeartHandshake size={18} />, title: 'Built with care', text: 'Small feature set, executed properly.' },
 ];
 
-// Helper configuration generator for Framer Motion stagger animations.
-// It accepts an index 'i' to stagger the slide entry time of grids/lists,
-// creating a premium, sequential entry animation effect.
 const fadeStagger = (i: number) => ({
-  initial: { opacity: 0, y: 12 }, // Starts slightly lower (y: 12) and transparent
-  whileInView: { opacity: 1, y: 0 }, // Slides up to default position and becomes fully opaque
-  viewport: { once: true, margin: '-40px' }, // Trigger only once when entering view
-  transition: { duration: 0.5, delay: i * 0.04, ease: [0.16, 1, 0.3, 1] as const }, // Premium cubic-bezier easing curve
+  initial: { opacity: 0, y: 12 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: '-40px' },
+  transition: { duration: 0.5, delay: i * 0.04, ease: [0.16, 1, 0.3, 1] as const },
 });
 
 export const AboutPage: React.FC = () => {
-  // Navigate hook instantiation
   const navigate = useNavigate();
 
-  // The 'useEffect' hook executes side effects (such as DOM event bindings).
-  // Passing '[navigate]' as dependency array ensures this effect triggers once on mount.
+  // Escape closes the About page and returns Home. This is a small
+  // accessibility polish so users can bail out without hunting for a button.
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      // If user taps the 'Escape' key, redirect back to the home view
       if (e.key === 'Escape') navigate('/');
     };
-    
-    // Attach the event listener to the global window object
     window.addEventListener('keydown', handler);
-
-    // CRITICAL: Cleanup function. React runs this function when the component unmounts
-    // to discard the event listener, preventing memory accumulation.
     return () => window.removeEventListener('keydown', handler);
   }, [navigate]);
 
   return (
     <div className="relative overflow-hidden" data-testid="about-page">
-      {/* Background container layout holding radial blobs and dot grid patterns */}
+      {/* Atmospheric background layers spanning to the top of the viewport */}
       <div className="pointer-events-none absolute inset-x-0 top-0 h-[550px]">
         <div className="absolute inset-0 dot-grid" />
-        {/* Glowing atmospheric purple blobs using radial gradients */}
         <div className="blob animate-blob-float"
-          style={{ top: '-140px', left: '10%', width: '380px', height: '380px',
-            background: 'radial-gradient(circle, #7c6af7 0%, transparent 60%)' }} />
+          style={{
+            top: '-140px', left: '10%', width: '380px', height: '380px',
+            background: 'radial-gradient(circle, #7c6af7 0%, transparent 60%)'
+          }} />
         <div className="blob"
-          style={{ top: '60px', right: '10%', width: '420px', height: '420px', opacity: 0.35,
-            background: 'radial-gradient(circle, #4b3bd6 0%, transparent 55%)' }} />
+          style={{
+            top: '60px', right: '10%', width: '420px', height: '420px', opacity: 0.35,
+            background: 'radial-gradient(circle, #4b3bd6 0%, transparent 55%)'
+          }} />
       </div>
 
-      {/* Subtle ESC keyboard hint at the top */}
+      {/* Subtle ESC hint */}
       <div className="relative z-10 mx-auto max-w-6xl px-md md:px-lg pt-md">
         <div className="text-[12px] text-ink-muted opacity-70">
           Press <kbd className="rounded border border-border-strong bg-white/[0.05] px-1.5 py-0.5 text-[10px] font-sans mx-1">Esc</kbd> to return Home
         </div>
       </div>
 
-      {/* Main Title Section */}
+      {/* Hero */}
       <section className="relative z-10 pt-lg pb-lg md:pt-xl px-md md:px-lg">
+
         <div className="relative mx-auto max-w-4xl text-center">
           <motion.h1
             {...fadeStagger(0)}
@@ -115,10 +90,9 @@ export const AboutPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Project Story Column Blocks */}
+      {/* Story */}
       <section className="mx-auto max-w-4xl px-md md:px-lg py-lg">
         <div className="grid gap-lg md:grid-cols-2">
-          {/* Problem Card */}
           <motion.div {...fadeStagger(0)}>
             <Card className="p-lg h-full">
               <h2 className="font-display text-xl font-semibold text-ink-primary">The problem</h2>
@@ -129,7 +103,6 @@ export const AboutPage: React.FC = () => {
               </p>
             </Card>
           </motion.div>
-          {/* Motivation Card */}
           <motion.div {...fadeStagger(1)}>
             <Card className="p-lg h-full">
               <h2 className="font-display text-xl font-semibold text-ink-primary">Why I built this</h2>
@@ -144,7 +117,7 @@ export const AboutPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Grid displaying the list of benefits */}
+      {/* Benefits grid */}
       <section className="mx-auto max-w-6xl px-md md:px-lg py-lg">
         <div className="mb-lg">
           <div className="text-label uppercase tracking-[0.12em] text-ink-muted">Key benefits</div>
@@ -167,7 +140,7 @@ export const AboutPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Safety and privacy disclaimer section */}
+      {/* Privacy note */}
       <section className="mx-auto max-w-4xl px-md md:px-lg py-lg">
         <Card className="p-lg border-emerald-400/20 bg-emerald-500/[0.03]">
           <div className="flex items-start gap-md">
@@ -186,11 +159,10 @@ export const AboutPage: React.FC = () => {
         </Card>
       </section>
 
-      {/* Creator Profile Badge Section */}
+      {/* Creator card */}
       <section className="mx-auto max-w-4xl px-md md:px-lg pt-lg pb-2xl">
         <Card className="p-lg md:p-xl">
           <div className="flex flex-col gap-lg md:flex-row md:items-center">
-            {/* Creator Monogram initials */}
             <div className="grid h-24 w-24 place-items-center rounded-3xl bg-gradient-to-br from-accent to-accent-soft shadow-lg shadow-accent/30 shrink-0">
               <span className="font-display text-3xl font-bold text-bg-base">MF</span>
             </div>
@@ -202,7 +174,6 @@ export const AboutPage: React.FC = () => {
               <p className="mt-1 text-ink-secondary">
                 Computer Science Engineering student, AI and Full-Stack Developer
               </p>
-              {/* Creator Social / Profile Links */}
               <div className="mt-md flex flex-wrap items-center gap-sm">
                 <a
                   href="https://github.com/MohammadFayasKhan"

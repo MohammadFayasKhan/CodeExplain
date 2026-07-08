@@ -1,4 +1,21 @@
-"""POST /api/quiz — generate comprehension questions from an explanation."""
+# ==============================================================================
+# CodeLearn - Summer Training Internship Project (LPU submission candidate)
+# Developed by: Mohammad Fayas Khan (BTech CSE 3rd Year student)
+# File: backend/app/api/routes/quiz.py
+# Purpose: POST API router handling code-comprehension quiz generation.
+# ==============================================================================
+
+"""
+FastAPI Quiz Router.
+
+This route handles `POST /api/quiz`:
+1. It accepts a JSON payload of type `QuizRequest` containing the user's source code,
+   programming language, active explanation metadata, and list of previous questions.
+2. It validates the code input (raising an exception if the editor is empty).
+3. It calls the `generate_quiz` service, which triggers the AI model to generate
+   a structured set of multiple-choice questions to test the user's understanding.
+4. It returns the response serialized into a strict `QuizResponse` Pydantic model.
+"""
 
 from __future__ import annotations
 
@@ -9,14 +26,24 @@ from ...models.quiz import QuizResponse
 from ...models.requests import QuizRequest
 from ...services.quiz_service import generate_quiz
 
+# Initialize the route handler router
 router = APIRouter()
 
 
+# Define a POST route at '/quiz'. We set 'response_model=QuizResponse' so FastAPI
+# validates our return value and auto-generates documentation schemas for Swagger.
 @router.post("/quiz", response_model=QuizResponse)
 async def quiz_from_code(payload: QuizRequest) -> QuizResponse:
+    """
+    Generate interactive comprehension questions based on user's code and explanation.
+    """
+    # Validation: Check if the input code is empty (or just spaces/tabs)
     if not payload.code.strip():
+        # Raise our custom InvalidInputError, mapping to a 422 HTTP response
         raise InvalidInputError("Please provide code before generating a quiz.")
 
+    # Call the asynchronous service module. The 'await' keyword suspends execution here,
+    # yielding control to the event loop while the LLM network call completes.
     return await generate_quiz(
         code=payload.code,
         language=payload.language,

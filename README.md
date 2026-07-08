@@ -33,15 +33,9 @@ Every single visual transition (boot, home, loading, results, chat, quiz, error,
 
 ## 🔄 System Flow
 
-```mermaid
-graph TD
-    Home[1. HOME: Waiting for User input] -->|Submit Code| Explain[2. EXPLAIN: Convert Code to JSON via LLM REST API]
-    Explain -->|Structure Response| Results[3. DISPLAY: Render explanations and line commentary]
-    Results -->|Start Quiz| Quiz[4. QUIZ: Test comprehension with MCQs]
-    Results -->|Open Chat| Chat[5. CHAT: Scoped follow-up tutor questions]
-    Results -->|Export PDF/MD| Export[6. EXPORT: Save formatted analysis files locally]
-    Results & Quiz & Chat -->|Clear History| Reset[7. RESET: Wipe Local Storage and return Home]
-```
+<p align="center">
+  <img src="static/flow.png" alt="CodeExplain System Flow" width="700" />
+</p>
 
 ---
 

@@ -66,42 +66,55 @@ export const NavBar: React.FC<Props> = ({ onOpenHistory }) => {
           )}
         </div>
 
-        {!isAbout && (
-          <nav className="flex items-center gap-1">
-            {!onHome && (
-              <Link
-                to="/"
-                className="inline-flex items-center gap-sm rounded-pill px-md py-2 text-pill text-ink-secondary hover:text-ink-primary hover:bg-white/[0.05] transition-colors"
-                data-testid="nav-home-link"
-              >
-                <HomeIcon size={14} />
-                <span className="hidden sm:inline">Home</span>
-              </Link>
-            )}
-            {onHome && (
-              <button
-                onClick={onOpenHistory}
-                className="inline-flex items-center gap-sm rounded-pill px-md py-2 text-pill text-ink-secondary hover:text-ink-primary hover:bg-white/[0.05] transition-colors"
-                data-testid="nav-history-btn"
-              >
-                <History size={14} />
-                <span className="hidden sm:inline">History</span>
-              </button>
-            )}
+        <nav className="flex items-center gap-1">
+          {isAbout && (
             <Link
-              to="/about"
-              className={`inline-flex items-center gap-sm rounded-pill px-md py-2 text-pill transition-colors ${
-                location.pathname === '/about'
-                  ? 'text-ink-primary bg-white/[0.06]'
-                  : 'text-ink-secondary hover:text-ink-primary hover:bg-white/[0.05]'
-              }`}
-              data-testid="nav-about-link"
+              to="/"
+              className="inline-flex items-center gap-1 rounded-pill px-3 py-1.5 text-sm text-ink-secondary hover:text-ink-primary hover:bg-white/[0.05] transition-colors"
+              title="Back to Home"
+              data-testid="nav-back-home-arrow"
             >
-              <Info size={14} />
-              <span className="hidden sm:inline">About</span>
+              <ArrowLeft size={15} />
+              <span className="text-[13px] font-medium">Home</span>
             </Link>
-          </nav>
-        )}
+          )}
+          {!isAbout && (
+            <>
+              {!onHome && (
+                <Link
+                  to="/"
+                  className="inline-flex items-center gap-sm rounded-pill px-md py-2 text-pill text-ink-secondary hover:text-ink-primary hover:bg-white/[0.05] transition-colors"
+                  data-testid="nav-home-link"
+                >
+                  <HomeIcon size={14} />
+                  <span className="hidden sm:inline">Home</span>
+                </Link>
+              )}
+              {onHome && (
+                <button
+                  onClick={onOpenHistory}
+                  className="inline-flex items-center gap-sm rounded-pill px-md py-2 text-pill text-ink-secondary hover:text-ink-primary hover:bg-white/[0.05] transition-colors"
+                  data-testid="nav-history-btn"
+                >
+                  <History size={14} />
+                  <span className="hidden sm:inline">History</span>
+                </button>
+              )}
+              <Link
+                to="/about"
+                className={`inline-flex items-center gap-sm rounded-pill px-md py-2 text-pill transition-colors ${
+                  location.pathname === '/about'
+                    ? 'text-ink-primary bg-white/[0.06]'
+                    : 'text-ink-secondary hover:text-ink-primary hover:bg-white/[0.05]'
+                }`}
+                data-testid="nav-about-link"
+              >
+                <Info size={14} />
+                <span className="hidden sm:inline">About</span>
+              </Link>
+            </>
+          )}
+        </nav>
       </div>
     </header>
   );

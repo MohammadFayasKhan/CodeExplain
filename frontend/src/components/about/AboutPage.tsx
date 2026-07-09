@@ -54,9 +54,9 @@ export const AboutPage: React.FC = () => {
   }, [navigate]);
 
   return (
-    <div className="relative overflow-hidden" data-testid="about-page">
+    <div className="relative overflow-x-hidden" data-testid="about-page">
       {/* Atmospheric background layers spanning to the top of the viewport */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-[550px] overflow-hidden">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-[550px] overflow-x-hidden">
         <div className="absolute inset-0 dot-grid" />
         <div className="blob animate-blob-float"
           style={{

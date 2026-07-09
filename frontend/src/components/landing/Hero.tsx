@@ -13,11 +13,11 @@ import React from 'react';
 export const Hero: React.FC = () => {
   return (
     <section
-      className="relative pt-2xl pb-xl md:pt-3xl md:pb-2xl px-md md:px-lg overflow-hidden"
+      className="relative pt-2xl pb-xl md:pt-3xl md:pb-2xl px-md md:px-lg overflow-x-hidden"
       data-testid="hero-section"
     >
       {/* Atmospheric background layers */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      <div className="pointer-events-none absolute inset-0 overflow-x-hidden">
         <div className="absolute inset-0 dot-grid" />
         <div
           className="blob animate-blob-float"

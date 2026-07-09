@@ -207,26 +207,98 @@ For the exhaustive analysis of this prompt strategy, technique mapping (specific
 
 A high-fidelity system-level prompt was used to guide the development of this project. You can inspect the complete build instructions inside [PROMPT.md](PROMPT.md). Below is a summary of the core prompt specifications:
 
+```markdown
+# CodeExplain — Master Build Prompt
+
+You are a senior full-stack engineer who ships lightweight, production-ready AI web applications — not demos that only survive a happy-path walkthrough. Build **CodeExplain**: a code-explanation tool that turns a pasted snippet into a structured, beginner-friendly teaching artifact. Build it end-to-end, autonomously, without asking clarifying questions. Where this document is silent, make the most sensible production-grade decision and record it in `ARCHITECTURE.md`.
+
+**Guiding principle:** structure is the product. Any LLM can explain a piece of code if you ask it to. What makes this application valuable is that every response — across every language, every provider, every model — comes back in the exact same predictable shape, section by section, every time. Treat the structured-output contract below as the single most important piece of engineering in this build.
+
+---
+
+## 1. Tech Stack
+
+- **Frontend:** React 18 + TypeScript, built with Vite. Tailwind CSS, configured against the Stitch-derived design tokens in Section 5.
+- **Backend:** FastAPI (Python 3.11+), Pydantic v2 for every request/response boundary and for validating structured LLM output.
+- **LLM Providers:** Groq (`llama-3.3-70b-versatile` default, `meta-llama/llama-4-scout-17b-16e-instruct`, `qwen/qwen3.6-27b`) and Google Gemini (`gemini-2.5-flash`) behind one provider interface. Switching the active provider/model is a config change, never a code change. Automatic fallback to the next configured pair on failure.
+- **Deployment:** a single Docker image on Hugging Face Spaces, with the compiled frontend served as static assets by FastAPI. In local/preview environments, the frontend (port 3000) and backend (port 8001) run as two processes under a standard supervisor setup — same codebase, no forked logic, only environment-variable-driven behavior (Section 6).
+- Avoid any dependency, frontend or backend, that doesn't serve a requirement stated in this document.
+
+## 2. Core Features — Tier 1 (Required)
+
+1. **Code input** — paste or upload, language dropdown with auto-detect and manual override; Python and JavaScript must be fully correct at minimum.
+2. **Overview** — a single-sentence purpose statement, shown first.
+3. **Plain-English explanation** — beginner-level, jargon-free, analogies where useful.
+4. **Time & space complexity** — correct Big-O for both, each with reasoning tied to the *actual* code structure (its loops, recursion, data structures) — not a plausible-sounding guess reused across snippets.
+5. **Line-by-line commentary** — every meaningful statement gets its own explanation, rendered as separated, expandable cards.
+6. **Suggested improvements** — specific, grounded in the submitted code: naming, performance, readability, structure.
+7. **Fixed schema, every time** — all six sections above render in the same shape on every request, regardless of language, provider, or input complexity. This is the property the assignment cares about most; treat it as testable, not aspirational.
+8. **Quiz Mode** — after an explanation is generated, produce 3–5 comprehension questions derived from *that specific code* (variable names, actual control flow — not a generic, code-agnostic bank). Mix of multiple-choice and predict-the-output. Answers stay hidden until the full quiz is submitted; show a score with per-question feedback.
+
+## 3. Additional Features — Tier 2 (Required, kept deliberately small)
+
+9. **AI follow-up chat** — scoped strictly to the current code + explanation. The live conversation doesn't need to survive a reload, but the parent analysis it belongs to is still captured by the local history in item 12.
+10. **Export** — **both Markdown and PDF**, not one or the other.
+11. **Example snippets** — two or three built-in examples per supported language, to populate the empty state.
+12. **Persistent local history (Local Storage only)** — the complete analysis history and user preferences persist across reloads and full browser restarts, restored automatically on reopen. No database, no server-side storage of any kind for this feature — the backend stays fully stateless per request. Ship a dedicated "Clear History" action that requires explicit confirmation before deleting anything and returns the app to its true first-visit state.
+13. **About / Creator page** — reachable from the nav bar and footer, styled to the same design system as the rest of the app (not a bare credits list). Cover: what CodeExplain does and why it was built; a feature-highlight card grid; a short privacy note ("your history is stored locally in your browser — nothing is uploaded or saved permanently, and you can clear it at any time"); a creator section credited to **Mohammad Fayas Khan**, Computer Science Engineering student and AI/full-stack developer, with GitHub, LinkedIn, and Instagram links as icon buttons; and a footer with copyright, version number, and License/Privacy/Terms links.
+
+Nothing beyond items 1–13 is in scope. Do not build interview-question mode, flashcards, a solution-comparison tool, or anything else not explicitly listed — scope discipline is as much a deliverable here as the features themselves.
+
+## 4. Structured Output Contract
+
+Every successful `/api/explain` call returns one fixed JSON shape:
+
 ```
-You are a senior full-stack developer experienced in building lightweight, production-ready demo applications with clean, well-commented code and secure API key handling.
+overview: string
+plain_english_explanation: string
+time_complexity: { big_o: string, reasoning: string }
+space_complexity: { big_o: string, reasoning: string }
+line_by_line: [{ line_range, code_snippet, explanation }]
+improvements: [{ title, detail, category }]
+detected_language: string
+provider_used: string
+model_used: string
+```
 
-Create a simple web-based code explanation application that uses LLMs (Groq and Gemini) to explain user snippets.
+The system prompt must state this schema explicitly, forbid markdown fences or prose outside the JSON, and instruct the model to reason about the *submitted* code's actual structure rather than pattern-matching to a familiar algorithm. Validate the response with Pydantic; on failure, make exactly one repair re-prompt carrying the validation error; on a second failure, return a typed error — never let malformed or partial output reach the UI. Quiz generation (`/api/quiz`) follows the same discipline: a fixed `QuizQuestion` schema, validated the same way.
 
-## Project Requirements
+## 5. Design System (Stitch-derived, dark-only)
 
-**Tech Stack:**
-- Frontend: React 18, TypeScript, Tailwind CSS (Stitch design system)
-- Backend: FastAPI, Python (to securely handle API keys, not expose them in frontend)
-- API: Groq Cloud (llama-3.3-70b-versatile) and Google Gemini (gemini-2.5-flash)
+- **Colors:** `#191a1f` background, `#2a2b35` surface card, `#3a3b47` pill surface, `#ffffff` CTA/primary text, `#7c6af7` iridescent accent — accent used only for atmospheric background blobs and small highlights, never as a large competing fill.
+- **Radii:** pill `9999px`, card `24px`, button `20px`, badge `4px`. Never mix rounded and sharp corners in the same view.
+- **Spacing scale:** 4 / 8 / 16 / 24 / 48 / 64 / 96px only — no arbitrary pixel values anywhere.
+- **Typography:** **Manrope** for headlines/display type, **Inter** for body/UI text — freely licensed substitutes for the original Google Sans / Google Sans Text pairing. Keep every original size, weight, and line-height; only the typeface changes. Document the substitution briefly in `README.md`.
+- **Layout:** dark hero with a subtle dot-grid texture and iridescent gradient blobs → a large rounded code-input card (chat-composer style) with language and model pill selectors and a white pill "Explain Code" CTA → results rendered as stacked surface-card sections below, in the fixed order from Section 2.
+- WCAG AA contrast minimum on all text; flat elevation only — no invented shadows.
 
-**Functionality:**
-1. Code input with language selection and provider selector.
-2. Pedagogical code breakdown: overview summary, plain-English explanation, Big-O complexity analysis, and line-by-line commentary.
-3. Interactive multiple-choice Quiz Mode generated from user code.
-4. Scoped follow-up Q&A Chat.
-5. Markdown and PDF report exports.
-6. Persistent local storage session drawer.
-7. Multi-stage Dockerfile setup for unified production deployment.
+## 6. Deployment
+
+- **Docker (production):** multi-stage build. Stage 1 builds the frontend (Vite/Node) to static assets. Stage 2 is a slim Python runtime that copies only the built assets and serves them from FastAPI, with an SPA fallback for client-side routes, mounted **after** every `/api/*` route so API paths are always matched first.
+- Read the listening port from the `PORT` environment variable, defaulting to `7860` 
+- `.dockerignore` excludes `node_modules`, `__pycache__`, `.git`, `.env`, and test/dev-only files. Final image contains no leftover Node/npm toolchain.
+- **Dual environment, one codebase:** the same repository also runs unmodified under a standard supervisor setup for local/preview development — frontend on 3000, backend on 8001, as two processes. The only difference between the two environments is environment-variable-driven configuration (port, CORS origin, whether a built frontend exists to mount) — no `if environment == "..."` branching in application logic.
+- CORS locked to the deployed origin in production; permissive to the local dev ports otherwise.
+- `GET /api/health` for liveness checks — must never trigger a real LLM generation call.
+- Structured logging to stdout; a global exception handler returns a clean, typed error envelope — never a raw traceback reaches the browser.
+- `README.md`/`DEPLOYMENT.md` include complete, copy-pasteable Hugging Face Docker Space setup steps and the full list of required environment variables.
+
+## 7. Security & Configuration
+
+- `GROQ_API_KEY` and `GEMINI_API_KEY` load from environment variables only, validated once at startup, and are never hardcoded, logged, or sent to the frontend.
+- `.env.example` (both frontend and backend) ships with placeholder values only. No real credential ever appears in any file that reaches version control — not in `README.md`, not in `docs/`, not in this file, not in a commit message.
+
+## 8. Non-Negotiables
+
+- No placeholders, no `TODO`s, no fake LLM output standing in for a real call.
+- No feature is exposed in the UI half-finished — if it isn't done, it isn't visible.
+- One consistent error-handling pattern and one consistent async-state pattern used everywhere, front to back.
+- Every backend module and function carries a docstring; every non-trivial block of logic is commented with *why*, not just what.
+- Validate the schema in Section 4 against real snippets — at least one loop-based, one recursive, one data-structure-heavy example per required language — before calling the explanation pipeline done.
+
+## 9. Deliverables
+
+Working application · `README.md` · `ARCHITECTURE.md` · `SETUP.md` · `DEPLOYMENT.md` · `Dockerfile` · `.dockerignore` · `requirements.txt` · `package.json` · `.env.example` (frontend + backend) · built-in example snippet library · this `PROMPT.md`.
 ```
 
 ---

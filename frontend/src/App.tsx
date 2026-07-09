@@ -20,7 +20,7 @@ const App: React.FC = () => {
     <BrowserRouter>
       <div className="min-h-screen flex flex-col bg-bg-base text-ink-primary">
         <NavBar onOpenHistory={() => setHistoryOpen(true)} />
-        <main className="flex-1">
+        <main className="flex-1 relative z-10">
           <Routes>
             <Route
               path="/"

@@ -109,6 +109,7 @@ CodeExplain/
 │   └── preview.png             # UI preview image
 ├── Dockerfile                  # Production multi-stage build container
 ├── PROMPT.md                   # Master Build Prompt (technical blueprint)
+├── PROMPT ENGINEERING METHODOLOGY.md  # Companion prompt-engineering analysis guide
 └── README.md                   # Repository documentation
 ```
 
@@ -189,13 +190,20 @@ To run the unified, single-container build locally:
 
 ---
 
-## 🧠 Prompt Engineering - How This Was Built
+## 🧠 Prompt Engineering & Methodology
 
-This project was built using an AI coding assistant with a structured blueprint. Full details of the prompting strategy are in [PROMPT.md](PROMPT.md).
+This project is designed and built utilizing structured prompt engineering methodologies at two distinct layers:
+1. **The Build-Time Specification**: Formulated as a complete, non-conversational blueprint in [PROMPT.md](PROMPT.md) to guide an AI coding agent through execution without scope drift.
+2. **The Deployed Run-Time Prompts**: Structured instructions, Pydantic JSON schemas, and context-isolated payload wrappers sent dynamically by the FastAPI backend to Groq and Gemini models.
 
-> 💡 **Prompt Engineering Learnings:** Read the complete breakdown of techniques like specification prompting and context-isolation in [PROMPT.md](PROMPT.md) to learn how to write robust coding prompts.
+These prompting layers map directly onto the techniques taught in the **AI Engineer Launchpad** course (Unit 2 — Prompt Engineering and Reasoning, CO2).
 
-### The Prompt Used
+For the exhaustive analysis of this prompt strategy, technique mapping (specification prompting, context isolation, zero-shot vs few-shot decisions, reasoning patterns), and implementation limitations, please refer to the companion guide:
+👉 **[PROMPT ENGINEERING METHODOLOGY.md](PROMPT%20ENGINEERING%20METHODOLOGY.md)**
+
+---
+
+### The Build Prompt Spec (`PROMPT.md`)
 
 A high-fidelity system-level prompt was used to guide the development of this project. You can inspect the complete build instructions inside [PROMPT.md](PROMPT.md). Below is a summary of the core prompt specifications:
 
@@ -223,45 +231,21 @@ Create a simple web-based code explanation application that uses LLMs (Groq and 
 
 ---
 
-## Detailed Prompting Technique Mapping
+### Detailed Prompting Technique Mapping
 
-### 1. Overview Table
+The table below outlines how specific prompt engineering patterns are applied at both the **Build-Time (Layer 1)** and **Run-Time (Layer 2)** stages:
 
-| Technique | Used in This Prompt? | Why |
-|---|---|---|
-| **Specification-Driven Prompting** | ✅ Yes (primary technique) | Ensures exact visual tokens, schemas, and structural constraints are executed consistently |
-| **XML Tag-Based Context Isolation** | ✅ Yes | cleanly isolates user queries, file states, and tool actions without mixing instructions |
-| **Zero-Shot Prompting** | ✅ Yes | Uses standard web-development patterns that the model generates cleanly without few-shot overhead |
-| **Strict Constraint Gating** | ✅ Yes | Restricts execution to Tiers 1 and 2, actively blocking feature creep |
-| **Fail-Fast Error Boundaries** | ✅ Yes | Enforces startup sanity checks on backend variables and settings |
-| **Chain-of-Thought (CoT)** | ❌ No | Excluded from output generation to prevent token bloat during standard boilerplate tasks |
+| Technique | Layer | Implementation in CodeExplain |
+| :--- | :--- | :--- |
+| **Specification-Driven / Meta-Prompting** | Layer 1 | [PROMPT.md](PROMPT.md) outlines all technical specs, schemas, design system tokens, and phase gates up front to prevent agent ambiguity. |
+| **System Prompting** | Layer 2 | [explanation_prompt.py](backend/app/prompts/explanation_prompt.py) and [quiz_prompt.py](backend/app/prompts/quiz_prompt.py) enforce behavioral logic separate from user code. |
+| **Role Prompting** | Layer 1 & 2 | Layer 1 instructs the builder as a "senior developer"; Layer 2 anchors the LLM as a "patient computer science teaching assistant". |
+| **Structured Output Schema** | Layer 1 & 2 | Enforced on the backend via Pydantic model validators ([explanation.py](backend/app/models/explanation.py)) and runtime JSON schema directives. |
+| **Zero-Shot Prompting** | Layer 1 & 2 | Preferred over few-shot to avoid model anchoring biases on unique user-submitted algorithms. |
+| **Self-Healing Loop (Closed Feedback)** | Layer 2 | [explanation_service.py](backend/app/services/explanation_service.py) automatically catches parsing failures, feeding the validation error back to the LLM at `temperature=0.0` for repair. |
+| **Context Isolation** | Layer 2 | Follow-up conversation context in [chat_service.py](backend/app/services/chat_service.py) is strictly bounded to the code, explanation, and last 6 messages. |
 
----
-
-### 2. Why Each Technique Was Chosen
-
-**Specification-Driven Prompting**
-This technique was selected because web applications require absolute visual, behavioral, and structural consistency. Defining precise Stitch token structures, border radii, and specific API payload schemas in `PROMPT.md` eliminated the risk of the model guessing frontend details, ensuring a polished dark-mode interface.
-
-**XML Tag-Based Context Isolation**
-By wrapping instructions, context variables, and user input within XML tags (e.g. `<USER_REQUEST>`, `<ADDITIONAL_METADATA>`), we guarantee that the model separates background environment metadata from primary user commands. This prevents accidental instruction-injection and keeps tool executions isolated.
-
-**Strict Constraint Gating**
-To avoid scope drift (a common issue in long-running coding agents), the prompt defines explicit Tier 1 and Tier 2 feature scopes. The negative constraint ("Nothing outside this list is in scope") holds the line, directing the agent to focus on polishing required modules.
-
-**Why NOT Chain-of-Thought**
-CoT is essential for math, logic reasoning, and multi-file debugging. However, generating standard FastAPI routers or React components does not present a reasoning gap. Omitting CoT from normal generations saves significant token counts and accelerates execution speed.
-
----
-
-### 3. General Use Cases (Beyond This Project)
-
-| Technique | Best Used For | Skip When |
-|---|---|---|
-| **Specification-Driven** | Complex system designs, detailed visual layouts, API contract building | Quick utility scripts, basic text conversions |
-| **XML Tag Isolation** | Structuring multi-file edits, handling agent inputs, parsing tool logs | Single-line chat conversations, simple Q&A |
-| **Constraint Gating** | Keeping codebases lightweight, matching budget requirements | Exploratory prototyping, brainstorming sessions |
-| **Zero-Shot** | Standard boilerplate code, documentation, quick scripts | Complex logic puzzles, custom JSON formats |
+For a complete breakdown of each technique, the reasoning behind our choices, and limitations, check out the **[PROMPT ENGINEERING METHODOLOGY.md](PROMPT%20ENGINEERING%20METHODOLOGY.md)** companion document.
 
 ---
 

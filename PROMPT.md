@@ -7,6 +7,8 @@ Throughout this document, "you" refers to you, the coding agent carrying out thi
 
 If you hit a genuine ambiguity this document does not resolve, make the most sensible, well-justified engineering decision, write it down under a "Design Decisions" heading in `docs/ARCHITECTURE.md`, and keep moving. Do not stop the build to ask clarifying questions except in extreme, project-blocking circumstances. Everything else is your call to make and document.
 
+> This project was built for the *AI Engineer Launchpad* capstone. This document is the build specification; a companion document, `PROMPT_ENGINEERING_METHODOLOGY.md`, separately explains what kind of prompt this is, why it was written this way, and how it maps to the course's own prompt-engineering vocabulary (zero-shot, structured prompting, structured output, role/system prompting) from Unit 2 (CO2).
+
 ### Table of Contents
 
 - Part 0 — Mission Briefing
@@ -24,7 +26,7 @@ If you hit a genuine ambiguity this document does not resolve, make the most sen
 - Part 12 — Configuration & Secrets Management
 - Part 13 — Error Handling Strategy
 - Part 14 — Code Quality & Documentation Standards
-- Part 15 — Deployment Architecture (Hugging Face Docker Spaces)
+- Part 15 — Deployment Architecture (Render)
 - Part 16 — Phased Implementation Plan
 - Part 17 — Final Acceptance Checklist & Closing Directive
 
@@ -126,12 +128,13 @@ Nothing beyond items 1–13 is in scope. If you find yourself building a feature
 - **LLM Providers**: Groq API and Google Gemini API, behind a single provider abstraction (Part 7). Support the following models, selectable from the frontend:
   - Groq: `llama-3.3-70b-versatile` (default)
   - Groq: `meta-llama/llama-4-scout-17b-16e-instruct`
+  - Groq: `qwen/qwen3.6-27b`
   - Gemini: `gemini-2.5-flash`
 - **Supported languages** (Python and JavaScript required; extend to the following only if it does not compromise correctness for the required two): TypeScript, Java, C, C++, Go.
 - **Syntax highlighting**: a client-side highlighter (e.g., Shiki or Prism) rendering the pasted code and any code shown inside line-by-line commentary cards.
 - **HTTP client**: native `fetch` on the frontend; no additional HTTP client library needed unless a genuine need arises.
 - **State management**: React's built-in state/context is sufficient; do not introduce Redux or another state library for an application this size.
-- **Deployment target**: a single Docker container deployed to Hugging Face Spaces (Docker SDK), serving both the built frontend and the FastAPI backend from one process on one port. See Part 15 for the full deployment architecture — this is not an optional afterthought, it is a build requirement that shapes how the frontend is built and how FastAPI is configured from the start.
+- **Deployment target**: a single Docker container deployed to Render as a Docker-based Web Service, serving both the built frontend and the FastAPI backend from one process on one port. See Part 15 for the full deployment architecture — this is not an optional afterthought, it is a build requirement that shapes how the frontend is built and how FastAPI is configured from the start.
 - Avoid any dependency — frontend or backend — that does not serve a requirement explicitly stated in this document.
 
 ---
@@ -282,7 +285,7 @@ codeexplain/
 ├── docs/
 │   ├── ARCHITECTURE.md
 │   ├── SETUP.md
-│   ├── DEPLOYMENT.md                 # Hugging Face Docker Spaces deployment guide (Part 15)
+│   ├── DEPLOYMENT.md                 # Render deployment guide (Part 15)
 │   └── DESIGN_SOURCE/                # copy of the original stitch-* files, preserved as reference
 ├── Dockerfile                         # multi-stage build: frontend build -> backend runtime (Part 15)
 ├── .dockerignore
@@ -372,7 +375,7 @@ Response: `{ answer: string }`
 All three endpoints share one error envelope shape so the frontend can handle failures generically (Part 13). All endpoints validate request bodies with Pydantic and reject malformed requests with a 422 before ever constructing an LLM prompt.
 
 **`GET /api/health`**
-Response: `{ status: "ok", provider_reachable: { groq: boolean, gemini: boolean } }`. Used by Hugging Face Spaces' own health monitoring and by anyone verifying the deployed container is alive (Part 15). This route must never call an LLM with a real generation request — it only confirms configuration is loaded and, at most, performs a lightweight connectivity check.
+Response: `{ status: "ok", provider_reachable: { groq: boolean, gemini: boolean } }`. Used as Render's configured Health Check Path and by anyone verifying the deployed container is alive (Part 15). This route must never call an LLM with a real generation request — it only confirms configuration is loaded and, at most, performs a lightweight connectivity check.
 
 ---
 
@@ -469,7 +472,7 @@ Render the following content, adapted into the appropriate cards/sections rather
 
 **Connect** (render as icon-labeled social buttons): GitHub — `https://github.com/MohammadFayasKhan`; LinkedIn — `https://www.linkedin.com/in/mohammadfayaskhan`; Instagram — `https://www.instagram.com/fayaskhanx`.
 
-**Footer** (site-wide, not just on the About page) — include: "© 2026 CodeExplain • Crafted by Mohammad Fayas Khan"; the line "This project was created to make programming concepts easier to understand through AI-powered explanations and an exceptional user experience."; GitHub/LinkedIn/Instagram links; a version number; and placeholder License / Privacy / Terms links (these can point to simple static routes or anchors — they do not need real legal content for this build, but they must exist as functioning links rather than dead text).
+**Footer** (site-wide, not just on the About page) — include: "© 2026 CodeExplain • Crafted with ❤️ by Mohammad Fayas Khan"; the line "This project was created to make programming concepts easier to understand through AI-powered explanations and an exceptional user experience."; GitHub/LinkedIn/Instagram links; a version number; and placeholder License / Privacy / Terms links (these can point to simple static routes or anchors — they do not need real legal content for this build, but they must exist as functioning links rather than dead text).
 
 Give the About page tasteful entrance animations and card treatments consistent with the rest of the app's motion language (Part 5) — this page is a portfolio artifact in its own right and should hold up to close inspection.
 
@@ -513,22 +516,22 @@ Wrap the FastAPI app with a global exception handler that catches anything not a
 
 ---
 
-## Part 15 — Deployment Architecture (Hugging Face Docker Spaces)
+## Part 15 — Deployment Architecture (Render)
 
-This is a mandatory build requirement, not an optional deployment note. The finished repository must be directly deployable to a Hugging Face Docker Space with no structural changes — no splitting into two services, no separate frontend host, no manual post-clone rewiring. Design the application from Phase 1 onward with this single-container shape in mind; do not build it as two independently-deployed services and try to bolt them together at the end.
+This is a mandatory build requirement, not an optional deployment note. The finished repository must be directly deployable to Render as a single Docker-based Web Service with no structural changes — no splitting into two services, no separate frontend host, no manual post-clone rewiring. Design the application from Phase 1 onward with this single-container shape in mind; do not build it as two independently-deployed services and try to bolt them together at the end.
 
 ### Two environments, one codebase, zero structural forking
 
 This build must satisfy **both** of the following simultaneously, without maintaining two separate versions of the app to do it:
 
 - **Local/preview development (e.g. the Emergent preview environment):** the frontend and backend run as two separate processes under a standard supervisor setup — frontend on port 3000, backend on port 8001 — exactly as today. Nothing about this workflow changes.
-- **Production (Hugging Face Docker Spaces):** the exact same repository, built via the Dockerfile described below, runs as a single container serving both the compiled frontend and the API from one process on one port.
+- **Production (Render):** the exact same repository, built via the Dockerfile described below, runs as a single container serving both the compiled frontend and the API from one process on one port, deployed as a Render Web Service with a Docker runtime environment.
 
-The way this stays a single codebase rather than two forks is that the backend's port-binding, CORS origin, and static-serving logic are all environment-variable-driven (Part 12) rather than hardcoded — in preview, the backend simply doesn't mount the static frontend build (it isn't built/present) and CORS allows the dev frontend's origin; in the Docker image, the frontend is built as part of the image and the backend mounts and serves it, with CORS locked to the Space's own origin. No `if environment == "preview"` branching logic should be needed beyond reading these environment variables — the same `static.py` mount-and-fallback code path runs in both cases, it simply has nothing to mount when no built frontend is present locally.
+The way this stays a single codebase rather than two forks is that the backend's port-binding, CORS origin, and static-serving logic are all environment-variable-driven (Part 12) rather than hardcoded — in preview, the backend simply doesn't mount the static frontend build (it isn't built/present) and CORS allows the dev frontend's origin; in the Docker image, the frontend is built as part of the image and the backend mounts and serves it, with CORS locked to the deployed Render URL. No `if environment == "preview"` branching logic should be needed beyond reading these environment variables — the same `static.py` mount-and-fallback code path runs in both cases, it simply has nothing to mount when no built frontend is present locally.
 
 ### Single-container model (production)
 
-The application ships as **one** Docker image containing both the compiled frontend and the FastAPI backend. There is no separate frontend deployment and no separate backend deployment — one container, one process, one port, listening for both the API and the static site.
+The application ships as **one** Docker image containing both the compiled frontend and the FastAPI backend. There is no separate frontend deployment and no separate backend deployment — one container, one process, one port, listening for both the API and the static site. On Render this is configured as a single Web Service with "Docker" selected as the runtime/environment, pointed at the repository's root `Dockerfile`.
 
 ### Build-time flow (inside the Dockerfile)
 
@@ -537,7 +540,7 @@ Use a multi-stage Dockerfile:
 1. **Stage 1 — frontend build.** A Node base image installs `frontend/package.json` dependencies (with dependency layers cached separately from source copy layers, so an unchanged `package.json` doesn't force a full reinstall on every code change) and runs the Vite production build, producing static assets (`frontend/dist/`).
 2. **Stage 2 — backend runtime.** A slim Python base image installs `backend/requirements.txt` (again with the dependency-install layer cached ahead of the source-copy layer), copies the backend application code, and copies **only the built static assets** from Stage 1 into a location the backend serves from (e.g. `backend/app/static/`). The final image must not contain Node, npm, or any frontend source/toolchain — only the compiled output and the Python runtime needed to serve it.
 
-Keep both stages as lean as possible: use slim/alpine-class base images where compatible, avoid installing build tools that aren't needed at runtime, and ensure `.dockerignore` (root-level, see below) excludes `node_modules`, `__pycache__`, `.git`, local `.env` files, test fixtures, and any other content not needed inside the image.
+Keep both stages as lean as possible: use slim/alpine-class base images where compatible, avoid installing build tools that aren't needed at runtime, and ensure `.dockerignore` (root-level, see below) excludes `node_modules`, `__pycache__`, `.git`, local `.env` files, test fixtures, and any other content not needed inside the image. Render's build process pulls directly from the connected GitHub repository and builds the Dockerfile itself — no pre-built image needs to be pushed anywhere manually.
 
 ### Serving the frontend from FastAPI
 
@@ -545,7 +548,7 @@ Keep both stages as lean as possible: use slim/alpine-class base images where co
 
 ### Port configuration
 
-The application must read the listening port from the `PORT` environment variable, defaulting to `7860` when it is not set, since Hugging Face Docker Spaces expects the container to listen on the port it provides via that variable. The Dockerfile's `CMD` (or `start.sh`, if used) must launch the server reading this variable at container start — never a value hardcoded at build time.
+The application must read the listening port from the `PORT` environment variable at container start, since Render dynamically injects this variable and expects the service to bind to it — never to a fixed, hardcoded port. Use a sensible local-development fallback (e.g. `8000`) for when `PORT` is unset, purely so `docker run` still works on a developer's machine without Render's environment present. The Dockerfile's `CMD` (or `start.sh`, if used) must read this variable at container start, never at build time.
 
 ### `.dockerignore` (root-level, required contents at minimum)
 
@@ -569,25 +572,25 @@ docs/DESIGN_SOURCE/
 
 ### CORS
 
-In the deployed single-container shape, the frontend and backend share an origin (the browser talks to the same host and port for both the static site and `/api/*`), so CORS restrictions can be strict: allow only the deployed Space's own origin (configurable via an environment variable, e.g. `ALLOWED_ORIGIN`, defaulting sensibly for local development to `http://localhost:5173` so the Vite dev server continues to work during development against a locally running backend on a different port).
+In the deployed single-container shape, the frontend and backend share an origin (the browser talks to the same host and port for both the static site and `/api/*`), so CORS restrictions can be strict: allow only the deployed Render service's own URL (configurable via an environment variable, e.g. `ALLOWED_ORIGIN`, defaulting sensibly for local development to `http://localhost:5173` so the Vite dev server continues to work during development against a locally running backend on a different port).
 
 ### Startup, logging, and health checks
 
-- Provide a single, deterministic startup command (either directly in the Dockerfile's `CMD`, e.g. `uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-7860}`, or via a thin `start.sh` if any pre-flight step is genuinely needed — do not add a startup script that does nothing beyond what `CMD` could do directly).
-- Configure structured logging (level configurable via an environment variable, defaulting to `INFO`) that writes to stdout, since Hugging Face Spaces captures container stdout/stderr as the build/runtime log — do not log only to a file inside the container.
-- Implement `/api/health` (Part 9) and ensure it responds quickly and without side effects, suitable for Spaces' own liveness checks.
+- Provide a single, deterministic startup command (either directly in the Dockerfile's `CMD`, e.g. `uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}`, or via a thin `start.sh` if any pre-flight step is genuinely needed — do not add a startup script that does nothing beyond what `CMD` could do directly).
+- Configure structured logging (level configurable via an environment variable, defaulting to `INFO`) that writes to stdout, since Render captures container stdout/stderr as the service's log stream — do not log only to a file inside the container.
+- Implement `/api/health` (Part 9) and configure it as the Health Check Path in the Render service's settings, so Render's own monitoring can detect a healthy deploy and restart the service automatically if it stops responding.
 - The global exception handler from Part 13 applies identically in production; no debug/traceback details are ever exposed in a response body outside local development.
 
 ### Local development vs. production
 
-Local development still runs the Vite dev server (`frontend`) and the FastAPI server (`backend`) as two separate processes on two different ports, proxying `/api` calls from Vite to the backend during development, exactly as today — this deployment architecture does not change the local dev workflow described in Part 16's phases. It only governs how the final, built artifact is packaged and served. Document both workflows clearly and separately in `docs/SETUP.md` (local development) and `docs/DEPLOYMENT.md` (Hugging Face Spaces).
+Local development still runs the Vite dev server (`frontend`) and the FastAPI server (`backend`) as two separate processes on two different ports, proxying `/api` calls from Vite to the backend during development, exactly as today — this deployment architecture does not change the local dev workflow described in Part 16's phases. It only governs how the final, built artifact is packaged and served. Document both workflows clearly and separately in `docs/SETUP.md` (local development) and `docs/DEPLOYMENT.md` (Render).
 
 ### `docs/DEPLOYMENT.md` must contain
 
-- The exact list of required environment variables (`GROQ_API_KEY`, `GEMINI_API_KEY`, `ACTIVE_PROVIDER`, `ACTIVE_MODEL`, `ALLOWED_ORIGIN`, `LOG_LEVEL`, and any others introduced during the build) and where to set them as Space secrets.
-- Step-by-step instructions for creating a new Hugging Face Space with the Docker SDK, pointing it at this repository, and setting the required secrets — written for someone who has never created a Space before.
+- The exact list of required environment variables (`GROQ_API_KEY`, `GEMINI_API_KEY`, `ACTIVE_PROVIDER`, `ACTIVE_MODEL`, `ALLOWED_ORIGIN`, `LOG_LEVEL`, and any others introduced during the build) and where to set them in Render's dashboard (Environment tab, added as secret environment variables — never committed to the repo).
+- Step-by-step instructions for creating a new Render Web Service from this GitHub repository (select "Docker" as the environment, leave the build/start commands to the Dockerfile, set the Health Check Path to `/api/health`, add the environment variables, and deploy) — written for someone who has never created a Render service before.
 - Confirmation that no code change is required after cloning; only environment variable configuration.
-- A short note on how to verify the deployment succeeded (hitting `/api/health`, loading the root URL and confirming the landing page renders).
+- A short note on how to verify the deployment succeeded (hitting `/api/health` on the live Render URL, loading the root URL and confirming the landing page renders, and confirming auto-deploy triggers correctly on a push to the connected branch, if enabled).
 
 ---
 
@@ -612,7 +615,7 @@ Build every Result View section component (Part 11) wired to real `/api/explain`
 Build `QuizPanel`, `FollowUpChat`, the Markdown/PDF export action, and the example-snippet chips. **Gate:** a full user journey — pick an example, get an explanation, generate and complete a quiz, ask one follow-up question, export the result as Markdown — works end to end with no console errors.
 
 #### Phase 7 — Containerization & Deployment
-Write the multi-stage `Dockerfile`, root `.dockerignore`, `backend/app/core/static.py`'s mount-and-fallback logic, and `PORT`-aware startup exactly per Part 15. Build the image locally, run the container with only environment variables set (no bind-mounted source), and confirm the full application — landing page, explanation, quiz, chat, export — works end to end through the single exposed port with no separate frontend process running. **Gate:** `docker build` succeeds, `docker run` with only `GROQ_API_KEY`/`GEMINI_API_KEY` (and `PORT` unset, relying on the 7860 default) serves a fully working application at the container's exposed port, and a request to a deep-linked frontend route (not just `/`) still returns the app rather than a 404.
+Write the multi-stage `Dockerfile`, root `.dockerignore`, `backend/app/core/static.py`'s mount-and-fallback logic, and `PORT`-aware startup exactly per Part 15. Build the image locally, run the container with only environment variables set (no bind-mounted source), and confirm the full application — landing page, explanation, quiz, chat, export — works end to end through the single exposed port with no separate frontend process running. **Gate:** `docker build` succeeds, `docker run` with only `GROQ_API_KEY`/`GEMINI_API_KEY` set and an explicit `PORT` passed in (mirroring how Render injects it) serves a fully working application on that port, the same image also runs correctly if `PORT` is left unset locally (falling back to the documented local default), and a request to a deep-linked frontend route (not just `/`) still returns the app rather than a 404.
 
 #### Phase 8 — Hardening & Documentation
 Work through every row of Part 13's error table and confirm each is handled gracefully. Write `README.md`, `docs/ARCHITECTURE.md`, `docs/SETUP.md`, and `docs/DEPLOYMENT.md` per Parts 14 and 15. Do a final pass confirming every file meets the commenting standard in Part 14. **Gate:** Part 17's checklist passes in full.
@@ -635,12 +638,12 @@ Before considering this project finished, confirm every item below:
 - [ ] `README.md`, `docs/ARCHITECTURE.md`, and `docs/SETUP.md` are complete and someone unfamiliar with the project could get it running from `SETUP.md` alone.
 - [ ] No TODO, FIXME, or placeholder implementation remains anywhere in the codebase.
 - [ ] A single `docker build` + `docker run` (env vars only, no source bind-mounts) serves the complete application — landing page, explanation, quiz, chat, export — from one container on one port.
-- [ ] The server reads `PORT` from the environment and correctly defaults to `7860` when it is unset.
+- [ ] The server reads `PORT` from the environment correctly and falls back to a sensible local default only when running outside Render (Render always injects its own value).
 - [ ] Deep-linked frontend routes (not just `/`) are served correctly by the FastAPI SPA fallback rather than 404ing.
 - [ ] `/api/health` responds correctly without triggering a real LLM generation call.
 - [ ] The root `Dockerfile` is multi-stage, produces no leftover Node/npm toolchain in the final image, and the root `.dockerignore` excludes `node_modules`, caches, `.env` files, and test/dev-only content.
-- [ ] `docs/DEPLOYMENT.md` gives complete, accurate, step-by-step Hugging Face Docker Space setup instructions, including every required environment variable/secret.
-- [ ] The repository as committed (no manual post-clone edits) is directly deployable to a Hugging Face Docker Space.
+- [ ] `docs/DEPLOYMENT.md` gives complete, accurate, step-by-step Render Web Service (Docker) setup instructions, including every required environment variable/secret and the Health Check Path configuration.
+- [ ] The repository as committed (no manual post-clone edits) is directly deployable to a Render Web Service.
 - [ ] The exact same repository also runs correctly under the standard supervisor preview setup (frontend on 3000, backend on 8001) with no code branching between the two environments beyond environment-variable-driven configuration.
 - [ ] Export produces both a working Markdown file and a working PDF file — neither format is a stub.
 - [ ] Analysis history and preferences survive a full page reload and a full browser restart via Local Storage, with nothing equivalent stored server-side.

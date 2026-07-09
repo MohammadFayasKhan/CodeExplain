@@ -36,7 +36,7 @@ The assignment brief for CodeExplain has three success criteria, and each one is
 | Technique | Used? | Where in `PROMPT.md` | Why |
 |---|---|---|---|
 | **Specification-driven / meta-prompting** | ✅ Primary technique | The entire document | Encodes every constraint (schema, scope, design tokens, deployment target) up front so the agent has no ambiguity left to resolve mid-build. |
-| **Role prompting** | ✅ | Opening line ("You are a senior full-stack engineer…") | Anchors the agent's defaults toward production-grade engineering judgment rather than demo-quality shortcuts, without needing to spell out every micro-decision. |
+| **Role prompting** | ✅ | Opening line ("You are a senior full-stack developer…") | Anchors the agent's defaults toward production-grade engineering judgment rather than demo-quality shortcuts, without needing to spell out every micro-decision. |
 | **System-level constraint framing** | ✅ | "Non-Negotiable Operating Principles" section | Functions like a system prompt for the build: rules that apply across every phase of generation, not just the next instruction. |
 | **Structured / schema-constrained output** | ✅ | "Structured Output Contract" section | Turns "consistent sections" from a vague aspiration into a Pydantic schema the backend can mechanically validate — this is the single most direct application of CO2's structured-output theme. |
 | **Constraint gating (explicit scope lock)** | ✅ | Tier 1 / Tier 2 feature lists + "nothing beyond these items" language | Prevents feature creep, which is a common failure mode when an agent is given an open-ended brief instead of a bounded one. |

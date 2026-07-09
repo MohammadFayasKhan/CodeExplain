@@ -41,29 +41,18 @@ export const NavBar: React.FC<Props> = ({ onOpenHistory }) => {
               <span className="hidden sm:inline">Back</span>
             </button>
           )}
-          {isAbout ? (
-            <div className="flex items-center gap-sm text-ink-primary min-w-0" data-testid="nav-wordmark">
-              <span className="grid h-8 w-8 place-items-center rounded-xl bg-gradient-to-br from-accent to-accent-soft shadow-lg shadow-accent/30 shrink-0">
-                <Sparkles size={16} className="text-bg-base" />
-              </span>
-              <span className="font-display text-lg font-semibold tracking-tight truncate">
-                CodeExplain
-              </span>
-            </div>
-          ) : (
-            <Link
-              to="/"
-              className="flex items-center gap-sm text-ink-primary hover:opacity-90 transition min-w-0"
-              data-testid="nav-wordmark"
-            >
-              <span className="grid h-8 w-8 place-items-center rounded-xl bg-gradient-to-br from-accent to-accent-soft shadow-lg shadow-accent/30 shrink-0">
-                <Sparkles size={16} className="text-bg-base" />
-              </span>
-              <span className="font-display text-lg font-semibold tracking-tight truncate">
-                CodeExplain
-              </span>
-            </Link>
-          )}
+          <Link
+            to="/"
+            className="flex items-center gap-sm text-ink-primary hover:opacity-90 transition min-w-0"
+            data-testid="nav-wordmark"
+          >
+            <span className="grid h-8 w-8 place-items-center rounded-xl bg-gradient-to-br from-accent to-accent-soft shadow-lg shadow-accent/30 shrink-0">
+              <Sparkles size={16} className="text-bg-base" />
+            </span>
+            <span className="font-display text-lg font-semibold tracking-tight truncate">
+              CodeExplain
+            </span>
+          </Link>
         </div>
 
         <nav className="flex items-center gap-1">

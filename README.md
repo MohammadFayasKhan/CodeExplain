@@ -207,7 +207,7 @@ For the exhaustive analysis of this prompt strategy, technique mapping (specific
 
 A high-fidelity system-level prompt was used to guide the development of this project. You can inspect the complete build instructions inside [PROMPT.md](PROMPT.md). Below is a summary of the core prompt specifications:
 
-```markdown
+````markdown
 # CodeExplain — Master Build Prompt
 
 You are a senior full-stack engineer who ships lightweight, production-ready AI web applications — not demos that only survive a happy-path walkthrough. Build **CodeExplain**: a code-explanation tool that turns a pasted snippet into a structured, beginner-friendly teaching artifact. Build it end-to-end, autonomously, without asking clarifying questions. Where this document is silent, make the most sensible production-grade decision and record it in `README.md`.
@@ -299,7 +299,7 @@ The system prompt must state this schema explicitly, forbid markdown fences or p
 ## 9. Deliverables
 
 Working application · `README.md` · `PROMPT.md` · `PROMPT ENGINEERING METHODOLOGY.md` · `Dockerfile` · `.dockerignore` · `backend/requirements.txt` · `frontend/package.json` · `backend/.env.example`.
-```
+````
 
 ---
 

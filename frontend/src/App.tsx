@@ -18,9 +18,9 @@ const App: React.FC = () => {
 
   return (
     <BrowserRouter>
-      <div className="min-h-screen flex flex-col bg-bg-base text-ink-primary w-full overflow-x-hidden">
+      <div className="min-h-screen flex flex-col bg-bg-base text-ink-primary">
         <NavBar onOpenHistory={() => setHistoryOpen(true)} />
-        <main className="flex-1 w-full max-w-full">
+        <main className="flex-1">
           <Routes>
             <Route
               path="/"

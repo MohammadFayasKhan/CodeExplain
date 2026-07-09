@@ -8,6 +8,7 @@
  */
 
 import React, { useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { X } from 'lucide-react';
 
 interface Props {
@@ -32,7 +33,7 @@ export const Toast: React.FC<Props> = ({ message, tone = 'info', onClose, autoDi
     success: 'border-emerald-400/30 bg-emerald-950/70 text-emerald-100',
   } as const;
 
-  return (
+  return createPortal(
     <div
       role="status"
       className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 animate-fade-in-up"
@@ -50,6 +51,7 @@ export const Toast: React.FC<Props> = ({ message, tone = 'info', onClose, autoDi
           <X size={14} />
         </button>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };

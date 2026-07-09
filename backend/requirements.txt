@@ -1,7 +1,11 @@
-fastapi==0.115.6
-uvicorn[standard]==0.34.0
-pydantic>=2.12.5
-pydantic-settings==2.7.0
-python-dotenv==1.0.1
-httpx==0.28.1
-python-multipart==0.0.20
+# CodeExplain ➜ Plain-English Code Tutor
+# Author ➜ Mohammad Fayas Khan
+# Purpose ➜ Python backend dependencies list.
+
+fastapi==0.115.6             # Modern, fast web framework for building APIs with Python
+uvicorn[standard]==0.34.0    # Production-ready ASGI server implementation
+pydantic>=2.12.5             # Data validation and settings management using python type annotations
+pydantic-settings==2.7.0     # Settings management extension for Pydantic
+python-dotenv==1.0.1         # Read key-value pairs from a .env file and set them as environment variables
+httpx==0.28.1                # Next-generation HTTP client for Python (used for Groq/Gemini APIs)
+python-multipart==0.0.20     # Multipart form data parsing support for FastAPI

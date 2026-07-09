@@ -1,70 +1,86 @@
 /**
  * CodeExplain ➜ Plain-English Code Tutor
  * Author ➜ Mohammad Fayas Khan
- * Purpose ➜ Site-wide footer with copyrights, social buttons, and legal placeholders.
- *
- * Site-wide footer used on both the landing/home page and the About page.
+ * Purpose ➜ Ultra-minimal site-wide footer with branding, author name, and socials.
  */
 
 import React from 'react';
-import { Github, Linkedin, Instagram, Shield, AlertTriangle } from 'lucide-react';
+import { Github, Linkedin, Instagram } from 'lucide-react';
 
 export const Footer: React.FC = () => (
-  <footer className="mt-2xl border-t border-border-subtle bg-bg-base/40 backdrop-blur-sm">
-    <div className="mx-auto max-w-6xl px-md md:px-lg py-md md:py-lg">
-      <div className="flex flex-col gap-md md:flex-row md:items-start md:justify-between">
-        <div className="space-y-xs">
-          <div className="font-display text-md font-semibold text-ink-primary">CodeExplain</div>
-          <p className="text-[13px] text-ink-muted max-w-md leading-relaxed">
-            Built to make programming concepts easier to understand, through
-            AI-powered explanations and an exceptional user experience.
-          </p>
-          <p className="text-[11.5px] text-ink-muted/70 flex items-center gap-1.5 pt-xs">
-            <AlertTriangle size={12} className="text-amber-500/80 shrink-0" />
-            <span>AI-generated explanations may contain mistakes. Always verify critical code.</span>
-          </p>
+  <footer className="relative mt-3xl border-t border-border-subtle/40 bg-transparent" data-testid="site-footer">
+    {/* Google Stitch-style blended blur footer background */}
+    <div className="absolute inset-0 footer-blur-bg pointer-events-none" />
+
+    <div className="relative z-10 mx-auto max-w-6xl px-md md:px-lg py-md">
+      <div className="flex items-center justify-between gap-md text-[13px] text-ink-muted">
+        {/* Left branding & author */}
+        <div className="group flex items-center gap-2 select-none">
+          {/* Logo container */}
+          <div className="relative grid h-7 w-7 place-items-center rounded-lg bg-gradient-to-br from-accent to-accent-soft shadow-md shrink-0 overflow-hidden">
+            <svg
+              viewBox="0 0 32 32"
+              className="h-4 w-4 text-bg-base fill-none stroke-current"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path
+                d="M 10 10 L 5 16 L 10 22"
+                className="transition-transform duration-300 group-hover:-translate-x-1"
+              />
+              <path
+                d="M 18 8 L 14 24"
+                className="transition-all duration-500 group-hover:rotate-[15deg] origin-center"
+              />
+              <path
+                d="M 22 10 L 27 16 L 22 22"
+                className="transition-transform duration-300 group-hover:translate-x-1"
+              />
+            </svg>
+          </div>
+          <span className="font-display font-semibold text-ink-primary">CodeExplain</span>
+          <span className="text-border-strong text-[10px]">•</span>
+          <span className="text-[12.5px] text-ink-muted">
+            Crafted by{' '}
+            <span className="text-accent-soft font-medium drop-shadow-[0_0_8px_rgba(168,156,255,0.35)] hover:drop-shadow-[0_0_12px_rgba(168,156,255,0.6)] hover:text-white transition-all duration-300">
+              Mohammad Fayas Khan
+            </span>
+          </span>
         </div>
-        
-        <div className="flex items-center gap-xs md:self-center">
+
+        {/* Right socials */}
+        <div className="flex items-center gap-1">
           <a
             href="https://github.com/MohammadFayasKhan"
             target="_blank"
             rel="noreferrer"
-            className="rounded-full p-2 text-ink-secondary hover:text-ink-primary hover:bg-white/[0.06] transition"
+            className="rounded-full p-2 text-ink-muted hover:text-ink-primary hover:bg-white/[0.06] transition"
             aria-label="GitHub"
             data-testid="footer-github"
           >
-            <Github size={16} />
+            <Github size={15} />
           </a>
           <a
             href="https://www.linkedin.com/in/mohammadfayaskhan"
             target="_blank"
             rel="noreferrer"
-            className="rounded-full p-2 text-ink-secondary hover:text-ink-primary hover:bg-white/[0.06] transition"
+            className="rounded-full p-2 text-ink-muted hover:text-ink-primary hover:bg-white/[0.06] transition"
             aria-label="LinkedIn"
             data-testid="footer-linkedin"
           >
-            <Linkedin size={16} />
+            <Linkedin size={15} />
           </a>
           <a
             href="https://www.instagram.com/fayaskhanx"
             target="_blank"
             rel="noreferrer"
-            className="rounded-full p-2 text-ink-secondary hover:text-ink-primary hover:bg-white/[0.06] transition"
+            className="rounded-full p-2 text-ink-muted hover:text-ink-primary hover:bg-white/[0.06] transition"
             aria-label="Instagram"
             data-testid="footer-instagram"
           >
-            <Instagram size={16} />
+            <Instagram size={15} />
           </a>
-        </div>
-      </div>
-
-      <div className="mt-md border-t border-border-subtle/50 pt-md flex flex-col gap-sm md:flex-row md:items-center md:justify-between text-[11px] text-ink-muted">
-        <div>© 2026 CodeExplain · Crafted by Mohammad Fayas Khan</div>
-        <div className="flex flex-wrap items-center gap-x-md gap-y-1">
-          <span className="inline-flex items-center gap-1"><Shield size={11} /> Privacy-first, local history</span>
-          <span>v1.0.0</span>
-          <span>MIT License</span>
         </div>
       </div>
     </div>

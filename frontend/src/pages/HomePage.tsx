@@ -142,13 +142,13 @@ export const HomePage: React.FC<Props> = ({ historyOpen, onHistoryClose }) => {
       <div id="result-anchor" />
 
       {loading && (
-        <div className="mx-auto max-w-4xl px-md md:px-lg mt-lg">
+        <div className="mx-auto w-full max-w-4xl px-md md:px-lg mt-lg">
           <LoadingPanel />
         </div>
       )}
 
       {explanation && !loading && (
-        <div className="mx-auto max-w-4xl px-md md:px-lg space-y-lg pb-2xl">
+        <div className="mx-auto w-full max-w-4xl px-md md:px-lg space-y-lg pb-2xl">
           <ResultView
             explanation={explanation}
             language={language}

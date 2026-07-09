@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://cdn-icons-png.flaticon.com/512/2920/2920277.png" alt="CodeExplain Logo" width="80" />
+  <img src="static/logo_purple.png" alt="CodeExplain Logo" width="80" />
   <h1>Code Explain: Plain-English Code Tutor</h1>
   <p><strong>AI-Powered Code Explanation & Interactive Learning Suite</strong></p>
   <p>A sleek, dark-themed code tutor powered by Groq's high-speed Llama 3/Qwen models and Google's Gemini APIs, with a FastAPI backend and React/TypeScript frontend.</p>

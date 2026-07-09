@@ -72,6 +72,8 @@ export const CodeInputCard: React.FC<Props> = ({
   const [suggested, setSuggested] = useState<string | null>(null);
   const [suggestedConfidence, setSuggestedConfidence] = useState<number>(0);
   const [dismissed, setDismissed] = useState<Set<string>>(new Set());
+  const [showTooltip, setShowTooltip] = useState(false);
+  const showDisabledTooltip = code.trim().length === 0 && !loading;
 
   useEffect(() => {
     if (!code.trim()) {
@@ -217,15 +219,39 @@ export const CodeInputCard: React.FC<Props> = ({
             />
           </div>
 
-          <Button
-            onClick={onSubmit}
-            loading={loading}
-            disabled={!canSubmit}
-            data-testid="explain-submit-btn"
+          <div
+            className="relative"
+            onMouseEnter={() => setShowTooltip(true)}
+            onMouseLeave={() => setShowTooltip(false)}
           >
-            {!loading && <Sparkles size={16} />}
-            {loading ? 'Explaining…' : 'Explain Code'}
-          </Button>
+            <Button
+              onClick={onSubmit}
+              loading={loading}
+              disabled={!canSubmit}
+              data-testid="explain-submit-btn"
+            >
+              {!loading && <Sparkles size={16} />}
+              {loading ? 'Explaining…' : 'Explain Code'}
+            </Button>
+
+            {showDisabledTooltip && (
+              <div
+                className={`absolute bottom-full left-1/2 -translate-x-1/2 mb-3.5 z-30 pointer-events-none transition-all duration-300 ${
+                  showTooltip
+                    ? 'opacity-100 translate-y-0 scale-100'
+                    : 'opacity-0 translate-y-1.5 scale-95'
+                }`}
+              >
+                <div className="relative bg-[#1e1418] border border-red-500/35 text-red-200 text-xs px-3.5 py-2 rounded-xl shadow-xl flex items-center gap-2 whitespace-nowrap">
+                  <div className="w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse" />
+                  <span className="font-medium tracking-tight">Enter your code to get started</span>
+                  {/* Triangle Arrow */}
+                  <div className="absolute top-[100%] left-1/2 -translate-x-1/2 w-0 h-0 border-l-[5px] border-l-transparent border-r-[5px] border-r-transparent border-t-[5px] border-t-red-500/35" />
+                  <div className="absolute top-[100%] left-1/2 -translate-x-1/2 w-0 h-0 border-l-[4px] border-l-transparent border-r-[4px] border-r-transparent border-t-[4px] border-t-[#1e1418]" />
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

@@ -26,6 +26,7 @@ html,
 body,
 #root {
   height: 100%;
+  overscroll-behavior-y: none;
 }
 
 body {
@@ -53,9 +54,15 @@ body {
 .blob {
   position: absolute;
   border-radius: 9999px;
-  filter: blur(120px);
+  filter: blur(80px);
   opacity: 0.55;
   pointer-events: none;
+  /* Hardware acceleration properties to prevent UI lag during page switches */
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 /* Selection colour uses the iridescent accent — small polish detail. */
@@ -66,8 +73,8 @@ body {
 
 /* Custom scrollbars keep the dark aesthetic. */
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
@@ -209,13 +216,15 @@ body {
 /* Google Stitch-style blended blur navbar background */
 .nav-blur-bg {
   position: absolute;
-  inset: 0;
+  left: 0;
+  right: 0;
+  top: -200px;
   bottom: -40px;
   background: linear-gradient(
     to bottom,
     rgba(25, 26, 31, 0.98) 0%,
-    rgba(25, 26, 31, 0.9) 40%,
-    rgba(25, 26, 31, 0.6) 70%,
+    rgba(25, 26, 31, 0.98) 75%,
+    rgba(25, 26, 31, 0.6) 90%,
     transparent 100%
   );
   backdrop-filter: blur(16px);
@@ -223,17 +232,45 @@ body {
   mask-image: linear-gradient(
     to bottom,
     black 0%,
-    black 30%,
-    rgba(0, 0, 0, 0.7) 60%,
-    rgba(0, 0, 0, 0.25) 85%,
+    black 75%,
+    rgba(0, 0, 0, 0.25) 92%,
     transparent 100%
   );
   -webkit-mask-image: linear-gradient(
     to bottom,
     black 0%,
-    black 30%,
-    rgba(0, 0, 0, 0.7) 60%,
-    rgba(0, 0, 0, 0.25) 85%,
+    black 75%,
+    rgba(0, 0, 0, 0.25) 92%,
     transparent 100%
+  );
+}
+
+/* Google Stitch-style blended blur footer background */
+.footer-blur-bg {
+  position: absolute;
+  inset: 0;
+  top: -40px;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(25, 26, 31, 0.6) 15%,
+    rgba(25, 26, 31, 0.95) 45%,
+    rgba(25, 26, 31, 0.98) 100%
+  );
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, 0.25) 15%,
+    rgba(0, 0, 0, 0.75) 45%,
+    black 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, 0.25) 15%,
+    rgba(0, 0, 0, 0.75) 45%,
+    black 100%
   );
 }

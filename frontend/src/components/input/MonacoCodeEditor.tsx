@@ -231,8 +231,8 @@ export const MonacoCodeEditor: React.FC<Props> = ({
             scrollbar: {
               vertical: 'visible',
               horizontal: 'visible',
-              verticalScrollbarSize: 10,
-              horizontalScrollbarSize: 10,
+              verticalScrollbarSize: 6,
+              horizontalScrollbarSize: 6,
               alwaysConsumeMouseWheel: false,
             },
             mouseWheelScrollSensitivity: 1,

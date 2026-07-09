@@ -9,6 +9,7 @@
  */
 
 import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Trash2, History as HistoryIcon, ShieldCheck } from 'lucide-react';
 import type { HistoryEntry } from '../../lib/types';
@@ -38,7 +39,7 @@ export const HistoryDrawer: React.FC<Props> = ({
 }) => {
   const [confirming, setConfirming] = useState(false);
 
-  return (
+  return createPortal(
     <AnimatePresenceAny>
       {open && (
         <>
@@ -169,6 +170,7 @@ export const HistoryDrawer: React.FC<Props> = ({
           </motion.aside>
         </>
       )}
-    </AnimatePresenceAny>
+    </AnimatePresenceAny>,
+    document.body
   );
 };

@@ -55,9 +55,12 @@ export const Hero: React.FC = () => {
       </div>
 
       <div className="relative mx-auto max-w-4xl text-center animate-fade-in-up">
-        <div className="inline-flex items-center gap-2 rounded-pill border border-border-strong bg-white/[0.03] px-3 py-1.5 mb-lg">
-          <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse-glow" />
-          <span className="text-label uppercase tracking-[0.14em] text-ink-secondary">
+        <div className="group cursor-pointer inline-flex items-center gap-2 rounded-pill border border-border-strong hover:border-accent/40 bg-white/[0.03] hover:bg-white/[0.07] px-3 py-1.5 mb-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-accent/5 select-none">
+          <span className="relative flex h-2 w-2 items-center justify-center shrink-0">
+            <span className="absolute h-full w-full rounded-full bg-accent opacity-40 group-hover:animate-ping" />
+            <span className="relative h-1.5 w-1.5 rounded-full bg-accent group-hover:bg-accent-soft group-hover:scale-110 transition-all duration-300 animate-pulse-glow" />
+          </span>
+          <span className="text-label uppercase tracking-[0.14em] text-ink-secondary group-hover:text-ink-primary transition-colors duration-300">
             AI Code Tutor · Structured, always
           </span>
         </div>

@@ -10,7 +10,7 @@
 
 import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { History, Sparkles, Info, Home as HomeIcon, ArrowLeft } from 'lucide-react';
+import { History, Info, Home as HomeIcon, ArrowLeft } from 'lucide-react';
 
 interface Props {
   onOpenHistory: () => void;
@@ -24,7 +24,7 @@ export const NavBar: React.FC<Props> = ({ onOpenHistory }) => {
   const isAbout = location.pathname === '/about';
 
   return (
-    <header className="sticky top-0 z-40 bg-transparent">
+    <header className="fixed top-0 left-0 right-0 z-40 bg-transparent">
       {/* Google Stitch-style blended blur navbar background */}
       <div className="absolute inset-0 nav-blur-bg pointer-events-none" />
 
@@ -43,14 +43,41 @@ export const NavBar: React.FC<Props> = ({ onOpenHistory }) => {
           )}
           <Link
             to="/"
-            className="flex items-center gap-sm text-ink-primary hover:opacity-90 transition min-w-0"
+            className="group flex items-center gap-sm text-ink-primary min-w-0"
             data-testid="nav-wordmark"
           >
-            <span className="grid h-8 w-8 place-items-center rounded-xl bg-gradient-to-br from-accent to-accent-soft shadow-lg shadow-accent/30 shrink-0">
-              <Sparkles size={16} className="text-bg-base" />
-            </span>
-            <span className="font-display text-lg font-semibold tracking-tight truncate">
-              CodeExplain
+            {/* Custom Premium SVG Logo */}
+            <div className="relative grid h-8 w-8 place-items-center rounded-xl bg-gradient-to-br from-accent to-accent-soft shadow-lg shadow-accent/30 transition-all duration-300 group-hover:shadow-accent/50 group-hover:scale-105 shrink-0 overflow-hidden">
+              <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <svg
+                viewBox="0 0 32 32"
+                className="h-5 w-5 text-bg-base fill-none stroke-current"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                {/* Left bracket < */}
+                <path
+                  d="M 10 10 L 5 16 L 10 22"
+                  className="transition-transform duration-300 group-hover:-translate-x-1"
+                />
+                {/* Slash / */}
+                <path
+                  d="M 18 8 L 14 24"
+                  className="transition-all duration-500 group-hover:rotate-[15deg] origin-center"
+                />
+                {/* Right bracket > */}
+                <path
+                  d="M 22 10 L 27 16 L 22 22"
+                  className="transition-transform duration-300 group-hover:translate-x-1"
+                />
+              </svg>
+            </div>
+            
+            <span className="font-display text-lg font-bold tracking-tight text-ink-primary truncate">
+              <span className="bg-gradient-to-r from-white via-white to-accent-soft bg-clip-text text-transparent group-hover:from-white group-hover:via-accent-soft group-hover:to-white transition-all duration-500 bg-[size:200%_auto] group-hover:bg-[position:100%_center]">
+                CodeExplain
+              </span>
             </span>
           </Link>
         </div>

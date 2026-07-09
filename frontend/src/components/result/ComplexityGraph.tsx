@@ -135,20 +135,20 @@ export const ComplexityGraph: React.FC<Props> = ({ timeComplexity, spaceComplexi
             </defs>
 
             {/* Grid Lines */}
-            <line x1="40" y1="30" x2="380" y2="30" stroke="rgba(255,255,255,0.04)" strokeDasharray="3,3" />
-            <line x1="40" y1="100" x2="380" y2="100" stroke="rgba(255,255,255,0.04)" strokeDasharray="3,3" />
+            <line x1="40" y1="30" x2="365" y2="30" stroke="rgba(255,255,255,0.04)" strokeDasharray="3,3" />
+            <line x1="40" y1="100" x2="365" y2="100" stroke="rgba(255,255,255,0.04)" strokeDasharray="3,3" />
             <line x1="200" y1="30" x2="200" y2="170" stroke="rgba(255,255,255,0.04)" strokeDasharray="3,3" />
 
             {/* Axes */}
-            <line x1="40" y1="170" x2="390" y2="170" stroke="rgba(255,255,255,0.15)" strokeWidth="1.5" />
+            <line x1="40" y1="170" x2="375" y2="170" stroke="rgba(255,255,255,0.15)" strokeWidth="1.5" />
             <line x1="40" y1="20" x2="40" y2="170" stroke="rgba(255,255,255,0.15)" strokeWidth="1.5" />
 
             {/* Axis Arrows */}
-            <polygon points="390,167 396,170 390,173" fill="rgba(255,255,255,0.3)" />
+            <polygon points="375,167 381,170 375,173" fill="rgba(255,255,255,0.3)" />
             <polygon points="37,20 40,14 43,20" fill="rgba(255,255,255,0.3)" />
 
             {/* Axis Labels */}
-            <text x="215" y="188" fill="rgba(255,255,255,0.35)" fontSize="9" textAnchor="middle">
+            <text x="207" y="188" fill="rgba(255,255,255,0.35)" fontSize="9" textAnchor="middle">
               n (Size)
             </text>
             <text transform="rotate(-90 28 95)" x="28" y="95" fill="rgba(255,255,255,0.35)" fontSize="9" textAnchor="middle" letterSpacing="0.5">
@@ -266,14 +266,14 @@ export const ComplexityGraph: React.FC<Props> = ({ timeComplexity, spaceComplexi
                 onMouseEnter={() => setHoveredCurve(c)}
                 onMouseLeave={() => setHoveredCurve(null)}
                 className={`text-[10px] md:text-[11px] px-2.5 py-0.5 rounded-md border transition-all duration-200 ${isTime && isSpace
-                    ? 'bg-[#a89cff]/10 border-[#a89cff]/30 text-[#a89cff] font-semibold'
-                    : isTime
-                      ? 'bg-[#7c6af7]/10 border-[#7c6af7]/30 text-[#7c6af7] font-semibold'
-                      : isSpace
-                        ? 'bg-[#10b981]/10 border-[#10b981]/30 text-[#10b981] font-semibold'
-                        : isHovered
-                          ? 'bg-white/10 border-white/30 text-white'
-                          : 'bg-white/[0.02] border-border-subtle/40 text-ink-muted hover:text-ink-secondary hover:bg-white/[0.05]'
+                  ? 'bg-[#a89cff]/10 border-[#a89cff]/30 text-[#a89cff] font-semibold'
+                  : isTime
+                    ? 'bg-[#7c6af7]/10 border-[#7c6af7]/30 text-[#7c6af7] font-semibold'
+                    : isSpace
+                      ? 'bg-[#10b981]/10 border-[#10b981]/30 text-[#10b981] font-semibold'
+                      : isHovered
+                        ? 'bg-white/10 border-white/30 text-white'
+                        : 'bg-white/[0.02] border-border-subtle/40 text-ink-muted hover:text-ink-secondary hover:bg-white/[0.05]'
                   }`}
               >
                 {c.key}

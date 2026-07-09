@@ -76,7 +76,7 @@ export const PillDropdown: React.FC<Props> = ({
       {open && (
         <div
           role="listbox"
-          className="absolute z-30 mt-2 min-w-[260px] max-h-[320px] overflow-auto rounded-2xl glass p-1 shadow-2xl"
+          className="absolute z-50 mt-2 min-w-[260px] max-h-[320px] overflow-auto rounded-2xl glass p-1 shadow-2xl"
         >
           {options.map((opt) => (
             <button

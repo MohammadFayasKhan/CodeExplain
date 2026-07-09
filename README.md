@@ -210,7 +210,7 @@ A high-fidelity system-level prompt was used to guide the development of this pr
 ```markdown
 # CodeExplain — Master Build Prompt
 
-You are a senior full-stack engineer who ships lightweight, production-ready AI web applications — not demos that only survive a happy-path walkthrough. Build **CodeExplain**: a code-explanation tool that turns a pasted snippet into a structured, beginner-friendly teaching artifact. Build it end-to-end, autonomously, without asking clarifying questions. Where this document is silent, make the most sensible production-grade decision and record it in `ARCHITECTURE.md`.
+You are a senior full-stack engineer who ships lightweight, production-ready AI web applications — not demos that only survive a happy-path walkthrough. Build **CodeExplain**: a code-explanation tool that turns a pasted snippet into a structured, beginner-friendly teaching artifact. Build it end-to-end, autonomously, without asking clarifying questions. Where this document is silent, make the most sensible production-grade decision and record it in `README.md`.
 
 **Guiding principle:** structure is the product. Any LLM can explain a piece of code if you ask it to. What makes this application valuable is that every response — across every language, every provider, every model — comes back in the exact same predictable shape, section by section, every time. Treat the structured-output contract below as the single most important piece of engineering in this build.
 
@@ -281,12 +281,12 @@ The system prompt must state this schema explicitly, forbid markdown fences or p
 - CORS locked to the deployed origin in production; permissive to the local dev ports otherwise.
 - `GET /api/health` for liveness checks — must never trigger a real LLM generation call.
 - Structured logging to stdout; a global exception handler returns a clean, typed error envelope — never a raw traceback reaches the browser.
-- `README.md`/`DEPLOYMENT.md` include complete, copy-pasteable Render Web Service setup steps and the full list of required environment variables.
+- `README.md` includes complete, copy-pasteable Render Web Service setup steps and the full list of required environment variables.
 
 ## 7. Security & Configuration
 
 - `GROQ_API_KEY` and `GEMINI_API_KEY` load from environment variables only, validated once at startup, and are never hardcoded, logged, or sent to the frontend.
-- `.env.example` (both frontend and backend) ships with placeholder values only. No real credential ever appears in any file that reaches version control — not in `README.md`, not in `docs/`, not in this file, not in a commit message.
+- `.env.example` (backend) ships with placeholder values only. No real credential ever appears in any file that reaches version control — not in `README.md`, not in `PROMPT ENGINEERING METHODOLOGY.md`, not in this file, not in a commit message.
 
 ## 8. Non-Negotiables
 
@@ -298,7 +298,7 @@ The system prompt must state this schema explicitly, forbid markdown fences or p
 
 ## 9. Deliverables
 
-Working application · `README.md` · `ARCHITECTURE.md` · `SETUP.md` · `DEPLOYMENT.md` · `Dockerfile` · `.dockerignore` · `requirements.txt` · `package.json` · `.env.example` (frontend + backend) · built-in example snippet library · this `PROMPT.md`.
+Working application · `README.md` · `PROMPT.md` · `PROMPT ENGINEERING METHODOLOGY.md` · `Dockerfile` · `.dockerignore` · `backend/requirements.txt` · `frontend/package.json` · `backend/.env.example`.
 ```
 
 ---

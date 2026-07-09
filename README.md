@@ -221,7 +221,7 @@ You are a senior full-stack engineer who ships lightweight, production-ready AI 
 - **Frontend:** React 18 + TypeScript, built with Vite. Tailwind CSS, configured against the Stitch-derived design tokens in Section 5.
 - **Backend:** FastAPI (Python 3.11+), Pydantic v2 for every request/response boundary and for validating structured LLM output.
 - **LLM Providers:** Groq (`llama-3.3-70b-versatile` default, `meta-llama/llama-4-scout-17b-16e-instruct`, `qwen/qwen3.6-27b`) and Google Gemini (`gemini-2.5-flash`) behind one provider interface. Switching the active provider/model is a config change, never a code change. Automatic fallback to the next configured pair on failure.
-- **Deployment:** a single Docker image on Hugging Face Spaces, with the compiled frontend served as static assets by FastAPI. In local/preview environments, the frontend (port 3000) and backend (port 8001) run as two processes under a standard supervisor setup — same codebase, no forked logic, only environment-variable-driven behavior (Section 6).
+- **Deployment:** a single Docker image on Render, with the compiled frontend served as static assets by FastAPI. In local/preview environments, the frontend (port 3000) and backend (port 8001) run as two processes under a standard supervisor setup — same codebase, no forked logic, only environment-variable-driven behavior (Section 6).
 - Avoid any dependency, frontend or backend, that doesn't serve a requirement stated in this document.
 
 ## 2. Core Features — Tier 1 (Required)
@@ -281,7 +281,7 @@ The system prompt must state this schema explicitly, forbid markdown fences or p
 - CORS locked to the deployed origin in production; permissive to the local dev ports otherwise.
 - `GET /api/health` for liveness checks — must never trigger a real LLM generation call.
 - Structured logging to stdout; a global exception handler returns a clean, typed error envelope — never a raw traceback reaches the browser.
-- `README.md`/`DEPLOYMENT.md` include complete, copy-pasteable Hugging Face Docker Space setup steps and the full list of required environment variables.
+- `README.md`/`DEPLOYMENT.md` include complete, copy-pasteable Render Web Service setup steps and the full list of required environment variables.
 
 ## 7. Security & Configuration
 

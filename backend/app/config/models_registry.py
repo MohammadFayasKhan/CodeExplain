@@ -57,7 +57,7 @@ MODEL_REGISTRY: dict[str, ModelConfig] = {
         display_name="Qwen 3.6 27B (Groq)",
         temperature_explanation=0.1,
         temperature_chat=0.5,
-        max_tokens=4096,
+        max_tokens=1024,
     ),
     "gemini:gemini-2.5-flash": ModelConfig(
         provider="gemini",

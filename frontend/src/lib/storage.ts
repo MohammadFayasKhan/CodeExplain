@@ -72,7 +72,12 @@ export const storage = {
   },
 
   loadPrefs(): Prefs {
-    return safeParse<Prefs>(localStorage.getItem(PREFS_KEY), DEFAULT_PREFS);
+    const prefs = safeParse<Prefs>(localStorage.getItem(PREFS_KEY), DEFAULT_PREFS);
+    // Automatically upgrade the stored model selection from the old default to the new default
+    if (prefs.modelKey === 'groq:llama-3.3-70b-versatile') {
+      prefs.modelKey = DEFAULT_PREFS.modelKey;
+    }
+    return prefs;
   },
 
   savePrefs(prefs: Prefs): void {

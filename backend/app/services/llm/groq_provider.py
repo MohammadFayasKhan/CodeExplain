@@ -81,7 +81,7 @@ class GroqProvider(BaseLLMProvider):
         # raw JSON, which our backend's parser automatically extracts and repairs.
         if expect_json:
             if "qwen" in model_id.lower():
-                payload["reasoning_format"] = "hidden"
+                payload["reasoning_format"] = "parsed"
             else:
                 payload["response_format"] = {"type": "json_object"}
 

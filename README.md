@@ -139,7 +139,7 @@ Create a `.env` file in the `backend/` directory:
 GROQ_API_KEY="your_groq_api_key_here"
 GEMINI_API_KEY="your_gemini_api_key_here"
 ACTIVE_PROVIDER="groq"
-ACTIVE_MODEL="llama-3.3-70b-versatile"
+ACTIVE_MODEL="openai/gpt-oss-120b"
 ALLOWED_ORIGIN="http://localhost:3000"
 LOG_LEVEL="INFO"
 ```
@@ -221,7 +221,7 @@ You are a senior full-stack engineer who ships lightweight, production-ready AI 
 
 - **Frontend:** React 18 + TypeScript, built with Vite. Tailwind CSS, configured against the Stitch-derived design tokens in Section 5.
 - **Backend:** FastAPI (Python 3.11+), Pydantic v2 for every request/response boundary and for validating structured LLM output.
-- **LLM Providers:** Groq (`llama-3.3-70b-versatile` default, `openai/gpt-oss-120b`, `qwen/qwen3.6-27b`) and Google Gemini (`gemini-2.5-flash`) behind one provider interface. Switching the active provider/model is a config change, never a code change. Automatic fallback to the next configured pair on failure.
+- **LLM Providers:** Groq (`llama-3.3-70b-versatile`, `openai/gpt-oss-120b` default, `qwen/qwen3.6-27b`) and Google Gemini (`gemini-2.5-flash`) behind one provider interface. Switching the active provider/model is a config change, never a code change. Automatic fallback to the next configured pair on failure.
 - **Deployment:** a single Docker image on Render, with the compiled frontend served as static assets by FastAPI. In local/preview environments, the frontend (port 3000) and backend (port 8001) run as two processes under a standard supervisor setup — same codebase, no forked logic, only environment-variable-driven behavior (Section 6).
 - Avoid any dependency, frontend or backend, that doesn't serve a requirement stated in this document.
 

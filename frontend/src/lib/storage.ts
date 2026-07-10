@@ -22,7 +22,7 @@ export interface Prefs {
 
 const DEFAULT_PREFS: Prefs = {
   language: 'python',
-  modelKey: 'groq:llama-3.3-70b-versatile',
+  modelKey: 'groq:openai/gpt-oss-120b',
 };
 
 function safeParse<T>(raw: string | null, fallback: T): T {

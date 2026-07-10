@@ -79,7 +79,7 @@ PUBLIC_MODEL_ORDER: list[str] = [
 ]
 
 # When a request doesn't specify a model, this is what we use.
-DEFAULT_MODEL_KEY = "groq:llama-3.3-70b-versatile"
+DEFAULT_MODEL_KEY = "groq:openai/gpt-oss-120b"
 
 
 def resolve_model(provider: str | None, model_id: str | None) -> ModelConfig:

@@ -95,8 +95,8 @@ def get_settings() -> Settings:
         groq_api_key=_required("GROQ_API_KEY"),
         gemini_api_key=_required("GEMINI_API_KEY"),
         active_provider=os.environ.get("ACTIVE_PROVIDER", "groq").strip() or "groq",
-        active_model=os.environ.get("ACTIVE_MODEL", "llama-3.3-70b-versatile").strip()
-        or "llama-3.3-70b-versatile",
+        active_model=os.environ.get("ACTIVE_MODEL", "openai/gpt-oss-120b").strip()
+        or "openai/gpt-oss-120b",
         request_timeout_seconds=int(os.environ.get("REQUEST_TIMEOUT_SECONDS", "45") or 45),
         allowed_origin=os.environ.get("ALLOWED_ORIGIN", "*").strip() or "*",
         log_level=os.environ.get("LOG_LEVEL", "INFO").strip() or "INFO",

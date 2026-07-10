@@ -126,8 +126,8 @@ Nothing beyond items 1–13 is in scope. If you find yourself building a feature
 - **Frontend**: React (with TypeScript), built with Vite. Tailwind CSS for styling, driven by the design tokens in Part 5 (do not hand-roll a separate ad hoc style system — Tailwind's theme configuration should be extended with the exact token values from Part 5).
 - **Backend**: Python, FastAPI. Pydantic v2 for all request/response models and for validating structured LLM output.
 - **LLM Providers**: Groq API and Google Gemini API, behind a single provider abstraction (Part 7). Support the following models, selectable from the frontend:
-  - Groq: `llama-3.3-70b-versatile` (default)
-  - Groq: `openai/gpt-oss-120b`
+  - Groq: `llama-3.3-70b-versatile`
+  - Groq: `openai/gpt-oss-120b` (default)
   - Groq: `qwen/qwen3.6-27b`
   - Gemini: `gemini-2.5-flash`
 - **Supported languages** (Python and JavaScript required; extend to the following only if it does not compromise correctness for the required two): TypeScript, Java, C, C++, Go.

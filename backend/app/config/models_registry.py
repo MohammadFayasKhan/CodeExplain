@@ -35,18 +35,18 @@ class ModelConfig:
 # The order of this tuple is the fallback order used by the orchestrator
 # when the caller's chosen model errors out after retries.
 MODEL_REGISTRY: dict[str, ModelConfig] = {
-    "groq:llama-3.3-70b-versatile": ModelConfig(
-        provider="groq",
-        model_id="llama-3.3-70b-versatile",
-        display_name="Llama 3.3 70B (Groq)",
-        temperature_explanation=0.1,
-        temperature_chat=0.5,
-        max_tokens=4096,
-    ),
     "groq:openai/gpt-oss-120b": ModelConfig(
         provider="groq",
         model_id="openai/gpt-oss-120b",
         display_name="GPT OSS 120B (Groq)",
+        temperature_explanation=0.1,
+        temperature_chat=0.5,
+        max_tokens=4096,
+    ),
+    "groq:llama-3.3-70b-versatile": ModelConfig(
+        provider="groq",
+        model_id="llama-3.3-70b-versatile",
+        display_name="Llama 3.3 70B (Groq)",
         temperature_explanation=0.1,
         temperature_chat=0.5,
         max_tokens=4096,
@@ -72,8 +72,8 @@ MODEL_REGISTRY: dict[str, ModelConfig] = {
 # Frontend-facing enumeration of what the user can pick. Ordering here is the
 # order that shows up in the model pill selector.
 PUBLIC_MODEL_ORDER: list[str] = [
-    "groq:llama-3.3-70b-versatile",
     "groq:openai/gpt-oss-120b",
+    "groq:llama-3.3-70b-versatile",
     "groq:qwen/qwen3.6-27b",
     "gemini:gemini-2.5-flash",
 ]

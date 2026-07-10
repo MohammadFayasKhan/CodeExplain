@@ -42,5 +42,5 @@ class ExplanationResponse(BaseModel):
     line_by_line: list[LineCommentary]
     improvements: list[Improvement]
     detected_language: str
-    provider_used: str
-    model_used: str
+    provider_used: str = ""
+    model_used: str = ""

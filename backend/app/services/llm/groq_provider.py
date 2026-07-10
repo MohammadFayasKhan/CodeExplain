@@ -77,6 +77,12 @@ class GroqProvider(BaseLLMProvider):
         if expect_json:
             payload["response_format"] = {"type": "json_object"}
 
+        # Qwen models on Groq are reasoning models. When JSON mode is enabled,
+        # reasoning_format="raw" can cause a 400 Bad Request (json_validate_failed) error.
+        # Setting reasoning_format to "hidden" or "parsed" resolves this conflict.
+        if "qwen" in model_id.lower():
+            payload["reasoning_format"] = "hidden"
+
         # Construct authentication headers: Bearer token is a standard HTTP scheme
         headers = {
             "Authorization": f"Bearer {settings.groq_api_key}",

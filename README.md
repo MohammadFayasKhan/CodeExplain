@@ -110,6 +110,7 @@ CodeExplain/
 ├── Dockerfile                  # Production multi-stage build container
 ├── PROMPT.md                   # Master Build Prompt (technical blueprint)
 ├── PROMPT ENGINEERING METHODOLOGY.md  # Companion prompt-engineering analysis guide
+├── DEBUGGING_PROMPT.md         # Case study documenting debugging and performance hardening
 └── README.md                   # Repository documentation
 ```
 
@@ -318,6 +319,54 @@ The table below outlines how specific prompt engineering patterns are applied at
 | **Context Isolation** | Layer 2 | Follow-up conversation context in [chat_service.py](backend/app/services/chat_service.py) is strictly bounded to the code, explanation, and last 6 messages. |
 
 For a complete breakdown of each technique, the reasoning behind our choices, and limitations, check out the **[PROMPT ENGINEERING METHODOLOGY.md](PROMPT%20ENGINEERING%20METHODOLOGY.md)** companion document.
+
+---
+
+## 🐞 Debugging Engineering Methodology
+
+This repository includes a dedicated debugging guide, **[DEBUGGING_PROMPT.md](DEBUGGING_PROMPT.md)**, documenting the major technical investigations and structural resolutions carried out during development.
+
+This document is **not** a simple changelog. Instead, it serves as a detailed engineering case study covering:
+- **Root Cause Analysis**: Diagnosing complex failures to their underlying cause.
+- **Debugging Methodology**: Systematic tracing, diagnostic instrumentation, and validation.
+- **Architectural Investigations**: Evaluating component interfaces and state boundaries.
+- **Rendering Issues**: Resolving layout anomalies, flash of unstyled content (FOUC), and transitions.
+- **AI Pipeline Debugging**: Inspecting JSON parsing errors, temperature behavior, and validation failures.
+- **Browser Compatibility Fixes**: Ensuring smooth runtime and layout consistency across Safari, Chrome, and Firefox.
+- **Deployment Troubleshooting**: Resolving Render-specific container settings, environment variables, and build timing.
+- **Performance Optimization**: Profile-driven enhancements to minimize Largest Contentful Paint (LCP) and main-thread block time.
+- **React Rendering Investigations**: Addressing double-renders, hook dependency cycles, and state synchronization.
+- **Backend Reliability Improvements**: Strengthening exception middleware and model fallback routines.
+- **Production Hardening**: Security configurations, rate limiting, and system resilience.
+
+### Why This Guide Exists
+
+Modern software engineering extends far beyond writing clean code. Building robust, production-grade applications requires:
+- **Systematic debugging** to isolate failures deterministically.
+- **Hypothesis-driven investigation** to test and verify potential fixes.
+- **Root cause analysis** to ensure issues are resolved permanently rather than patched superficially.
+- **Validation** of data schemas, performance metrics, and UI responsiveness.
+- **Performance profiling** to catch regressions in resource usage and load times.
+- **Production testing** to observe system behavior under realistic deployment constraints.
+- **Iterative refinement** based on diagnostic feedback and telemetry.
+
+### Debugging Case Studies
+
+The table below maps the primary focus areas covered in the engineering case study:
+
+| Section | Description |
+|---------|-------------|
+| Frontend Debugging | Major UI architecture investigations |
+| Backend Debugging | API and FastAPI debugging |
+| AI Pipeline | Structured output validation and self-healing |
+| Rendering | React rendering and layout debugging |
+| Browser Compatibility | Safari, Chrome and responsive investigations |
+| Performance | GPU acceleration and rendering optimization |
+| Reliability | Fallback mechanisms and production stability |
+| Lessons Learned | Engineering insights from debugging |
+
+For the complete log of these investigations and their structural resolutions, refer to the full document:
+👉 **[DEBUGGING_PROMPT.md](DEBUGGING_PROMPT.md)**
 
 ---
 

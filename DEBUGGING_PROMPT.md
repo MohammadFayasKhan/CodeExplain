@@ -296,7 +296,63 @@ Every structural fix in this document was confirmed to compile cleanly with zero
 
 ---
 
-# 6. Reliability Improvements
+# 6. LLM Pipeline & API Validation Debugging
+
+## Issue: Dynamic Model Selection Dropdown Out of Sync with Backend Fallbacks and Loaded History
+
+The model selection dropdown in the input card did not update when a fallback occurred on the backend (e.g. silently falling back to Llama 3.3 because the selected model failed due to credentials or rate limits) or when a past result was opened from the history drawer. This created a visual mismatch where the UI dropdown showed one model, but the generation status badge showed another.
+
+## Root Cause
+
+The frontend dropdown selection state (`modelKey`) was decoupled from the actual `model_used` and `provider_used` fields returned in the explanation response payload, and was not updated when loading history items.
+
+## Investigation / Solution
+
+Modified `HomePage.tsx` to automatically synchronize the dropdown state to match `res.model_used` and `res.provider_used` both when generating a new response (syncing on fallback) and when loading a history entry. Additionally, added a user-facing toast alert when fallback occurs to explain why the dropdown changed.
+
+## Result
+
+Dropdown state remains 100% synchronized with the actual model displayed in the results, eliminating visual confusion and providing clear fallback status notifications.
+
+---
+
+## Issue: Groq JSON Validation Failure (json_validate_failed) with Qwen Reasoning Models
+
+Explaining code using `qwen/qwen3.6-27b` on Groq repeatedly returned a `400 Bad Request` validation error, silently triggering fallbacks.
+
+## Root Cause
+
+Qwen is a reasoning model that outputs internal chain-of-thought tokens. When native JSON mode (`response_format={"type": "json_object"}`) was requested on Groq, the model's raw reasoning steps conflicted with Groq's strict server-side JSON format validation, causing Groq to reject the entire generation.
+
+## Investigation / Solution
+
+Discovered that enabling `"reasoning_format": "parsed"` outputs Qwen's reasoning into a separate API block while outputting only the clean JSON block in `content`. By bypassing Groq's native JSON mode for Qwen and configuring `"reasoning_format": "parsed"`, the validation conflict was resolved.
+
+## Result
+
+Qwen generations succeed directly with 200 OK without triggering 400 errors or fallbacks.
+
+---
+
+## Issue: Server-Side Pydantic Validation Failures on Omitted Metadata Fields
+
+Qwen and other models sometimes omitted the server-managed metadata fields (`provider_used` and `model_used`), causing the backend schema parser to fail and trigger repair loops or rate limits.
+
+## Root Cause
+
+The backend's Pydantic model (`ExplanationResponse`) marked `provider_used` and `model_used` as required fields without defaults, forcing validation errors even though these fields are purely metadata filled in by the backend orchestrator *after* generation.
+
+## Investigation / Solution
+
+Provided default values (`provider_used: str = ""` and `model_used: str = ""`) in the Pydantic schema so that validation passes if the LLM omits them, preventing redundant self-healing loops and API rate limit calls.
+
+## Result
+
+Drastically improved backend parsing stability and reduced API call overhead.
+
+---
+
+# 7. Reliability Improvements
 
 - Consolidated three independent root causes (unbounded background decoration, fixed-width toolbars, non-responsive flex headers) to resolve twenty separate mobile layout reports in a single coordinated pass rather than patching symptoms individually.
 - Replaced ad hoc z-index increases with a deliberate, documented stacking-context hierarchy (Drawer/Toast `z-50` → Navbar `z-40` → Main `z-20` → Footer `z-10`) to prevent recurring overlay-visibility regressions as new UI elements are added.
@@ -304,7 +360,7 @@ Every structural fix in this document was confirmed to compile cleanly with zero
 
 ---
 
-# 7. Lessons Learned
+# 8. Lessons Learned
 
 **CSS stacking contexts are invisible until they aren't.** Multiple unrelated-looking bugs (dropdown clipping, drawer clipping, footer click interception) traced back to the same root mechanism: an element property (`backdrop-filter`, `z-index` with `position`) silently creating a new stacking context. Diagnosing z-index issues requires reasoning about the ancestor chain, not just the numeric value in question.
 
@@ -332,3 +388,6 @@ Every structural fix in this document was confirmed to compile cleanly with zero
 12. Root-caused a "service unavailable" production error to stale in-memory environment configuration rather than a code defect, establishing a restart-on-config-change procedure.
 13. Established a systematic build-verification gate (`npm run build`) as a mandatory checkpoint after every structural layout or stacking-context change.
 14. Designed and documented an explicit z-index/stacking-context hierarchy across the application to prevent recurring overlay-visibility regressions.
+15. Synchronized the frontend model selection dropdown state dynamically with backend fallbacks and loaded history entries to resolve user-confusing state mismatches.
+16. Resolved Groq API `json_validate_failed` 400 errors on reasoning models by bypassing native JSON mode and routing reasoning output via `reasoning_format="parsed"`.
+17. Hardened the backend explanation schema by assigning default empty values to server-managed metadata fields, preventing unnecessary Pydantic validation failures.

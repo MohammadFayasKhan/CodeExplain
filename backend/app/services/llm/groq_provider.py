@@ -111,11 +111,11 @@ class GroqProvider(BaseLLMProvider):
         try:
             # Extract completions from the standard OpenAI response hierarchy:
             # data -> choices list -> first choice -> message dictionary -> content text.
-            content = data["choices"][0]["message"]["content"]
+            choice = data["choices"][0]
+            content = choice["message"].get("content") or ""
+            return content
         except (KeyError, IndexError, TypeError) as exc:
             # If the response schema did not match expectations, raise an error
             raise ProviderUnavailableError(
                 f"Groq response missing expected fields: {data}"
             ) from exc
-
-        return content or ""

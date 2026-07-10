@@ -87,6 +87,19 @@ export const HomePage: React.FC<Props> = ({ historyOpen, onHistoryClose }) => {
         model: modelId,
       });
       setExplanation(res);
+      
+      // Update model dropdown to match what was actually used (e.g. if fallback occurred)
+      if (res.provider_used && res.model_used) {
+        const actualKey = `${res.provider_used}:${res.model_used}`;
+        if (actualKey !== modelKey) {
+          setModelKey(actualKey);
+          setToast({
+            msg: `Requested model failed or rate-limited. Fell back to ${res.model_used} automatically.`,
+            tone: 'info',
+          });
+        }
+      }
+
       const saved = storage.addHistory({ code, language, explanation: res });
       setHistory([saved, ...history]);
       // Smooth scroll to the result cards after a paint.
@@ -114,6 +127,12 @@ export const HomePage: React.FC<Props> = ({ historyOpen, onHistoryClose }) => {
     setCode(entry.code);
     setLanguage(entry.language);
     setExplanation(entry.explanation);
+    
+    // Sync the model selection dropdown with the history entry's model
+    if (entry.explanation.provider_used && entry.explanation.model_used) {
+      setModelKey(`${entry.explanation.provider_used}:${entry.explanation.model_used}`);
+    }
+    
     onHistoryClose();
     requestAnimationFrame(() =>
       document.getElementById('result-anchor')?.scrollIntoView({ behavior: 'smooth', block: 'start' }),

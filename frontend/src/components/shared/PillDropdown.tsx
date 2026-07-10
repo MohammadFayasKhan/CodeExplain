@@ -35,7 +35,7 @@ export const PillDropdown: React.FC<Props> = ({
   testId,
 }) => {
   const [open, setOpen] = useState(false);
-  const [openUpward, setOpenUpward] = useState(false);
+  const [maxHeight, setMaxHeight] = useState('320px');
   const wrapRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -67,8 +67,9 @@ export const PillDropdown: React.FC<Props> = ({
         onClick={() => {
           if (!open && wrapRef.current) {
             const rect = wrapRef.current.getBoundingClientRect();
-            const spaceBelow = window.innerHeight - rect.bottom;
-            setOpenUpward(spaceBelow < 340);
+            const spaceBelow = window.innerHeight - rect.bottom - 16;
+            const computedMax = Math.max(120, Math.min(320, spaceBelow));
+            setMaxHeight(`${computedMax}px`);
           }
           setOpen((v) => !v);
         }}
@@ -84,9 +85,8 @@ export const PillDropdown: React.FC<Props> = ({
       {open && (
         <div
           role="listbox"
-          className={`absolute z-50 min-w-[260px] max-h-[320px] overflow-auto rounded-2xl glass p-1 shadow-2xl ${
-            openUpward ? 'bottom-full mb-2' : 'top-full mt-2'
-          }`}
+          style={{ maxHeight }}
+          className="absolute z-50 top-full mt-2 min-w-[260px] overflow-auto rounded-2xl glass p-1 shadow-2xl"
         >
           {options.map((opt) => (
             <button

@@ -43,10 +43,10 @@ MODEL_REGISTRY: dict[str, ModelConfig] = {
         temperature_chat=0.5,
         max_tokens=4096,
     ),
-    "groq:meta-llama/llama-4-scout-17b-16e-instruct": ModelConfig(
+    "groq:openai/gpt-oss-120b": ModelConfig(
         provider="groq",
-        model_id="meta-llama/llama-4-scout-17b-16e-instruct",
-        display_name="Llama 4 Scout 17B (Groq)",
+        model_id="openai/gpt-oss-120b",
+        display_name="GPT OSS 120B (Groq)",
         temperature_explanation=0.1,
         temperature_chat=0.5,
         max_tokens=4096,
@@ -73,7 +73,7 @@ MODEL_REGISTRY: dict[str, ModelConfig] = {
 # order that shows up in the model pill selector.
 PUBLIC_MODEL_ORDER: list[str] = [
     "groq:llama-3.3-70b-versatile",
-    "groq:meta-llama/llama-4-scout-17b-16e-instruct",
+    "groq:openai/gpt-oss-120b",
     "groq:qwen/qwen3.6-27b",
     "gemini:gemini-2.5-flash",
 ]
@@ -85,7 +85,7 @@ DEFAULT_MODEL_KEY = "groq:llama-3.3-70b-versatile"
 def resolve_model(provider: str | None, model_id: str | None) -> ModelConfig:
     """Look up a ModelConfig by (provider, model_id), falling back to default.
 
-    We look up by composite key so ``meta-llama/llama-4-scout-17b-16e-instruct``
+    We look up by composite key so ``openai/gpt-oss-120b``
     on Groq and a hypothetical same-name model elsewhere would still be
     distinguishable. Missing/None inputs resolve to the default model rather
     than raising: the caller is trusted UI, not user input.

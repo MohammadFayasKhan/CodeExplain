@@ -127,7 +127,7 @@ Nothing beyond items 1–13 is in scope. If you find yourself building a feature
 - **Backend**: Python, FastAPI. Pydantic v2 for all request/response models and for validating structured LLM output.
 - **LLM Providers**: Groq API and Google Gemini API, behind a single provider abstraction (Part 7). Support the following models, selectable from the frontend:
   - Groq: `llama-3.3-70b-versatile` (default)
-  - Groq: `meta-llama/llama-4-scout-17b-16e-instruct`
+  - Groq: `openai/gpt-oss-120b`
   - Groq: `qwen/qwen3.6-27b`
   - Gemini: `gemini-2.5-flash`
 - **Supported languages** (Python and JavaScript required; extend to the following only if it does not compromise correctness for the required two): TypeScript, Java, C, C++, Go.

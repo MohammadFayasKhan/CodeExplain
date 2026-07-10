@@ -73,15 +73,17 @@ class GroqProvider(BaseLLMProvider):
         }
 
         # If expect_json is true, tell Groq to enable its native JSON output mode.
-        # This instructs the model to only output text that is valid JSON syntax.
+        # However, Qwen models on Groq are reasoning models. Enabling native JSON mode
+        # with response_format={"type": "json_object"} frequently triggers Groq's strict
+        # JSON validator to return a 400 Bad Request (json_validate_failed) because of how
+        # Qwen manages internal tokens or output formatting.
+        # Instead of native JSON mode, we set reasoning_format="hidden" and let Qwen output
+        # raw JSON, which our backend's parser automatically extracts and repairs.
         if expect_json:
-            payload["response_format"] = {"type": "json_object"}
-
-        # Qwen models on Groq are reasoning models. When JSON mode is enabled,
-        # reasoning_format="raw" can cause a 400 Bad Request (json_validate_failed) error.
-        # Setting reasoning_format to "hidden" or "parsed" resolves this conflict.
-        if "qwen" in model_id.lower():
-            payload["reasoning_format"] = "hidden"
+            if "qwen" in model_id.lower():
+                payload["reasoning_format"] = "hidden"
+            else:
+                payload["response_format"] = {"type": "json_object"}
 
         # Construct authentication headers: Bearer token is a standard HTTP scheme
         headers = {

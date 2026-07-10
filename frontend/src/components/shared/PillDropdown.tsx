@@ -35,6 +35,7 @@ export const PillDropdown: React.FC<Props> = ({
   testId,
 }) => {
   const [open, setOpen] = useState(false);
+  const [openUpward, setOpenUpward] = useState(false);
   const wrapRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -63,7 +64,14 @@ export const PillDropdown: React.FC<Props> = ({
         aria-label={ariaLabel}
         aria-haspopup="listbox"
         aria-expanded={open}
-        onClick={() => setOpen((v) => !v)}
+        onClick={() => {
+          if (!open && wrapRef.current) {
+            const rect = wrapRef.current.getBoundingClientRect();
+            const spaceBelow = window.innerHeight - rect.bottom;
+            setOpenUpward(spaceBelow < 340);
+          }
+          setOpen((v) => !v);
+        }}
         data-testid={testId}
       >
         <span className="text-accent-soft">{icon}</span>
@@ -76,7 +84,9 @@ export const PillDropdown: React.FC<Props> = ({
       {open && (
         <div
           role="listbox"
-          className="absolute z-50 mt-2 min-w-[260px] max-h-[320px] overflow-auto rounded-2xl glass p-1 shadow-2xl"
+          className={`absolute z-50 min-w-[260px] max-h-[320px] overflow-auto rounded-2xl glass p-1 shadow-2xl ${
+            openUpward ? 'bottom-full mb-2' : 'top-full mt-2'
+          }`}
         >
           {options.map((opt) => (
             <button

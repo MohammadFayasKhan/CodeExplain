@@ -18,6 +18,63 @@ interface Props {
   model?: string;
 }
 
+interface InputVariable {
+  name: string;
+  defaultValue: string;
+}
+
+// Extract variables from test case input string (e.g., "arr = [2, 4, 6, 8], size = 4, target = 5")
+function parseInputVariables(inputStr: string): InputVariable[] {
+  if (!inputStr.includes('=')) {
+    return [{ name: 'input', defaultValue: inputStr }];
+  }
+  
+  const vars: InputVariable[] = [];
+  let depth = 0;
+  let current = '';
+  const parts: string[] = [];
+  
+  for (let i = 0; i < inputStr.length; i++) {
+    const char = inputStr[i];
+    if (char === '[' || char === '{' || char === '(') depth++;
+    if (char === ']' || char === '}' || char === ')') depth--;
+    
+    if (char === ',' && depth === 0) {
+      parts.push(current.trim());
+      current = '';
+    } else {
+      current += char;
+    }
+  }
+  if (current.trim()) {
+    parts.push(current.trim());
+  }
+
+  for (const part of parts) {
+    const eqIdx = part.indexOf('=');
+    if (eqIdx !== -1) {
+      const name = part.substring(0, eqIdx).trim();
+      const val = part.substring(eqIdx + 1).trim();
+      vars.push({ name, defaultValue: val });
+    }
+  }
+  return vars;
+}
+
+// Detect if a string is a representation of an array/list (e.g. "[1, 2]" or "{3, 4}")
+function isArrayString(val: string): boolean {
+  const trimmed = val.trim();
+  return (trimmed.startsWith('[') && trimmed.endsWith(']')) || (trimmed.startsWith('{') && trimmed.endsWith('}'));
+}
+
+// Extract elements from array string representation
+function parseArrayElements(val: string): string[] {
+  const trimmed = val.trim();
+  const inner = trimmed.substring(1, trimmed.length - 1).trim();
+  if (!inner) return [];
+  return inner.split(',').map(item => item.trim());
+}
+
 export const VisualizerPanel: React.FC<Props> = ({
   code,
   language,
@@ -31,7 +88,7 @@ export const VisualizerPanel: React.FC<Props> = ({
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [playbackSpeed, setPlaybackSpeed] = useState<number>(1.0);
   
-  const [customInputVal, setCustomInputVal] = useState<string>('');
+  const [customVariables, setCustomVariables] = useState<Record<string, string>>({});
   const [loadingCustomTrace, setLoadingCustomTrace] = useState<boolean>(false);
   const [customError, setCustomError] = useState<string | null>(null);
 
@@ -45,6 +102,20 @@ export const VisualizerPanel: React.FC<Props> = ({
       setSelectedCaseId('custom');
     }
   }, [testCases, selectedCaseId]);
+
+  // Sync/Parse custom input fields from the first default test case format
+  useEffect(() => {
+    if (testCases && testCases.length > 0) {
+      const parsed = parseInputVariables(testCases[0].input);
+      const initialVals: Record<string, string> = {};
+      for (const item of parsed) {
+        initialVals[item.name] = item.defaultValue;
+      }
+      setCustomVariables(initialVals);
+    } else {
+      setCustomVariables({ input: '' });
+    }
+  }, [testCases]);
 
   const activeCase = selectedCaseId === 'custom' ? customTrace : testCases.find((c) => c.id === selectedCaseId);
   const currentStepList = activeCase?.steps || [];
@@ -80,20 +151,24 @@ export const VisualizerPanel: React.FC<Props> = ({
 
   const handleGenerateCustomTrace = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!customInputVal.trim()) return;
+    const reconstructedInput = Object.entries(customVariables)
+      .map(([name, val]) => name === 'input' ? val : `${name} = ${val}`)
+      .join(', ');
+
+    if (!reconstructedInput.trim()) return;
     setLoadingCustomTrace(true);
     setCustomError(null);
     try {
       const res = await api.visualize({
         code,
         language,
-        custom_input: customInputVal,
+        custom_input: reconstructedInput,
         provider,
         model,
       });
       const generatedCase: TestCase = {
         id: 'custom',
-        input: customInputVal,
+        input: reconstructedInput,
         expected_output: res.output,
         steps: res.steps,
       };
@@ -120,6 +195,52 @@ export const VisualizerPanel: React.FC<Props> = ({
   const handleNext = () => {
     setIsPlaying(false);
     setCurrentStepIndex((idx) => Math.min(currentStepList.length - 1, idx + 1));
+  };
+
+  // Helper to render array memory states beautifully
+  const renderMemoryVariable = (name: string, val: string) => {
+    if (isArrayString(val)) {
+      const elements = parseArrayElements(val);
+      return (
+        <div key={name} className="col-span-2 bg-white/[0.01] border border-border-subtle/80 rounded-xl p-sm space-y-sm">
+          <div className="flex items-center gap-xs text-[11px] text-ink-secondary">
+            <span className="font-mono font-bold text-accent-soft">{name}[]</span>
+            <span className="text-ink-muted">=</span>
+            <span className="text-ink-muted">{"{"}</span>
+            <span className="font-mono text-ink-primary font-medium">{elements.length} items</span>
+            <span className="text-ink-muted">{"}"}</span>
+          </div>
+          <div className="flex flex-wrap gap-xs pt-0.5">
+            {elements.map((el, elIdx) => (
+              <span
+                key={`${name}-${elIdx}-${el}`}
+                className="font-mono text-xs text-accent-soft bg-accent/10 border border-accent/20 rounded px-2 py-0.5 animate-var-flash"
+              >
+                {el}
+              </span>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div
+        key={name}
+        className="flex items-center justify-between bg-white/[0.01] border border-border-subtle/80 rounded-xl px-sm py-2"
+      >
+        <span className="font-mono text-[11px] text-ink-secondary truncate pr-1" title={name}>
+          {name}
+        </span>
+        <span
+          key={`${name}-${val}`}
+          className="font-mono text-[11px] text-accent-soft bg-white/[0.04] px-1.5 py-0.5 rounded-lg animate-var-flash max-w-[100px] truncate"
+          title={val}
+        >
+          {val}
+        </span>
+      </div>
+    );
   };
 
   const lines = code.split('\n');
@@ -182,22 +303,37 @@ export const VisualizerPanel: React.FC<Props> = ({
       {/* Case Header Details / Custom Input Form */}
       {selectedCaseId === 'custom' ? (
         <form onSubmit={handleGenerateCustomTrace} className="flex flex-wrap items-center gap-md bg-white/[0.02] border border-border-subtle rounded-2xl p-md text-xs w-full">
-          <div className="flex items-center gap-sm flex-1 min-w-[220px]">
-            <span className="text-ink-muted shrink-0 font-medium">Custom Input:</span>
-            <input
-              type="text"
-              value={customInputVal}
-              onChange={(e) => setCustomInputVal(e.target.value)}
-              placeholder="e.g. n = 5"
-              className="flex-1 bg-black/40 border border-border-subtle focus:border-accent text-ink-primary placeholder:text-ink-muted/50 rounded-xl px-3 py-1.5 font-mono text-xs outline-none transition-colors"
-              disabled={loadingCustomTrace}
-            />
+          <div className="flex flex-wrap items-center gap-sm flex-1">
+            <span className="text-ink-muted font-medium mr-1">Custom Input:</span>
+            {Object.entries(customVariables).map(([name, value]) => (
+              <div key={name} className="flex items-center gap-xs">
+                {name !== 'input' && (
+                  <>
+                    <span className="font-mono text-ink-secondary font-bold">{name}</span>
+                    <span className="text-ink-muted">=</span>
+                  </>
+                )}
+                <input
+                  type="text"
+                  value={value}
+                  onChange={(e) => {
+                    setCustomVariables((prev) => ({
+                      ...prev,
+                      [name]: e.target.value,
+                    }));
+                  }}
+                  placeholder={name === 'input' ? 'e.g. hello()' : `Value for ${name}`}
+                  className="bg-black/40 border border-border-subtle focus:border-accent text-ink-primary placeholder:text-ink-muted/50 rounded-xl px-3 py-1.5 font-mono text-xs outline-none transition-colors w-[130px]"
+                  disabled={loadingCustomTrace}
+                />
+              </div>
+            ))}
           </div>
           
           <Button
             type="submit"
             loading={loadingCustomTrace}
-            disabled={!customInputVal.trim()}
+            disabled={Object.values(customVariables).some(val => !val.trim())}
             className="px-md py-1.5 text-[11px] h-8 shrink-0"
           >
             Run & Visualize
@@ -299,23 +435,9 @@ export const VisualizerPanel: React.FC<Props> = ({
                     </div>
                   ) : (
                     <div className="grid grid-cols-2 gap-xs">
-                      {Object.entries(currentStep.variables).map(([name, val]) => (
-                        <div
-                          key={name}
-                          className="flex items-center justify-between bg-white/[0.01] border border-border-subtle/80 rounded-xl px-sm py-2"
-                        >
-                          <span className="font-mono text-[11px] text-ink-secondary truncate pr-1" title={name}>
-                            {name}
-                          </span>
-                          <span
-                            key={`${name}-${val}`}
-                            className="font-mono text-[11px] text-accent-soft bg-white/[0.04] px-1.5 py-0.5 rounded-lg animate-var-flash max-w-[100px] truncate"
-                            title={val}
-                          >
-                            {val}
-                          </span>
-                        </div>
-                      ))}
+                      {Object.entries(currentStep.variables).map(([name, val]) => 
+                        renderMemoryVariable(name, val)
+                      )}
                     </div>
                   )}
                 </div>
@@ -323,7 +445,7 @@ export const VisualizerPanel: React.FC<Props> = ({
             ) : (
               <div className="bg-white/[0.02] border border-border-subtle rounded-2xl p-md">
                 <p className="text-xs text-ink-muted italic leading-relaxed">
-                  {customError || "Enter custom arguments in the input box above and click 'Run & Visualize' to generate step-by-step trace animations."}
+                  {customError || "Enter custom arguments in the input fields above and click 'Run & Visualize' to generate step-by-step trace animations."}
                 </p>
               </div>
             )}

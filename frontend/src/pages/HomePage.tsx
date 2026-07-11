@@ -158,7 +158,7 @@ export const HomePage: React.FC<Props> = ({ historyOpen, onHistoryClose }) => {
         />
       </div>
 
-      <div id="result-anchor" />
+      <div id="result-anchor" className="scroll-mt-20 md:scroll-mt-24" />
 
       {loading && (
         <div className="mx-auto w-full max-w-4xl px-md md:px-lg mt-lg">

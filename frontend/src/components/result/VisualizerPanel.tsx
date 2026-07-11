@@ -509,10 +509,12 @@ export const VisualizerPanel: React.FC<Props> = ({
                 disabled={!activeCase}
                 title="Playback Speed"
               >
-                <option value="0.5" className="bg-bg-base text-ink-primary">0.5x</option>
-                <option value="1.0" className="bg-bg-base text-ink-primary">1.0x</option>
-                <option value="1.5" className="bg-bg-base text-ink-primary">1.5x</option>
-                <option value="2.0" className="bg-bg-base text-ink-primary">2.0x</option>
+                <option value="0.1" className="bg-bg-base text-ink-primary">0.10x</option>
+                <option value="0.25" className="bg-bg-base text-ink-primary">0.25x</option>
+                <option value="0.5" className="bg-bg-base text-ink-primary">0.50x</option>
+                <option value="1.0" className="bg-bg-base text-ink-primary">1.00x</option>
+                <option value="1.5" className="bg-bg-base text-ink-primary">1.50x</option>
+                <option value="2.0" className="bg-bg-base text-ink-primary">2.00x</option>
               </select>
             </div>
 

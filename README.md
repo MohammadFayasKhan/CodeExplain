@@ -47,6 +47,7 @@ Every single visual transition (boot, home, loading, results, chat, quiz, error,
 
 - **Structural Code Breakdown:** Pediatric summaries focused on the "why" and "how" of code blocks.
 - **Big-O Complexity Graph:** Correct Time and Space complexity metrics visualized on an interactive graph.
+- **Interactive Execution Visualizer:** Step-by-step execution tracer with variable state monitors, animated array displayers, custom speed dials, and direct custom variable input forms.
 - **Interactive Line Gutter:** Hovering over lines of code highlights corresponding explanatory annotations.
 - **Dynamic Quiz Panel:** Evaluates your understanding with 3-5 multiple-choice questions compiled from your code snippet.
 - **Context-Scoped Follow-Up Chat:** Ask specific follow-up questions about the code snippet. Conversation history is maintained per browser tab session.

@@ -303,31 +303,35 @@ export const VisualizerPanel: React.FC<Props> = ({
       {/* Case Header Details / Custom Input Form */}
       {selectedCaseId === 'custom' ? (
         <form onSubmit={handleGenerateCustomTrace} className="flex flex-wrap items-center gap-md bg-white/[0.02] border border-border-subtle rounded-2xl p-md text-xs w-full">
-          <div className="flex flex-wrap items-center gap-sm flex-1">
-            <span className="text-ink-muted font-medium mr-1">Custom Input:</span>
-            {Object.entries(customVariables).map(([name, value]) => (
-              <div key={name} className="flex items-center gap-xs">
-                {name !== 'input' && (
-                  <>
-                    <span className="font-mono text-ink-secondary font-bold">{name}</span>
-                    <span className="text-ink-muted">=</span>
-                  </>
-                )}
-                <input
-                  type="text"
-                  value={value}
-                  onChange={(e) => {
-                    setCustomVariables((prev) => ({
-                      ...prev,
-                      [name]: e.target.value,
-                    }));
-                  }}
-                  placeholder={name === 'input' ? 'e.g. hello()' : `Value for ${name}`}
-                  className="bg-black/40 border border-border-subtle focus:border-accent text-ink-primary placeholder:text-ink-muted/50 rounded-xl px-3 py-1.5 font-mono text-xs outline-none transition-colors w-[130px]"
-                  disabled={loadingCustomTrace}
-                />
-              </div>
-            ))}
+          <div className="flex flex-wrap items-center gap-y-sm gap-x-md flex-1">
+            <span className="text-ink-muted font-medium shrink-0">Custom Input:</span>
+            {Object.entries(customVariables).map(([name, value]) => {
+              const isArr = isArrayString(value) || value.includes(',') || value.includes('[');
+              const inputWidth = isArr || value.length > 6 ? 'w-[200px]' : 'w-[70px]';
+              return (
+                <div key={name} className="flex items-center gap-1.5 font-mono shrink-0">
+                  {name !== 'input' && (
+                    <>
+                      <span className="text-ink-secondary font-bold">{name}</span>
+                      <span className="text-ink-muted">=</span>
+                    </>
+                  )}
+                  <input
+                    type="text"
+                    value={value}
+                    onChange={(e) => {
+                      setCustomVariables((prev) => ({
+                        ...prev,
+                        [name]: e.target.value,
+                      }));
+                    }}
+                    placeholder={name === 'input' ? 'e.g. hello()' : `Value for ${name}`}
+                    className={`bg-black/40 border border-border-subtle focus:border-accent text-ink-primary placeholder:text-ink-muted/50 rounded-xl px-2.5 py-1.5 text-xs outline-none transition-colors ${inputWidth}`}
+                    disabled={loadingCustomTrace}
+                  />
+                </div>
+              );
+            })}
           </div>
           
           <Button

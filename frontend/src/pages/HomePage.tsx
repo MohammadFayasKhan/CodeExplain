@@ -121,6 +121,9 @@ export const HomePage: React.FC<Props> = ({ historyOpen, onHistoryClose }) => {
     setCode(c);
     setLanguage(lang);
     setInlineError(null);
+    requestAnimationFrame(() => {
+      document.getElementById('editor-anchor')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
   };
 
   const openFromHistory = (entry: HistoryEntry) => {
@@ -143,6 +146,7 @@ export const HomePage: React.FC<Props> = ({ historyOpen, onHistoryClose }) => {
     <>
       <div className="relative w-full">
         <Hero />
+        <div id="editor-anchor" className="scroll-mt-20 md:scroll-mt-24" />
         <ExamplePicker onPick={pickExample} disabled={loading} />
         <CodeInputCard
           code={code}

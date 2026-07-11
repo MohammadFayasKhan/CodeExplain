@@ -136,14 +136,18 @@ export const VisualizerPanel: React.FC<Props> = ({
     return () => clearInterval(interval);
   }, [isPlaying, currentStepList, playbackSpeed]);
 
-  // Smooth scroll to highlight lines
+  // Smooth scroll to highlight lines within code box container (avoids window scrolling)
   useEffect(() => {
     if (currentStep && codeContainerRef.current) {
-      const targetEl = codeContainerRef.current.querySelector(`#line-no-${currentStep.line_number}`);
+      const container = codeContainerRef.current;
+      const targetEl = container.querySelector(`#line-no-${currentStep.line_number}`) as HTMLElement;
       if (targetEl) {
-        targetEl.scrollIntoView({
+        const containerTop = container.getBoundingClientRect().top;
+        const targetTop = targetEl.getBoundingClientRect().top;
+        const relativeTop = targetTop - containerTop;
+        container.scrollTo({
+          top: container.scrollTop + relativeTop - (container.clientHeight / 2) + (targetEl.clientHeight / 2),
           behavior: 'smooth',
-          block: 'nearest',
         });
       }
     }

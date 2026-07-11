@@ -51,14 +51,6 @@ MODEL_REGISTRY: dict[str, ModelConfig] = {
         temperature_chat=0.5,
         max_tokens=4096,
     ),
-    "groq:qwen/qwen3.6-27b": ModelConfig(
-        provider="groq",
-        model_id="qwen/qwen3.6-27b",
-        display_name="Qwen 3.6 27B (Groq)",
-        temperature_explanation=0.1,
-        temperature_chat=0.5,
-        max_tokens=4096,
-    ),
     "gemini:gemini-2.5-flash": ModelConfig(
         provider="gemini",
         model_id="gemini-2.5-flash",
@@ -74,7 +66,6 @@ MODEL_REGISTRY: dict[str, ModelConfig] = {
 PUBLIC_MODEL_ORDER: list[str] = [
     "groq:openai/gpt-oss-120b",
     "groq:llama-3.3-70b-versatile",
-    "groq:qwen/qwen3.6-27b",
     "gemini:gemini-2.5-flash",
 ]
 

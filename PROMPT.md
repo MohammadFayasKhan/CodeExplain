@@ -128,7 +128,6 @@ Nothing beyond items 1–13 is in scope. If you find yourself building a feature
 - **LLM Providers**: Groq API and Google Gemini API, behind a single provider abstraction (Part 7). Support the following models, selectable from the frontend:
   - Groq: `llama-3.3-70b-versatile`
   - Groq: `openai/gpt-oss-120b` (default)
-  - Groq: `qwen/qwen3.6-27b`
   - Gemini: `gemini-2.5-flash`
 - **Supported languages** (Python and JavaScript required; extend to the following only if it does not compromise correctness for the required two): TypeScript, Java, C, C++, Go.
 - **Syntax highlighting**: a client-side highlighter (e.g., Shiki or Prism) rendering the pasted code and any code shown inside line-by-line commentary cards.

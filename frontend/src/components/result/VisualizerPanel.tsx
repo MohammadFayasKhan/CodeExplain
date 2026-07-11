@@ -29,6 +29,7 @@ export const VisualizerPanel: React.FC<Props> = ({
   const [customTrace, setCustomTrace] = useState<TestCase | null>(null);
   const [currentStepIndex, setCurrentStepIndex] = useState<number>(0);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const [playbackSpeed, setPlaybackSpeed] = useState<number>(1.0);
   
   const [customInputVal, setCustomInputVal] = useState<string>('');
   const [loadingCustomTrace, setLoadingCustomTrace] = useState<boolean>(false);
@@ -60,9 +61,9 @@ export const VisualizerPanel: React.FC<Props> = ({
         }
         return idx + 1;
       });
-    }, 1800);
+    }, 1800 / playbackSpeed);
     return () => clearInterval(interval);
-  }, [isPlaying, currentStepList]);
+  }, [isPlaying, currentStepList, playbackSpeed]);
 
   // Smooth scroll to highlight lines
   useEffect(() => {
@@ -368,6 +369,21 @@ export const VisualizerPanel: React.FC<Props> = ({
               >
                 <SkipForward size={16} />
               </button>
+            </div>
+
+            <div className="flex items-center gap-xs">
+              <select
+                value={playbackSpeed}
+                onChange={(e) => setPlaybackSpeed(parseFloat(e.target.value))}
+                className="bg-white/[0.04] hover:bg-white/[0.08] text-ink-secondary hover:text-ink-primary border border-border-subtle rounded-xl px-2 py-1 text-[11px] outline-none cursor-pointer transition-colors"
+                disabled={!activeCase}
+                title="Playback Speed"
+              >
+                <option value="0.5" className="bg-bg-base text-ink-primary">0.5x</option>
+                <option value="1.0" className="bg-bg-base text-ink-primary">1.0x</option>
+                <option value="1.5" className="bg-bg-base text-ink-primary">1.5x</option>
+                <option value="2.0" className="bg-bg-base text-ink-primary">2.0x</option>
+              </select>
             </div>
 
             <div className="text-[11px] text-ink-muted pr-sm">

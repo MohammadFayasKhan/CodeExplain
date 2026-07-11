@@ -144,7 +144,7 @@ export const ResultView: React.FC<Props> = ({ explanation, language, code, onCop
             {explanation.line_by_line.map((line, i) => (
               <details
                 key={i}
-                open={i < 2}
+                open={true}
                 className="group rounded-2xl border border-border-subtle bg-white/[0.02] p-md open:bg-white/[0.04] transition-colors"
                 data-testid={`line-item-${i}`}
               >

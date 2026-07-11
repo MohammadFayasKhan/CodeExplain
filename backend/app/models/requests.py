@@ -22,6 +22,14 @@ class ExplainRequest(BaseModel):
     model: str | None = None
 
 
+class VisualizeRequest(BaseModel):
+    code: str = Field(..., min_length=1, max_length=20000)
+    language: str
+    provider: str | None = None
+    model: str | None = None
+    custom_input: str = Field(..., min_length=1, max_length=2000)
+
+
 class QuizRequest(BaseModel):
     code: str = Field(..., min_length=1, max_length=20000)
     language: str

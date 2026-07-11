@@ -15,6 +15,7 @@ import type {
   ExplanationResponse,
   ModelsListResponse,
   QuizResponse,
+  TraceStep,
 } from './types';
 
 const BASE_URL = process.env.REACT_APP_BACKEND_URL || '';
@@ -89,4 +90,12 @@ export const api = {
     provider?: string;
     model?: string;
   }) => post<ChatResponse>('/api/chat', payload),
+
+  visualize: (payload: {
+    code: string;
+    language: string;
+    custom_input: string;
+    provider?: string;
+    model?: string;
+  }) => post<{ output: string; steps: TraceStep[] }>('/api/visualize', payload),
 };

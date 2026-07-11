@@ -23,8 +23,9 @@ from fastapi import APIRouter
 
 from ...core.exceptions import InvalidInputError
 from ...models.explanation import ExplanationResponse
-from ...models.requests import ExplainRequest
+from ...models.requests import ExplainRequest, VisualizeRequest
 from ...services.explanation_service import generate_explanation
+from ...services.visualization_service import generate_custom_trace, CustomInputTraceResponse
 
 # Setup logger
 logger = logging.getLogger("codeexplain.api.explain")
@@ -50,6 +51,25 @@ async def explain_code(payload: ExplainRequest) -> ExplanationResponse:
     return await generate_explanation(
         code=payload.code,
         language=payload.language,
+        provider=payload.provider,
+        model=payload.model,
+    )
+
+
+@router.post("/visualize", response_model=CustomInputTraceResponse)
+async def visualize_custom_input(payload: VisualizeRequest) -> CustomInputTraceResponse:
+    """
+    Generate a step-by-step execution trace of the code snippet for a custom input.
+    """
+    if not payload.code.strip():
+        raise InvalidInputError("Please paste some code to visualize.")
+    if not payload.custom_input.strip():
+        raise InvalidInputError("Please enter custom input.")
+
+    return await generate_custom_trace(
+        code=payload.code,
+        language=payload.language,
+        custom_input=payload.custom_input,
         provider=payload.provider,
         model=payload.model,
     )

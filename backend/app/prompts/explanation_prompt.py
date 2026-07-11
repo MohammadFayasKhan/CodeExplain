@@ -47,6 +47,23 @@ SCHEMA:
     }
   ],
   "detected_language": "The programming language you detected, lowercase (e.g. 'python', 'javascript').",
+  "test_cases": [
+    {
+      "id": "case-1",
+      "input": "e.g. 'n = 5' or 'nums = [2, 7, 11], target = 9'",
+      "expected_output": "e.g. 'true' or '[0, 1]'",
+      "steps": [
+        {
+          "line_number": 3,
+          "explanation": "A short, beginner-friendly sentence explaining what is happening at this step (e.g. 'We initialize our loop variable i to 0.')",
+          "variables": {
+            "i": "0",
+            "nums[i]": "2"
+          }
+        }
+      ]
+    }
+  ],
   "provider_used": "ignore, will be filled in by server",
   "model_used": "ignore, will be filled in by server"
 }
@@ -56,14 +73,10 @@ RULES:
 well-known algorithm, reason from the code in front of you.
 2. Time and space complexity MUST be language-appropriate and code-specific. \
 Justify by pointing at concrete loops, recursion depth, or data structure \
-allocations in the snippet.
-3. Cover EVERY meaningful line or small line group in line_by_line. Do not \
-skip the last few lines. Do not collapse the whole function into one entry.
-4. Suggest 2-5 improvements. Every improvement MUST reference specific \
-identifiers from the code (variable names, function names, line numbers). \
-Generic advice ("use meaningful names") is not acceptable.
-5. For detected_language, if the user tells you a language use it, otherwise \
-detect from syntax.
+allocing.
+3. Cover EVERY meaningful line or small line group in line_by_line.
+4. Suggest 2-5 improvements.
+5. Provide exactly 2 standard test cases under test_cases representing a typical success case and an edge case. Traces should contain 4 to 8 logical execution steps showing how variable states change.
 6. Return VALID JSON. No trailing commas. Escape newlines inside string \
 values as \\n. No comments.
 """
@@ -95,4 +108,42 @@ def build_repair_user_prompt(*, raw_output: str, error_message: str) -> str:
         f"Validation error:\n{error_message}\n\n"
         f"Your previous output:\n{raw_output}\n\n"
         "Return the corrected JSON now."
+    )
+
+
+VISUALIZE_SYSTEM_PROMPT = """You are CodeExplain, an expert programming tutor. Your job \
+is to generate a step-by-step execution trace of a code snippet for a specific custom input.
+
+You MUST respond with a SINGLE valid JSON object that matches EXACTLY the \
+schema below. No markdown fences. No prose before or after. No commentary. \
+Just the JSON object.
+
+SCHEMA:
+{
+  "output": "The final predicted output of the code for the custom input (e.g. 'true', '120', '[0, 1]').",
+  "steps": [
+    {
+      "line_number": 3,
+      "explanation": "A short, beginner-friendly description of what happens at this execution step.",
+      "variables": {
+        "variable_name": "current_value"
+      }
+    }
+  ]
+}
+
+RULES:
+1. Trace the code execution strictly line-by-line for the exact custom input provided.
+2. The trace should include all variable initialization, state updates in loops, and return statements.
+3. Keep the number of steps reasonable (max 10-15 steps). If a loop runs many iterations, trace only the first 2-3 iterations and then show the final iteration before exit.
+"""
+
+
+def build_visualize_user_prompt(*, code: str, language: str, custom_input: str) -> str:
+    """Assemble the user prompt for the custom input trace call."""
+    return (
+        f"Language: {language}\n\n"
+        f"Code:\n```\n{code}\n```\n\n"
+        f"Custom Input: {custom_input}\n\n"
+        "Generate the JSON trace now."
     )

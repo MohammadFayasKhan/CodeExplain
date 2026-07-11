@@ -22,6 +22,7 @@ import { Badge, Card, SectionHeader } from '../shared/ui';
 import { CodeBlock } from '../shared/CodeBlock';
 import { ExportMenu } from './ExportMenu';
 import { ComplexityGraph } from './ComplexityGraph';
+import { VisualizerPanel } from './VisualizerPanel';
 
 const categoryLabel: Record<string, { label: string; className: string }> = {
   naming: { label: 'Naming', className: 'bg-amber-500/15 text-amber-200 border-amber-400/30' },
@@ -129,6 +130,17 @@ export const ResultView: React.FC<Props> = ({ explanation, language, code, onCop
         <ComplexityGraph
           timeComplexity={explanation.time_complexity.big_o}
           spaceComplexity={explanation.space_complexity.big_o}
+        />
+      </motion.div>
+
+      {/* Visualizer Panel: step-by-step interactive debugger visualizer */}
+      <motion.div {...fadeStagger(4.8)}>
+        <VisualizerPanel
+          code={code}
+          language={language}
+          testCases={explanation.test_cases}
+          provider={explanation.provider_used}
+          model={explanation.model_used}
         />
       </motion.div>
 

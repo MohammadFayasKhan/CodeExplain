@@ -33,6 +33,19 @@ export interface Improvement {
   category: ImprovementCategory;
 }
 
+export interface TraceStep {
+  line_number: number;
+  explanation: string;
+  variables: Record<string, string>;
+}
+
+export interface TestCase {
+  id: string;
+  input: string;
+  expected_output: string;
+  steps: TraceStep[];
+}
+
 export interface ExplanationResponse {
   overview: string;
   plain_english_explanation: string;
@@ -41,6 +54,7 @@ export interface ExplanationResponse {
   line_by_line: LineCommentary[];
   improvements: Improvement[];
   detected_language: string;
+  test_cases?: TestCase[]; // Mark optional for backward compatibility
   provider_used: string;
   model_used: string;
 }

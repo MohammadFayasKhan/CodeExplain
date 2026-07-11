@@ -34,6 +34,19 @@ class Improvement(BaseModel):
     category: Literal["naming", "performance", "readability", "structure", "bug_risk"]
 
 
+class TraceStep(BaseModel):
+    line_number: int = Field(..., description="Line number of code active in this step")
+    explanation: str = Field(..., description="Beginner-friendly explanation of this step")
+    variables: dict[str, str] = Field(..., description="Variable values at this step (e.g. {'i': '0', 'nums[i]': '2'})")
+
+
+class TestCase(BaseModel):
+    id: str = Field(..., description="e.g. 'case-1'")
+    input: str = Field(..., description="Description or JSON string of the input values")
+    expected_output: str = Field(..., description="Expected output of this test case")
+    steps: list[TraceStep] = Field(..., description="Step-by-step trace steps")
+
+
 class ExplanationResponse(BaseModel):
     overview: str
     plain_english_explanation: str
@@ -42,5 +55,6 @@ class ExplanationResponse(BaseModel):
     line_by_line: list[LineCommentary]
     improvements: list[Improvement]
     detected_language: str
+    test_cases: list[TestCase] = Field(default_factory=list)
     provider_used: str = ""
     model_used: str = ""
